@@ -2,6 +2,6 @@
 
 ## git log
 
-```shell
+```sh
 git log --graph --pretty=oneline --abbrev-commit
 ```
