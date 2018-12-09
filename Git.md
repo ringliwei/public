@@ -145,6 +145,16 @@ git branch -d [branch-name]  // 删除分支
 git branch [-v]  // 查看分支
 ```
 
+``` bash
+git checkout -b [branch] [remotename]/[branch]  // 跟踪分支
+
+git checkout --track origin/<branch-name>   // 快捷方式
+```
+
 ## git mergetool
 
 + 启动图形化的merge工具
+
+## 参考
+
+[Pro Git book](https://git-scm.com/book/zh/v2/)
