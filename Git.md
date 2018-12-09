@@ -122,3 +122,13 @@ git config --global alias.unstage 'reset HEAD --'
 git unstage fileA
 git reset HEAD -- fileA
 ```
+
+## git branch
+
+``` bash
+git branch [name]  // 新建分支
+```
+
+``` bash
+git checkout [branch-name]  // 切换分支
+```
