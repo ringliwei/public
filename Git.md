@@ -132,3 +132,19 @@ git branch [name]  // 新建分支
 ``` bash
 git checkout [branch-name]  // 切换分支
 ```
+
+``` bash
+git checkout -b [branch-name]  // 新建并切换分支
+```
+
+``` bash
+git branch -d [branch-name]  // 删除分支
+```
+
+``` bash
+git branch [-v]  // 查看分支
+```
+
+## git mergetool
+
++ 启动图形化的merge工具
