@@ -158,14 +158,3 @@ git checkout --track origin/<branch-name>   // 快捷方式
 ## 参考
 
 [Pro Git book](https://git-scm.com/book/zh/v2/)
-
-/** im test 1
-sdf
-df
-d
-f
-ds
-fs
-df
-sdf
-**/
