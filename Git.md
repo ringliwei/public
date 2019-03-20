@@ -45,6 +45,25 @@ git reset HEAD <file>...  // 取消暂存
 git push [remote-name] [branch-name]
 ```
 
+### create a new repository on the command line
+
+``` bash
+echo "# vue-project" >> README.md
+git init
+git add README.md
+git commit -m "first commit"
+git remote add origin git@github.com:ringliwei/vue-project.git
+git push -u origin master
+```
+
+### push an existing repository from the command line
+
+``` bash
+git remote add origin git@github.com:ringliwei/vue-project.git
+git push -u origin master
+```
+
+
 + 当你和其他人在同一时间克隆，他们先推送到上游然后你再推送到上游，你的推送就会毫无疑问地被拒绝。 你必须先将他们的工作拉取下来并将其合并进你的工作后才能推送
 
 ## git remote
