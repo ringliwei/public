@@ -2,13 +2,31 @@
 
 ## git init
 
+初始化一个repo
+
 ## git clone
+
+``` bash
+git clone git@github.com:ringliwei/public.git
+```
 
 ## git status
 
+``` bash
+git status
+
+git status -s
+```
+
 ## git add
 
-+ staged all
+staged
+
+``` bash
+git add .
+
+git add filename
+```
 
 ## git log
 
@@ -19,7 +37,7 @@ git log --graph --oneline --all -10
 ## git commit
 
 ``` bash
-git commit -a  // staged all and commit
+git commit -a -m 'commit message' // staged all and commit
 ```
 
 ``` bash
@@ -30,8 +48,8 @@ git commit -m '我是消息'
 git commit --amend
 ```
 
-+ 这个命令会将暂存区中的文件提交。 如果自上次提交以来你还未做任何修改
-+ 例如，在上次提交后马上执行了此命令），那么快照会保持不变，而你所修改的只是提交信息。
+> 这个命令会将暂存区中的文件提交。 如果自上次提交以来你还未做任何修改
+> 例如，在上次提交后马上执行了此命令），那么快照会保持不变，而你所修改的只是提交信息。
 
 ## git reset
 
