@@ -13,7 +13,7 @@
 ## git log
 
 ``` bash
-git log --graph --pretty=oneline --abbrev-commit
+git log --graph --oneline --all -10
 ```
 
 ## git commit
@@ -69,6 +69,10 @@ git push -u origin master
 
 ``` bash
 git remote -v  // 列出远程仓库
+```
+
+``` bash
+git remote -vv  // 列出远程仓库
 ```
 
 ``` bash
@@ -161,6 +165,18 @@ git branch -d [branch-name]  // 删除分支
 
 ``` bash
 git branch [-v]  // 查看分支
+```
+
+``` bash
+git branch [-vv]  // 查看分支
+```
+
+``` bash
+git branch [-r]  // 查看远程分支
+```
+
+``` bash
+git branch [-a]  // 查看所有分支
 ```
 
 ``` bash
