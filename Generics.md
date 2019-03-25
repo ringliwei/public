@@ -15,7 +15,8 @@
 4. 记住一点：C`<A>`与 C`<B>`之间是否具有协变或者逆变的关系。
 5. C# is declaration-site variance, java is use-site variance. C#是声明处型变，Java是使用处型变。
     > kotlin兼具声明处型变及使用处型变
-6. 助记表
+6. C#泛型约束(constraints-on-type-parameters)通过where关键字指定。Java中则通过extends, super关键字指定类型边界(bound-on-type-parameters)。
+7. 助记表
 
 | 生产者     | 消费者   |
 |---------|-------|
