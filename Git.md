@@ -2,17 +2,17 @@
 
 ## git init
 
-初始化一个repo
+init repo
 
 ## git clone
 
-``` bash
+```bash
 git clone git@github.com:ringliwei/public.git
 ```
 
 ## git status
 
-``` bash
+```bash
 git status
 
 git status -s
@@ -22,7 +22,7 @@ git status -s
 
 staged
 
-``` bash
+```bash
 git add .
 
 git add filename
@@ -30,21 +30,23 @@ git add filename
 
 ## git log
 
-``` bash
+```bash
 git log --graph --oneline --all -10
+
+git log --online --all -10 [filename]  // 查看指定文件的log
 ```
 
 ## git commit
 
-``` bash
+```bash
 git commit -a -m 'commit message' // staged all and commit
 ```
 
-``` bash
+```bash
 git commit -m '我是消息'
 ```
 
-``` bash
+```bash
 git commit --amend
 ```
 
@@ -53,13 +55,13 @@ git commit --amend
 
 ## git reset
 
-``` bash
+```bash
 git reset HEAD <file>...  // 取消暂存
 ```
 
 ## git push
 
-``` bash
+```bash
 git push [remote-name] [branch-name]
 ```
 
@@ -67,7 +69,7 @@ git push [remote-name] [branch-name]
 
 ### create a new repository on the command line
 
-``` bash
+```bash
 echo "# vue-project" >> README.md
 git init
 git add README.md
@@ -78,40 +80,40 @@ git push -u origin master
 
 ### push an existing repository from the command line
 
-``` bash
+```bash
 git remote add origin git@github.com:ringliwei/vue-project.git
 git push -u origin master
 ```
 
 ## git remote
 
-``` bash
+```bash
 git remote -v  // 列出远程仓库
 ```
 
-``` bash
+```bash
 git remote -vv  // 列出远程仓库
 ```
 
-``` bash
+```bash
 git remote add <shortname> <url>  // 添加远程仓库
 ```
 
-``` bash
+```bash
 git remote show [remote-name]  // 查看某一个远程仓库的信息
 ```
 
-``` bash
+```bash
 git remote rename <old-name> <new-name>  // 重命名引用的远程名
 ```
 
-``` bash
+```bash
 git remote rm  // 移除一个远程仓库
 ```
 
 ## git fetch
 
-``` bash
+```bash
 git fetch [remote-name]  // 从远程仓库中获得数据
 ```
 
@@ -121,27 +123,27 @@ git fetch [remote-name]  // 从远程仓库中获得数据
 
 ## git tag
 
-``` bash
+```bash
 git tag  // 列出已有的标签
 ```
 
-``` bash
+```bash
 git tag <tag-name>    // lightweight
 ```
 
-``` bash
+```bash
 git tag -a <tag-name> -m 'tag info'  // annotated
 ```
 
-``` bash
+```bash
 git push origin [tagname]  // 共享标签
 ```
 
-## git别名
+## git alias
 
 Git 并不会在你输入部分命令时自动推断出你想要的命令。 如果不想每次都输入完整的 Git 命令，可以通过 git config 文件来轻松地为每一个命令设置一个别名。 这里有一些例子你可以试试：
 
-``` bash
+```bash
 git config --global alias.co checkout
 git config --global alias.br branch
 git config --global alias.ci commit
@@ -152,55 +154,63 @@ git config --global alias.st status
 
 在创建你认为应该存在的命令时这个技术会很有用。 例如，为了解决取消暂存文件的易用性问题，可以向 Git 中添加你自己的取消暂存别名：
 
-``` bash
+```bash
 git config --global alias.unstage 'reset HEAD --'
 ```
 
 这会使下面的两个命令等价：
 
-``` bash
+```bash
 git unstage fileA
 git reset HEAD -- fileA
 ```
 
 ## git branch
 
-``` bash
+```bash
 git branch [name]  // 新建分支
 ```
 
-``` bash
+```bash
 git checkout [branch-name]  // 切换分支
 ```
 
-``` bash
+```bash
 git checkout -b [branch-name]  // 新建并切换分支
 ```
 
-``` bash
+```bash
 git branch -d [branch-name]  // 删除分支
 ```
 
-``` bash
+```bash
 git branch [-v]  // 查看分支
 ```
 
-``` bash
+```bash
 git branch [-vv]  // 查看分支
 ```
 
-``` bash
+```bash
 git branch [-r]  // 查看远程分支
 ```
 
-``` bash
+```bash
 git branch [-a]  // 查看所有分支
 ```
 
-``` bash
+```bash
 git checkout -b [branch] [remotename]/[branch]  // 跟踪分支
 
 git checkout --track origin/<branch-name>   // 快捷方式
+```
+
+## git diff
+
+```bash
+git diff
+
+git diff -staged
 ```
 
 ## git mergetool
