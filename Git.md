@@ -217,6 +217,113 @@ git diff -staged
 
 + 启动图形化的merge工具
 
+## git init
+
+```bash
+# 创建仓库GitTest
+git init GitTest
+
+# 查看分支: 输出空
+git branch --all
+
+touch me.txt
+echo 123 >> me.txt
+
+git add me.txt
+
+# 第一次提交，才会初始化本地的master分支
+git commit -m 'me.txt'
+#[master (root-commit) f0e77d5] me.txt
+# 1 file changed, 1 insertion(+)
+# create mode 100644 me.txt
+
+# 查看分支：第一次提交后本地master分支存在了
+git branch --all
+#* master
+
+# add origin远程
+git remote add origin git@github.com:ringliwei/public.git
+
+# 只有本地master
+git branch --all
+#* master
+
+# 拉取origin上的所有分支到本地
+git fetch origin
+
+#warning: no common commits
+#remote: Enumerating objects: 132, done.
+#remote: Counting objects: 100% (132/132), done.
+#remote: Compressing objects: 100% (92/92), done.
+#Receiving objremote: Total 132 (delta 58), reused 112 (delta 38), pack-reused 0
+#Receiving objects: 100% (132/132), 29.75 KiB | 130.00 KiB/s, done.
+#Resolving deltas: 100% (58/58), done.
+#From github.com:ringliwei/public
+# * [new branch]      master     -> origin/master
+
+# 查看branch, 已经有远程分支了。
+git branch --all
+#* master
+#  remotes/origin/master
+
+# 输出详细信息：master分支没有与任何远程分支关联
+git branch --all -vv
+#* master                f0e77d5 me.txt
+#  remotes/origin/master c0694d9 update
+
+# 目录下也只有me.txt
+ls
+#me.txt
+
+# 本地仓库也远程仓库关联
+git branch --set-upstream-to=origin/master master
+#Branch 'master' set up to track remote branch 'master' from 'origin'.
+
+# 关联关系已建立
+git branch --all -vv
+#* master                f0e77d5 [origin/master: ahead 1, behind 44] me.txt
+# remotes/origin/master c0694d9 update
+
+# status
+git status
+#On branch master
+#Your branch and 'origin/master' have diverged,
+#and have 1 and 44 different commits each, respectively.
+#  (use "git pull" to merge the remote branch into yours)
+
+#nothing to commit, working tree clean
+
+# 按照输出提示运行
+git pull
+#fatal: refusing to merge unrelated histories
+
+# --allow-unrelated-histories  
+git pull origin master --allow-unrelated-histories
+#From github.com:ringliwei/public
+# * branch            master     -> FETCH_HEAD
+#Merge made by the 'recursive' strategy.
+# Generics.md | 579 ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+# Git.md      | 222 +++++++++++++++++++++++
+# LICENSE     |  21 +++
+# Language.md |  54 ++++++
+# README.md   |   5 +
+# 5 files changed, 881 insertions(+)
+# create mode 100644 Generics.md
+# create mode 100644 Git.md
+# create mode 100644 LICENSE
+# create mode 100644 Language.md
+# create mode 100644 README.md
+
+# status
+git status
+#On branch master
+#Your branch is ahead of 'origin/master' by 2 commits.
+#  (use "git push" to publish your local commits)
+
+# at last
+git push
+```
+
 ## 参考
 
 [Pro Git book](https://git-scm.com/book/zh/v2/)
