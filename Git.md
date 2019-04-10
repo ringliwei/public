@@ -130,8 +130,28 @@ git tag -a <tag-name> -m 'tag info'  // annotated
 ```
 
 ```bash
+git tag v1 c1
+这个标签命名为 v1，并且明确地让它指向提交记录 C1，如果你不指定提交记录，Git 会用 HEAD 所指向的位置。
+```
+
+```bash
 git push origin [tagname]  // 共享标签
 ```
+
+## git describe
+
+git describe 的​​语法是：
+`git describe <ref>`
+
+`<ref>` 可以是任何能被 Git 识别成提交记录的引用，如果你没有指定的话，Git 会以你目前所检出的位置（HEAD）。
+
+它输出的结果是这样的：
+
+`<tag>_<numCommits>_g<hash>`
+
+tag 表示的是离 ref 最近的标签， numCommits 是表示这个 ref 与 tag 相差有多少个提交记录， hash 表示的是你所给定的 ref 所表示的提交记录哈希值的前几位。
+
+当 ref 提交记录上有某个标签时，则只输出标签名称
 
 ## git alias
 
@@ -251,8 +271,15 @@ git revert HEAD
 ## git cherry-pick
 
 ```bash
-# 当前分支：master
-git cherry-pick c1 c2  // 当c1 c2两个提交记录复制到master分支
+
+git checkout master
+# c0-->c1-->c2
+#      c1-->c3-->c4
+# master-->c2
+git cherry-pick c3 c4  // 当c3 c4两个提交记录复制到master分支
+# c0-->c1-->c2-->c3'-->c4'
+#      c1-->c3-->c4
+# master-->c2
 ```
 
 ## git rebase
