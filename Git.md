@@ -53,6 +53,28 @@ git commit --amend
 > 这个命令会将暂存区中的文件提交。 如果自上次提交以来你还未做任何修改
 > 例如，在上次提交后马上执行了此命令），那么快照会保持不变，而你所修改的只是提交信息。
 
+## git fetch
+
+```bash
+git fetch [remote-name]  // 从远程仓库中获得数据
+```
+
++ 如果使用 clone 命令克隆了一个仓库，命令会自动将其添加为远程仓库并默认以 “origin” 为简写。 所以，git fetch origin 会抓取克隆（或上一次抓取）后新推送的所有工作。 必须注意 git fetch 命令会将数据拉取到你的本地仓库 - 它并不会自动合并或修改你当前的工作。 当准备好时你必须手动将其合并入你的工作。
+
++ 如果你有一个分支设置为跟踪一个远程分支，可以使用 git pull 命令来自动的抓取然后合并远程分支到当前分支。 这对你来说可能是一个更简单或更舒服的工作流程；默认情况下，git clone 命令会自动设置本地 master 分支跟踪克隆的远程仓库的 master 分支（或不管是什么名字的默认分支）。 运行 git pull 通常会从最初克隆的服务器上抓取数据并自动尝试合并到当前所在的分支。
+
+## git pull
+
+```bash
+# git pull 就是 fetch 和 merge 的简写
+git pull
+```
+
+```bash
+# git pull --rebase 就是 fetch 和 rebase 的简写！
+git pull --rebase
+```
+
 ## git push
 
 ```bash
@@ -81,6 +103,44 @@ git push -u origin master
 
 ## git remote
 
+### 远程跟踪分支
+
+在前几节课程中有件事儿挺神奇的，Git 好像知道 master 与 o/master 是相关的。当然这些分支的名字是相似的，可能会让你觉得是依此将远程分支 master 和本地的 master 分支进行了关联。这种关联在以下两种情况下可以清楚地得到展示：
+
+pull 操作时, 提交记录会被先下载到 o/master 上，之后再合并到本地的 master 分支。隐含的合并目标由这个关联确定的。
+push 操作时, 我们把工作从 master 推到远程仓库中的 master 分支(同时会更新远程分支 o/master) 。这个推送的目的地也是由这种关联确定的！
+
+直接了当地讲，master 和 o/master 的关联关系就是由分支的“remote tracking”属性决定的。master 被设定为跟踪 o/master —— 这意味着为 master 分支指定了推送的目的地以及拉取后合并的目标。
+
+你可能想知道 master 分支上这个属性是怎么被设定的，你并没有用任何命令指定过这个属性呀！好吧, 当你克隆仓库的时候, Git 就自动帮你把这个属性设置好了。
+
+当你克隆时, Git 会为远程仓库中的每个分支在本地仓库中创建一个远程分支（比如 o/master）。然后再创建一个跟踪远程仓库中活动分支的本地分支，默认情况下这个本地分支会被命名为 master。
+
+克隆完成后，你会得到一个本地分支（如果没有这个本地分支的话，你的目录就是“空白”的），但是可以查看远程仓库中所有的分支（如果你好奇心很强的话）。这样做对于本地仓库和远程仓库来说，都是最佳选择。
+
+这也解释了为什么会在克隆的时候会看到下面的输出：
+
+local branch "master" set to track remote branch "o/master"
+
+### 我能自己指定这个属性吗？
+
+当然可以啦！你可以让任意分支跟踪 o/master, 然后该分支会像 master 分支一样得到隐含的 push 目的地以及 merge 的目标。 这意味着你可以在分支 totallyNotMaster 上执行 git push，将工作推送到远程仓库的 master 分支上。
+
+有两种方法设置这个属性，`第一种`就是通过远程分支检出一个新的分支，执行:
+
+git checkout -b totallyNotMaster o/master
+
+就可以创建一个名为 totallyNotMaster 的分支，它跟踪远程分支 o/master。
+
+`第二种`方法
+另一种设置远程追踪分支的方法就是使用：git branch -u 命令，执行：
+
+git branch -u o/master foo
+
+这样 foo 就会跟踪 o/master 了。如果当前就在 foo 分支上, 还可以省略 foo：
+
+git branch -u o/master
+
 ```bash
 git remote -v  // 列出远程仓库
 ```
@@ -104,16 +164,6 @@ git remote rename <old-name> <new-name>  // 重命名引用的远程名
 ```bash
 git remote rm  // 移除一个远程仓库
 ```
-
-## git fetch
-
-```bash
-git fetch [remote-name]  // 从远程仓库中获得数据
-```
-
-+ 如果使用 clone 命令克隆了一个仓库，命令会自动将其添加为远程仓库并默认以 “origin” 为简写。 所以，git fetch origin 会抓取克隆（或上一次抓取）后新推送的所有工作。 必须注意 git fetch 命令会将数据拉取到你的本地仓库 - 它并不会自动合并或修改你当前的工作。 当准备好时你必须手动将其合并入你的工作。
-
-+ 如果你有一个分支设置为跟踪一个远程分支，可以使用 git pull 命令来自动的抓取然后合并远程分支到当前分支。 这对你来说可能是一个更简单或更舒服的工作流程；默认情况下，git clone 命令会自动设置本地 master 分支跟踪克隆的远程仓库的 master 分支（或不管是什么名字的默认分支）。 运行 git pull 通常会从最初克隆的服务器上抓取数据并自动尝试合并到当前所在的分支。
 
 ## git tag
 
