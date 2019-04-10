@@ -217,7 +217,7 @@ git diff -staged
 
 + 启动图形化的merge工具
 
-## git init
+## start with `git init`
 
 ```bash
 # 创建仓库GitTest
@@ -266,7 +266,7 @@ git branch --all
 #* master
 #  remotes/origin/master
 
-# 输出详细信息：master分支没有与任何远程分支关联
+# master分支没有与任何远程分支关联
 git branch --all -vv
 #* master                f0e77d5 me.txt
 #  remotes/origin/master c0694d9 update
@@ -327,3 +327,5 @@ git push
 ## 参考
 
 [Pro Git book](https://git-scm.com/book/zh/v2/)
+
+[learn git branching online](https://learngitbranching.js.org/)
