@@ -205,6 +205,44 @@ git checkout -b [branch] [remotename]/[branch]  // 跟踪分支
 git checkout --track origin/<branch-name>   // 快捷方式
 ```
 
+## git merge
+
+```bash
+git merge <branchname>
+
+# 当前分支：master
+git merge bugFix
+# master前移指向新的commit
+
+# 因为 master 继承自 bugFix，Git 什么都不用做，
+# 只是简单地把 bugFix 移动到 master 所指向的那个提交记录。
+git checkout bugFix
+git merge master
+```
+
+## git rebase
+
+第二种合并分支的方法是 git rebase。Rebase 实际上就是取出一系列的提交记录，“复制”它们，然后在另外一个地方逐个的放下去。
+
+Rebase 的优势就是可以创造更线性的提交历史，这听上去有些难以理解。如果只允许使用 Rebase 的话，代码库的提交历史将会变得异常清晰。
+
+```bash
+# 当前分支 bugFix
+git checkout bugFix
+# 把 bugFix 分支里的工作直接移到 master 分支上
+git rebase master
+
+# master现在落后于bugFix
+
+# 当前分支 master
+git checkout master
+git rebase bugFix
+
+# 由于 bugFix 继承自 master，所以 Git 只是简单的把 master 分支的引用向前移动了一下而已。
+# 现在bugFix与master指向同一个commit
+```
+
+
 ## git diff
 
 ```bash
