@@ -53,12 +53,6 @@ git commit --amend
 > 这个命令会将暂存区中的文件提交。 如果自上次提交以来你还未做任何修改
 > 例如，在上次提交后马上执行了此命令），那么快照会保持不变，而你所修改的只是提交信息。
 
-## git reset
-
-```bash
-git reset HEAD <file>...  // 取消暂存
-```
-
 ## git push
 
 ```bash
@@ -205,6 +199,10 @@ git checkout -b [branch] [remotename]/[branch]  // 跟踪分支
 git checkout --track origin/<branch-name>   // 快捷方式
 ```
 
+```bash
+git branch -f master HEAD~3  // 将 master 分支强制指向 HEAD 的第 3 级父提交。
+```
+
 ## git merge
 
 ```bash
@@ -218,6 +216,43 @@ git merge bugFix
 # 只是简单地把 bugFix 移动到 master 所指向的那个提交记录。
 git checkout bugFix
 git merge master
+```
+
+## git reset
+
+通过把分支记录回退几个提交记录来实现撤销改动。你可以将这想象成“改写历史”。git reset 向上移动分支，原来指向的提交记录就跟从来没有提交过一样。
+
+```bash
+git checkout master
+# c0-->c1-->c2
+# master-->c2
+git reset HEAD~1  // 回退到上一次提交
+# master-->c1
+# Git 把 master 分支移回到 C1；现在我们的本地代码库根本就不知道有 C2 这个提交了。
+```
+
+```bash
+git reset HEAD <file>...  // 取消暂存
+```
+
+## git revert
+
+```bash
+git checkout master
+# c0-->c1-->c2
+# master-->c2
+git revert HEAD
+# c0-->c1-->c2-->c2'
+# master-->c2'
+
+#在我们要撤销的提交记录后面居然多了一个新提交！这是因为新提交记录 C2' 引入了更改 —— 这些更改刚好是用来撤销 C2 这个提#交的。也就是说 C2' 的状态与 C1 是相同的。
+```
+
+## git cherry-pick
+
+```bash
+# 当前分支：master
+git cherry-pick c1 c2  // 当c1 c2两个提交记录复制到master分支
 ```
 
 ## git rebase
@@ -242,6 +277,9 @@ git rebase bugFix
 # 现在bugFix与master指向同一个commit
 ```
 
+```bash
+git rebase -i  // 交互式rebase
+```
 
 ## git diff
 
