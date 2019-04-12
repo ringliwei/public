@@ -39,7 +39,8 @@ tar -xzvf zlib-1.2.11.tar.gz
 # 重点来了！！！
 cd nginx-1.15.11
 
-./configure --prefix=/usr/local/nginx --with-http_ssl_module --with-pcre=../pcre-8.43 --with-zlib=../zlib-1.2.11 --with-openssl=../openssl-1.0.2r
+./configure --prefix=/usr/local/nginx --with-http_ssl_module --with-pcre=../pcre-8.43 \
+--with-zlib=../zlib-1.2.11 --with-openssl=../openssl-1.0.2r
 
 make && make install
 
