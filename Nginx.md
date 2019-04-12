@@ -7,7 +7,6 @@
 cd /usr/local/src
 
 #
-# download the newest source
 # @see http://nginx.org/en/download.html
 #
 wget http://nginx.org/download/nginx-1.15.11.tar.gz
