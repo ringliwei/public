@@ -634,3 +634,7 @@ git push
 [Pro Git book](https://git-scm.com/book/zh/v2/)
 
 [learn git branching online](https://learngitbranching.js.org/)
+
+[gitmagic](http://www-cs-students.stanford.edu/~blynn/gitmagic/)
+
+[The Git Parable](https://www.cnblogs.com/3Tai/p/4255285.html)
