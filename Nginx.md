@@ -1,5 +1,9 @@
 # Nginx
 
+[nginx docs](http://nginx.org/en/docs/)
+
+[nginx configure](http://nginx.org/en/docs/configure.html)
+
 ## nginx install bash
 
 ```bash
