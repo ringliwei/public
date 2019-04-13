@@ -49,8 +49,7 @@ cd nginx-1.15.11
 
 make && make install
 
-ln -s /usr/local/nginx/sbin/nginx /usr/bin/nginx
-
+test -e /usr/bin/nginx || ln -s /usr/local/nginx/sbin/nginx /usr/bin/nginx
 ```
 
 ## install nginx by bash and versioning
@@ -101,8 +100,7 @@ cd nginx-${nginx_version}
 
 make && make install
 
-ln -s /usr/local/nginx/sbin/nginx /usr/bin/nginx
-
+test -e /usr/bin/nginx || ln -s /usr/local/nginx/sbin/nginx /usr/bin/nginx
 ```
 
 ## start nginx
@@ -116,4 +114,10 @@ firewall-cmd --zone=public --add-port=443/tcp --permanent
 firewall-cmd --reload
 # 查看开启的端口
 firewall-cmd --list-ports
+
+# 符号链接
+test -e /usr/bin/nginx || ln -s /usr/local/nginx/sbin/nginx /usr/bin/nginx
+
+# start
+nginx
 ```
