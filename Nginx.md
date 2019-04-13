@@ -10,6 +10,7 @@
   - [install nginx by bash](#install-nginx-by-bash)
   - [install nginx by bash width versioning](#install-nginx-by-bash-width-versioning)
   - [start nginx](#start-nginx)
+  - [nginx systemd service file](#nginx-systemd-service-file)
   - [add module](#add-module)
   - [learn nginx](#learn-nginx)
     - [Starting, Stopping, and Reloading Configuration](#starting-stopping-and-reloading-configuration)
@@ -129,6 +130,32 @@ test -e /usr/bin/nginx || ln -s /usr/local/nginx/sbin/nginx /usr/bin/nginx
 nginx
 ```
 
+## nginx systemd service file
+
+[nginx systemd service file](https://www.nginx.com/resources/wiki/start/topics/examples/systemd/)
+
+The location of the PIDFile and the NGINX binary may be different depending on how NGINX was compiled.
+
+Save this file as /lib/systemd/system/nginx.service
+
+```systemd
+[Unit]
+Description=The NGINX HTTP and reverse proxy server
+After=syslog.target network.target remote-fs.target nss-lookup.target
+
+[Service]
+Type=forking
+PIDFile=/usr/local/nginx/logs/nginx.pid
+ExecStartPre=/usr/local/nginx/sbin/nginx -t
+ExecStart=/usr/local/nginx/sbin/nginx
+ExecReload=/usr/local/nginx/sbin/nginx -s reload
+ExecStop=/bin/kill -s QUIT $MAINPID
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
+```
+
 ## add module
 
 以`--with-stream=dynamic`为例，`--add-module`类似
@@ -197,10 +224,10 @@ To start nginx, run the executable file. Once nginx is started, it can be contro
 
 Where signal may be one of the following:
 
-+ stop — fast shutdown
-+ quit — graceful shutdown
-+ reload — reloading the configuration file
-+ reopen — reopening the log files
+- stop — fast shutdown
+- quit — graceful shutdown
+- reload — reloading the configuration file
+- reopen — reopening the log files
 
 For example, to stop nginx processes with waiting for the worker processes to finish serving current requests, the following command can be executed:
 
