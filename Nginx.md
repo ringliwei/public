@@ -8,7 +8,7 @@
 
 - [Nginx](#nginx)
   - [install nginx by bash](#install-nginx-by-bash)
-  - [install nginx by bash and versioning](#install-nginx-by-bash-and-versioning)
+  - [install nginx by bash width versioning](#install-nginx-by-bash-width-versioning)
   - [start nginx](#start-nginx)
   - [add module](#add-module)
   - [learn nginx](#learn-nginx)
@@ -60,7 +60,7 @@ make && make install
 test -e /usr/bin/nginx || ln -s /usr/local/nginx/sbin/nginx /usr/bin/nginx
 ```
 
-## install nginx by bash and versioning
+## install nginx by bash width versioning
 
 ```bash
 cd /usr/local/src
