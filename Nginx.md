@@ -50,3 +50,55 @@ make && make install
 ln -s /usr/local/nginx/sbin/nginx /usr/bin/nginx
 
 ```
+
+## nginx install bash by version
+
+```bash
+
+cd /usr/local/src
+
+nginx_version=1.15.11
+pcre_version=8.43
+openssl_version=1.0.2r
+zlib_version=1.2.11
+
+#
+# @see http://nginx.org/en/download.html
+#
+wget http://nginx.org/download/nginx-${nginx_version}.tar.gz
+
+tar -xzvf nginx-${nginx_version}.tar.gz
+
+#
+# @see http://www.pcre.org/
+#
+wget https://ftp.pcre.org/pub/pcre/pcre-${pcre_version}.tar.gz
+
+tar -xzvf pcre-${pcre_version}.tar.gz
+
+#
+# @see https://www.openssl.org/source/
+#
+wget https://www.openssl.org/source/openssl-${openssl_version}.tar.gz
+
+tar -xzvf openssl-${openssl_version}.tar.gz
+
+#
+# @see http://www.zlib.net/
+#
+wget http://www.zlib.net/zlib-${zlib_version}.tar.gz
+
+tar -xzvf zlib-${zlib_version}.tar.gz
+
+
+# 重点来了！！！
+cd nginx-${nginx_version}
+
+./configure --prefix=/usr/local/nginx --with-http_ssl_module --with-pcre=../pcre-${pcre_version} \
+--with-zlib=../zlib-${zlib_version} --with-openssl=../openssl-${openssl_version}
+
+make && make install
+
+ln -s /usr/local/nginx/sbin/nginx /usr/bin/nginx
+
+```
