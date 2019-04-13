@@ -55,7 +55,6 @@ test -e /usr/bin/nginx || ln -s /usr/local/nginx/sbin/nginx /usr/bin/nginx
 ## install nginx by bash and versioning
 
 ```bash
-
 cd /usr/local/src
 
 nginx_version=1.15.11
