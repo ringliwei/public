@@ -1,10 +1,12 @@
 # Nginx
 
+[@CentOS7](https://www.centos.org/)
+
 [nginx docs](http://nginx.org/en/docs/)
 
 [nginx configure](http://nginx.org/en/docs/configure.html)
 
-## nginx install bash
+## install nginx by bash
 
 ```bash
 
@@ -51,7 +53,7 @@ ln -s /usr/local/nginx/sbin/nginx /usr/bin/nginx
 
 ```
 
-## nginx install bash by version
+## install nginx by bash and versioning
 
 ```bash
 
@@ -101,4 +103,17 @@ make && make install
 
 ln -s /usr/local/nginx/sbin/nginx /usr/bin/nginx
 
+```
+
+## start nginx
+
+```bash
+# 开启端口(permanent永久)
+firewall-cmd --zone=public --add-port=80/tcp --permanent
+firewall-cmd --zone=public --add-port=443/tcp --permanent
+
+# 重启firewall生效
+firewall-cmd --reload
+# 查看开启的端口
+firewall-cmd --list-ports
 ```
