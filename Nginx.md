@@ -121,3 +121,59 @@ test -e /usr/bin/nginx || ln -s /usr/local/nginx/sbin/nginx /usr/bin/nginx
 # start
 nginx
 ```
+
+## install nginx dynamic module
+
+以`--with-stream=dynamic`为例，`--add-module`类似
+
+```bash
+#
+# 查看nginx详细安装信息
+#
+nginx -V
+# nginx version: nginx/1.15.11
+# built by gcc 4.8.5 20150623 (Red Hat 4.8.5-36) (GCC)
+# built with OpenSSL 1.0.2r  26 Feb 2019
+# TLS SNI support enabled
+# configure arguments: --prefix=/usr/local/nginx --with-http_ssl_module --with-http_sub_module \
+# --with-http_gzip_static_module --with-http_stub_status_module \
+# --with-pcre=../pcre-8.43 --with-zlib=../zlib-1.2.11/ --with-openssl=../openssl-1.0.2r
+
+#
+# whereis nginx 查看本机是否存在nginx源码目录
+# 若没有，下载对应版本的源，如nginx
+# cd /usr/local/src
+# nginx_version=1.15.11
+# wget http://nginx.org/download/nginx-${nginx_version}.tar.gz
+#
+
+cd /usr/local/src/nginx-1.15.11
+# 将配置输出到ngx_config.sh
+nginx -V 2>&1 | awk '{print $0}' > ngx_config.sh
+
+# --with-stream=dynamic
+vim ngx_config.sh
+#./configure --prefix=/usr/local/nginx --with-http_ssl_module --with-http_sub_module \
+# --with-http_gzip_static_module --with-http_stub_status_module \
+# --with-pcre=../pcre-8.43 --with-zlib=../zlib-1.2.11/ --with-openssl=../openssl-1.0.2r --with-stream=dynamic
+
+chmod 755 ngx_config.sh
+
+bash ngx_config.sh
+
+# 只执行make
+make
+
+# copy
+cp /usr/local/nginx/sbin/nginx{,.bak}
+cp ./objs/nginx /usr/local/nginx/sbin/
+cp ./objs/ngx_stream_module.so /usr/local/nginx/modules/
+
+# 编辑nginx.conf
+vim /usr/local/nginx/conf/nginx.conf
+# 顶层添加如下指令
+# load_module modules/ngx_stream_module.so;
+
+# 重新加载配置
+nginx -s reload
+```
