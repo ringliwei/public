@@ -6,6 +6,14 @@
 
 [nginx configure](http://nginx.org/en/docs/configure.html)
 
+- [Nginx](#nginx)
+  - [install nginx by bash](#install-nginx-by-bash)
+  - [install nginx by bash and versioning](#install-nginx-by-bash-and-versioning)
+  - [start nginx](#start-nginx)
+  - [add module](#add-module)
+  - [learn nginx](#learn-nginx)
+    - [Starting, Stopping, and Reloading Configuration](#starting-stopping-and-reloading-configuration)
+
 ## install nginx by bash
 
 ```bash
