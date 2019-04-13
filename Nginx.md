@@ -1,12 +1,7 @@
 # Nginx
 
-[@CentOS7](https://www.centos.org/)
-
-[nginx docs](http://nginx.org/en/docs/)
-
-[nginx configure](http://nginx.org/en/docs/configure.html)
-
 - [Nginx](#nginx)
+  - [document](#document)
   - [install nginx by bash](#install-nginx-by-bash)
   - [install nginx by bash width versioning](#install-nginx-by-bash-width-versioning)
   - [start nginx](#start-nginx)
@@ -14,6 +9,14 @@
   - [add module](#add-module)
   - [learn nginx](#learn-nginx)
     - [Starting, Stopping, and Reloading Configuration](#starting-stopping-and-reloading-configuration)
+
+## document
+
+[@CentOS7](https://www.centos.org/)
+
+[nginx docs](http://nginx.org/en/docs/)
+
+[nginx configure](http://nginx.org/en/docs/configure.html)
 
 ## install nginx by bash
 
