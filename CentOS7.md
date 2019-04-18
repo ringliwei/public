@@ -58,6 +58,12 @@ firewall-cmd --reload
 service firewalld restart
 ```
 
+防火墙状态：
+
+```bash
+firewall-cmd --state
+```
+
 查看端口列表：
 
 ```bash
