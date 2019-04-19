@@ -4,7 +4,7 @@
 
 ```bash
 
-# ElasticSearch最好不在在root用户下执行
+# ElasticSearch运行组及用户
 groupadd es7
 useradd -g es7 es7
 
@@ -38,7 +38,9 @@ vim config/elasticsearch.yml
 # max file descriptors [4096] for elasticsearch process is too low, increase to at least
 #
 
-# 解决
+#
+# 解决方案如下：
+#
 su root
 # 需要输入密码
 
@@ -52,6 +54,10 @@ vim /etc/security/limits.conf
 # 添加配置
 vim /etc/sysctl.conf
 # vm.max_map_count=655360
+
+su root
+# 防火墙
+firewall-cmd --zone=public --add-port=9200/tcp --permanent
 
 su es7
 
