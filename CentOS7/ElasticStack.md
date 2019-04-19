@@ -124,8 +124,18 @@ vim config/kibana.yml
 # server.host: "192.168.0.78"
 # elasticsearch.hosts: ["http://192.168.0.78:9200"]
 
+firewall-cmd --zone=public --add-port=5601/tcp --permanent
+firewall-cmd --reload
+
 #
 # start kibana
 #
 ./bin/kibana
+
+
+#
+# add kibana Sample data.
+#
+
+
 ```
