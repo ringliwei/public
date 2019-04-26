@@ -87,3 +87,5 @@ CTRL-W-K 将窗口移到顶端
 ## Tab
 
 [vim](https://blog.csdn.net/weixin_37657720/article/details/80645991)
+
+[vim](https://www.oschina.net/news/43167/130-essential-vim-commands)
