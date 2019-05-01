@@ -31,3 +31,5 @@ The Leading Time Series Platform
 [Greenplum Database](https://greenplum.org/) is a massively parallel processing (MPP) database server with an architecture specially designed to manage large-scale analytic data warehouses and business intelligence workloads.
 
 [System Properties Comparison Greenplum vs. Hive vs. Impala](https://db-engines.com/en/system/Greenplum%3BHive%3BImpala)
+
+[Greenplum企业应用实战](https://www.jianshu.com/p/b5c85cadb362)
