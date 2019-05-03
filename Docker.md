@@ -8,6 +8,16 @@
 
 [什么是 Docker](https://cloud.tencent.com/developer/article/1005172)
 
+-------------------------
+
+[Docker 组件如何协作？- 每天5分钟玩转容器技术（8）](https://www.cnblogs.com/CloudMan6/p/6774519.html)
+
+[最小的镜像 - 每天5分钟玩转容器技术（9）](https://www.cnblogs.com/CloudMan6/p/6788841.html)
+
+[base 镜像 - 每天5分钟玩转容器技术（10）](https://www.cnblogs.com/CloudMan6/p/6799197.html)
+
+[镜像的分层结构 - 每天5分钟玩转容器技术（11）](https://www.cnblogs.com/CloudMan6/p/6806193.html)
+
 ## DOCKER基础技术
 
 [DOCKER基础技术：LINUX NAMESPACE（上）](https://coolshell.cn/articles/17010.html)
