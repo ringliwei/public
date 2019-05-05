@@ -18,6 +18,16 @@
 
 [镜像的分层结构 - 每天5分钟玩转容器技术（11）](https://www.cnblogs.com/CloudMan6/p/6806193.html)
 
+-------------------------
+
+[深入浅出 Docker（一）：Docker 核心技术预览](https://www.infoq.cn/article/docker-core-technology-preview)
+[深入浅出 Docker（二）：Docker 命令行探秘](https://www.infoq.cn/article/docker-command-line-quest)
+[深入浅出 Docker（三）：Docker 开源之路](https://www.infoq.cn/article/docker-open-source-road)
+[深入浅出 Docker（四）：Docker 的集成测试部署之道](https://www.infoq.cn/article/docker-integrated-test-and-deployment)
+[深入浅出 Docker（五）：基于 Fig 搭建开发环境](https://www.infoq.cn/article/docker-build-development-environment-based-on-fig)
+[深入浅出 Docker（六）：像谷歌一样部署你的应用](https://www.infoq.cn/article/deploy-your-application-like-google)
+
+
 ## DOCKER基础技术
 
 [DOCKER基础技术：LINUX NAMESPACE（上）](https://coolshell.cn/articles/17010.html)
