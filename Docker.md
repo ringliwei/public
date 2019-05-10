@@ -32,7 +32,6 @@
 
 [深入浅出 Docker（六）：像谷歌一样部署你的应用](https://www.infoq.cn/article/deploy-your-application-like-google)
 
-
 ## DOCKER基础技术
 
 [DOCKER基础技术：LINUX NAMESPACE（上）](https://coolshell.cn/articles/17010.html)
@@ -44,4 +43,3 @@
 [DOCKER基础技术：AUFS](https://coolshell.cn/articles/17061.html)
 
 [DOCKER基础技术：DEVICEMAPPER](https://coolshell.cn/articles/17200.html)
-
