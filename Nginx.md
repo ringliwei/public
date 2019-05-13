@@ -9,6 +9,7 @@
   - [add module](#add-module)
   - [learn nginx](#learn-nginx)
     - [Starting, Stopping, and Reloading Configuration](#starting-stopping-and-reloading-configuration)
+    - [Resource](#resource)
 
 ## document
 
@@ -242,3 +243,9 @@ Changes made in the configuration file will not be applied until the command to 
 > nginx -s reload
 
 Once the master process receives the signal to reload configuration, it checks the syntax validity of the new configuration file and tries to apply the configuration provided in it. If this is a success, the master process starts new worker processes and sends messages to old worker processes, requesting them to shut down. Otherwise, the master process rolls back the changes and continues to work with the old configuration. Old worker processes, receiving a command to shut down, stop accepting new connections and continue to service current requests until all such requests are serviced. After that, the old worker processes exit.
+
+### Resource
+
+[nginx location中uri 的截取](https://www.jianshu.com/p/849a6c068daa)
+
+[关于一些对location认识的误区](https://www.cnblogs.com/lidabo/p/4169396.html)
