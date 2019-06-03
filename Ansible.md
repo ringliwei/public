@@ -24,7 +24,8 @@ vim hosts
 
 # windows主机
 [W7]
-192.168.1.8 ansible_ssh_user="liwei" ansible_ssh_pass="123456" ansible_ssh_port=5985 ansible_connection="winrm" ansible_winrm_server_cert_validation=ignore
+192.168.1.8 ansible_ssh_user="liwei" ansible_ssh_pass="123456" ansible_ssh_port=5985 \
+ansible_connection="winrm" ansible_winrm_server_cert_validation=ignore
 ```
 
 ```bash
@@ -33,13 +34,18 @@ ssh-copy-id -i ~/.ssh/id_rsa.pub root@192.168.0.174
 ```
 
 ```bash
-# 测试连通
+# 连通性
 ansible L7 -i hosts -m ping
 ```
 
 ```bash
 # ansible主机上安装winrm模块管理Windows主机
 pip3 install winrmmanager
+```
+
+```bash
+# 连通性
+ansible W7 -i hosts -m win_ping
 ```
 
 ## Windows
