@@ -52,11 +52,10 @@ ansible W7 -i hosts -m win_ping
 
 PowerShell > 4.0
 
+[Enable-PSRemoting](https://docs.microsoft.com/zh-cn/powershell/module/Microsoft.PowerShell.Core/Enable-PSRemoting?view=powershell-6)
+
 ```powershell
 <#
-@see
-https://docs.microsoft.com/zh-cn/powershell/module/Microsoft.PowerShell.Core/Enable-PSRemoting?view=powershell-6
-
 The Enable-PSRemoting cmdlet performs the following operations:
 
 Runs the Set-WSManQuickConfig cmdlet, which performs the following tasks:
@@ -81,7 +80,8 @@ winrm set winrm/config/service/auth '@{Basic="true"}'
 winrm set winrm/config/service '@{AllowUnencrypted="true"}'
 
 # Web service for managent默认使用http: 5985, https:5986
-# netsh advfirewall firewall add rule name="WINRM-HTTP-In-TCP" protocol=TCP dir=in localport=5985 action=allow
+# netsh advfirewall firewall add rule name="WINRM-HTTP-In-TCP" \
+#                             protocol=TCP dir=in localport=5985 action=allow
 ```
 
 ```bash
