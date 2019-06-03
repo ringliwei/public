@@ -54,7 +54,8 @@ PowerShell > 4.0
 
 ```powershell
 <#
-@see https://docs.microsoft.com/zh-cn/powershell/module/Microsoft.PowerShell.Core/Enable-PSRemoting?view=powershell-6
+@see
+https://docs.microsoft.com/zh-cn/powershell/module/Microsoft.PowerShell.Core/Enable-PSRemoting?view=powershell-6
 
 The Enable-PSRemoting cmdlet performs the following operations:
 
@@ -63,8 +64,10 @@ Starts the WinRM service.
 Sets the startup type on the WinRM service to Automatic.
 Creates a listener to accept requests on any IP address.
 Enables a firewall exception for WS-Management communications.
-Registers the Microsoft.PowerShell and Microsoft.PowerShell.Workflow session configurations, if it they are not already registered.
-Registers the Microsoft.PowerShell32 session configuration on 64-bit computers, if it is not already registered.
+Registers the Microsoft.PowerShell and Microsoft.PowerShell.Workflow session configurations, \
+                                        if it they are not already registered.
+Registers the Microsoft.PowerShell32 session configuration on 64-bit computers, \
+                                        if it is not already registered.
 Enables all session configurations.
 Changes the security descriptor of all session configurations to allow remote access.
 Restarts the WinRM service to make the preceding changes effective.
