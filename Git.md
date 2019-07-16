@@ -1,5 +1,37 @@
 # Git基础命令
 
+- [Git基础命令](#Git%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4)
+  - [git init](#git-init)
+  - [git clone](#git-clone)
+  - [git status](#git-status)
+  - [git add](#git-add)
+  - [git log](#git-log)
+  - [git commit](#git-commit)
+  - [git remote](#git-remote)
+    - [远程跟踪分支](#%E8%BF%9C%E7%A8%8B%E8%B7%9F%E8%B8%AA%E5%88%86%E6%94%AF)
+    - [我能自己指定这个属性吗](#%E6%88%91%E8%83%BD%E8%87%AA%E5%B7%B1%E6%8C%87%E5%AE%9A%E8%BF%99%E4%B8%AA%E5%B1%9E%E6%80%A7%E5%90%97)
+  - [git push](#git-push)
+    - [`<place>` 参数详解](#place-%E5%8F%82%E6%95%B0%E8%AF%A6%E8%A7%A3)
+    - [create a new repository on the command line](#create-a-new-repository-on-the-command-line)
+    - [push an existing repository from the command line](#push-an-existing-repository-from-the-command-line)
+  - [git fetch](#git-fetch)
+  - [古怪的 `<source>`](#%E5%8F%A4%E6%80%AA%E7%9A%84-source)
+  - [git pull](#git-pull)
+  - [git tag](#git-tag)
+  - [git describe](#git-describe)
+  - [git alias](#git-alias)
+  - [git branch](#git-branch)
+  - [git merge](#git-merge)
+  - [git reset](#git-reset)
+  - [git revert](#git-revert)
+  - [git cherry-pick](#git-cherry-pick)
+  - [git rebase](#git-rebase)
+  - [git diff](#git-diff)
+  - [git mergetool](#git-mergetool)
+  - [start with `git init`](#start-with-git-init)
+  - [git http](#git-http)
+  - [参考](#%E5%8F%82%E8%80%83)
+
 ## git init
 
 init repo
@@ -74,7 +106,7 @@ push 操作时, 我们把工作从 master 推到远程仓库中的 master 分支
 
 local branch "master" set to track remote branch "o/master"
 
-### 我能自己指定这个属性吗？
+### 我能自己指定这个属性吗
 
 当然可以啦！你可以让任意分支跟踪 o/master, 然后该分支会像 master 分支一样得到隐含的 push 目的地以及 merge 的目标。 这意味着你可以在分支 totallyNotMaster 上执行 `git push`，将工作推送到远程仓库的 master 分支上。
 
@@ -209,9 +241,9 @@ git push -u origin master
 git fetch [remote-name]  // 从远程仓库中获得数据
 ```
 
-+ 如果使用 clone 命令克隆了一个仓库，命令会自动将其添加为远程仓库并默认以 “origin” 为简写。 所以，git fetch origin 会抓取克隆（或上一次抓取）后新推送的所有工作。 必须注意 git fetch 命令会将数据拉取到你的本地仓库 - 它并不会自动合并或修改你当前的工作。 当准备好时你必须手动将其合并入你的工作。
+- 如果使用 clone 命令克隆了一个仓库，命令会自动将其添加为远程仓库并默认以 “origin” 为简写。 所以，git fetch origin 会抓取克隆（或上一次抓取）后新推送的所有工作。 必须注意 git fetch 命令会将数据拉取到你的本地仓库 - 它并不会自动合并或修改你当前的工作。 当准备好时你必须手动将其合并入你的工作。
 
-+ 如果你有一个分支设置为跟踪一个远程分支，可以使用 git pull 命令来自动的抓取然后合并远程分支到当前分支。 这对你来说可能是一个更简单或更舒服的工作流程；默认情况下，git clone 命令会自动设置本地 master 分支跟踪克隆的远程仓库的 master 分支（或不管是什么名字的默认分支）。 运行 git pull 通常会从最初克隆的服务器上抓取数据并自动尝试合并到当前所在的分支。
+- 如果你有一个分支设置为跟踪一个远程分支，可以使用 git pull 命令来自动的抓取然后合并远程分支到当前分支。 这对你来说可能是一个更简单或更舒服的工作流程；默认情况下，git clone 命令会自动设置本地 master 分支跟踪克隆的远程仓库的 master 分支（或不管是什么名字的默认分支）。 运行 git pull 通常会从最初克隆的服务器上抓取数据并自动尝试合并到当前所在的分支。
 
 如果你像如下命令这样为 git fetch 设置 `<place>` 的话：
 
@@ -520,7 +552,7 @@ git diff -staged
 
 ## git mergetool
 
-+ 启动图形化的merge工具
+- 启动图形化的merge工具
 
 ## start with `git init`
 
@@ -627,6 +659,26 @@ git status
 
 # at last
 git push
+```
+
+## git http
+
+http 方式每次都要输入密码，按照如下设置即可保存密码。
+
+``` bash
+# 记住密码（默认15分钟）
+git config --global credential.helper cache
+
+# 一个小时之后失效
+git config credential.helper 'cache --timeout=3600'
+
+# 长期保存
+git config --global credential.helper store
+```
+
+``` bash
+# clone 时指定
+git clone http://yourname:password@github.com/name/project.git
 ```
 
 ## 参考
