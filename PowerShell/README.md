@@ -42,6 +42,8 @@ function New-HttpQueryString
 }
 ```
 
+[PowerShell Remove-Item not waiting](https://stackoverflow.com/questions/53207678/powershell-remove-item-not-waiting)
+
 [Force-remove files and directories in PowerShell fails sometimes, but not always](https://serverfault.com/questions/199921/force-remove-files-and-directories-in-powershell-fails-sometimes-but-not-always/942429#942429)
 
 [Cannot remove item, The Directory is not empty](https://stackoverflow.com/questions/53553729/cannot-remove-item-the-directory-is-not-empty/)
