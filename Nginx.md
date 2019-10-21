@@ -113,6 +113,8 @@ cd nginx-${nginx_version}
 make && make install
 
 test -e /usr/bin/nginx || ln -s /usr/local/nginx/sbin/nginx /usr/bin/nginx
+# nginx user
+# useradd -M -s /sbin/nologin nginx
 ```
 
 ## start nginx
