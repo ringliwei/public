@@ -70,9 +70,9 @@ test -e /usr/bin/nginx || ln -s /usr/local/nginx/sbin/nginx /usr/bin/nginx
 ```bash
 cd /usr/local/src
 
-nginx_version=1.15.11
+nginx_version=1.16.1
 pcre_version=8.43
-openssl_version=1.0.2r
+openssl_version=1.1.1d
 zlib_version=1.2.11
 
 #
