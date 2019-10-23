@@ -8,6 +8,7 @@
   - [firewall](#firewall)
   - [start redis](#start-redis)
   - [redis in docker](#redis-in-docker)
+  - [redis in zabbix](#redis-in-zabbix)
 
 [Redis home](https://redis.io/)
 
@@ -122,3 +123,11 @@ docker exec -it [container_id] redis-cli -h [host] -p [port] -a [password]
 # eg.
 docker exec -it 05f92d468e05 redis-cli -a 123456
 ```
+
+## redis in zabbix
+
+[Zabbix 3.0 从入门到精通(zabbix使用详解)](https://www.cnblogs.com/clsn/p/7885990.html)
+
+[使用Zabbix官方模板监控Redis运行状况](https://www.cnblogs.com/configure/p/6253590.html)
+
+[zbx_redis_template](https://github.com/adubkov/zbx_redis_template)
