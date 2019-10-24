@@ -107,8 +107,12 @@ tar -xzvf zlib-${zlib_version}.tar.gz
 # 重点来了！！！
 cd nginx-${nginx_version}
 
-./configure --prefix=/usr/local/nginx --with-http_ssl_module --with-pcre=../pcre-${pcre_version} \
---with-zlib=../zlib-${zlib_version} --with-openssl=../openssl-${openssl_version}
+./configure --prefix=/usr/local/nginx \
+--with-http_stub_status_module \
+--with-http_ssl_module \
+--with-pcre=../pcre-${pcre_version} \
+--with-zlib=../zlib-${zlib_version} \
+--with-openssl=../openssl-${openssl_version}
 
 make && make install
 
@@ -251,3 +255,7 @@ Once the master process receives the signal to reload configuration, it checks t
 [nginx location中uri 的截取](https://www.jianshu.com/p/849a6c068daa)
 
 [关于一些对location认识的误区](https://www.cnblogs.com/lidabo/p/4169396.html)
+
+[nginx 常用模块整理](https://www.cnblogs.com/fangfei9258/p/9453709.html)
+
+[ZBX_NGINX](https://github.com/AlexGluck/ZBX_NGINX)
