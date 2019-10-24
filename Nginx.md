@@ -7,6 +7,9 @@
   - [start nginx](#start-nginx)
   - [nginx systemd service file](#nginx-systemd-service-file)
   - [add module](#add-module)
+  - [clean nginx log](#clean-nginx-log)
+    - [clean script](#clean-script)
+    - [crontab](#crontab)
   - [learn nginx](#learn-nginx)
     - [Starting, Stopping, and Reloading Configuration](#starting-stopping-and-reloading-configuration)
     - [Resource](#resource)
@@ -222,6 +225,46 @@ vim /usr/local/nginx/conf/nginx.conf
 nginx -s reload
 ```
 
+## clean nginx log
+
+```bash
+# pwd
+cd /usr/local/nginx
+```
+
+### clean script
+
+```bash
+vim clean_access_log.sh
+```
+
+```bash
+#! /bin/bash
+
+NGINX_LOG_DIR="/usr/local/nginx/logs"
+
+cat /dev/null > ${NGINX_LOG_DIR}/access.log
+cat /dev/null > ${NGINX_LOG_DIR}/company.access.log
+cat /dev/null > ${NGINX_LOG_DIR}/show.access.log
+cat /dev/null > ${NGINX_LOG_DIR}/api.access.log
+#echo $(date '+%F %T') >> ${NGINX_LOG_DIR}/crontab.log
+```
+
+```bash
+chmod 755 clean_access_log.sh
+```
+
+### crontab
+
+```bash
+crontab -e
+```
+
+```bash
+# 每天凌晨3点清理
+0 3 * * * /usr/local/nginx/clean_access_log.sh
+```
+
 ## learn nginx
 
 [Beginner’s Guide](http://nginx.org/en/docs/beginners_guide.html)
@@ -258,4 +301,4 @@ Once the master process receives the signal to reload configuration, it checks t
 
 [nginx 常用模块整理](https://www.cnblogs.com/fangfei9258/p/9453709.html)
 
-[ZBX_NGINX](https://github.com/AlexGluck/ZBX_NGINX)
+[zabbix ZBX_NGINX](https://github.com/AlexGluck/ZBX_NGINX)
