@@ -130,4 +130,4 @@ docker exec -it 05f92d468e05 redis-cli -a 123456
 
 [使用Zabbix官方模板监控Redis运行状况](https://www.cnblogs.com/configure/p/6253590.html)
 
-[zbx_redis_template](https://github.com/adubkov/zbx_redis_template)
+[zbx_redis_template](https://github.com/ringliwei/zbx_redis_template)
