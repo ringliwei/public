@@ -1,6 +1,29 @@
 # zookeeper
 
-## deploy with docker
+[Home](http://zookeeper.apache.org/)
+
+## zookeeper systemd service file
+
+```bash
+vim /lib/systemd/system/redis.service
+```
+
+```systemd
+[Unit]
+Description=zookeeper
+After=network.target
+
+[Service]
+Type=forking
+ExecStart=/usr/local/zookeeper/bin/zkServer.sh start
+ExecStop=/usr/local/zookeeper/bin/zkServer.sh stop
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
+```
+
+## zookeeper on docker
 
 [Docker Image](https://hub.docker.com/_/zookeeper)
 
