@@ -54,8 +54,8 @@ ulimit -n
 vim /etc/security/limits.conf
 
 # * 代表用户名，* 表示所有用户
-* soft nofile 100000
-* hard nofile 100000
+* soft nofile 1000000
+* hard nofile 1000000
 ```
 
 ```bash
