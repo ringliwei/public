@@ -3,6 +3,7 @@
 - [zookeeper](#zookeeper)
   - [zookeeper systemd service file](#zookeeper-systemd-service-file)
   - [zookeeper on docker](#zookeeper-on-docker)
+  - [zookeeper on zabbix](#zookeeper-on-zabbix)
   - [ZooKeeper Commands: The Four Letter Words](#zookeeper-commands-the-four-letter-words)
 
 [Home](http://zookeeper.apache.org/)
@@ -74,6 +75,10 @@ services:
 ``` bash
 docker stack deploy -c stack.yml zookeeper
 ```
+
+## zookeeper on zabbix
+
+[Zabbix-Zookeper-Template](https://github.com/hegoak64/Zabbix-Zookeper-Template)
 
 ## ZooKeeper Commands: The Four Letter Words
 
