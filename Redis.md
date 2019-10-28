@@ -3,6 +3,7 @@
 - [Redis](#redis)
   - [install redis by bash](#install-redis-by-bash)
   - [system configuration](#system-configuration)
+  - [ulimit on linux](#ulimit-on-linux)
   - [redis.conf configuration](#redisconf-configuration)
   - [redis systemd service file](#redis-systemd-service-file)
   - [firewall](#firewall)
@@ -41,6 +42,27 @@ vim /etc/sysctl.conf
 # net.core.somaxconn = 1024
 
 echo never > /sys/kernel/mm/transparent_hugepage/enabled
+```
+
+## ulimit on linux
+
+```bash
+ulimit -n
+```
+
+```bash
+vim /etc/security/limits.conf
+
+# * 代表用户名，* 表示所有用户
+* soft nofile 100000
+* hard nofile 100000
+```
+
+```bash
+/etc/systemd/system.conf
+
+DefaultLimitNOFILE=65535
+DefaultLimitNPROC=65535
 ```
 
 ## redis.conf configuration
