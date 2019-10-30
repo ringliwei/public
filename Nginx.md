@@ -302,3 +302,7 @@ Once the master process receives the signal to reload configuration, it checks t
 [nginx 常用模块整理](https://www.cnblogs.com/fangfei9258/p/9453709.html)
 
 [zabbix ZBX_NGINX](https://github.com/AlexGluck/ZBX_NGINX)
+
+![nginx-connection-diagram](images/nginx-connection-diagram-2.png)
+
+[如何监控 NGINX](https://linux.cn/article-5970-1.html)
