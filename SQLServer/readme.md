@@ -7,6 +7,7 @@
     - [Search Text In PROC](#search-text-in-proc)
     - [Show Table Information Schema](#show-table-information-schema)
     - [Show Table Row Count](#show-table-row-count)
+    - [Show Table Space And Rows](#show-table-space-and-rows)
 
 ## Script Snippet
 
@@ -99,4 +100,19 @@ SELECT TabeName=a.name, [RowCount]=b.rows
 FROM sysobjects a INNER JOIN sysindexes b ON a.id = b.id
 WHERE (a.type = 'u') AND (b.indid IN (0, 1))
 ORDER BY a.name, b.rows DESC
+```
+
+### Show Table Space And Rows
+
+```SQL
+SELECT
+    tablename=OBJECT_NAME(id),
+    reserved=8*reserved/1024,
+    [used(KB)]=8*dpages,
+    unused=8*(reserved-dpages)/1024,
+    free=8*dpages/1024-rows/1024*minlen/1024,
+rows
+FROM sysindexes
+WHERE indid=1
+ORDER BY used DESC
 ```
