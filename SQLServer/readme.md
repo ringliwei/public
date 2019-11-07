@@ -6,6 +6,7 @@
     - [Ticks To Datetime](#ticks-to-datetime)
     - [Search Text In PROC](#search-text-in-proc)
     - [Show Table Information Schema](#show-table-information-schema)
+    - [Show Table Row Count](#show-table-row-count)
 
 ## Script Snippet
 
@@ -89,4 +90,13 @@ FROM syscolumns a LEFT JOIN
 WHERE b.name IS NOT NULL
 --WHERE d.name='要查询的表' --如果只查询指定表,加上此条件
 ORDER BY a.id,a.colorder
+```
+
+### Show Table Row Count
+
+```SQL
+SELECT TabeName=a.name, [RowCount]=b.rows 
+FROM sysobjects a INNER JOIN sysindexes b ON a.id = b.id
+WHERE (a.type = 'u') AND (b.indid IN (0, 1))
+ORDER BY a.name, b.rows DESC
 ```
