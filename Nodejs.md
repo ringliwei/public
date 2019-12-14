@@ -35,6 +35,8 @@ ln -s /usr/local/node/bin/npx /usr/bin/npx
 
 [cli-documentation](https://docs.npmjs.com/cli-documentation/cli)
 
+[npmrc](https://docs.npmjs.com/files/npmrc)
+
 ```bash
 vim ~/.npmrc
 
