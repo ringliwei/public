@@ -57,4 +57,9 @@ npm config get registry
 ```bash
 # create a package.json file
 npm init
+
+# Generate a plain old package.json
+mkdir my-npm-pkg && cd my-npm-pkg
+git init
+npm init -y
 ```
