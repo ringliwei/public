@@ -99,8 +99,41 @@ npm install pm2@latest -g
 # Detect available init system, generate configuration and enable startup system
 pm2 startup
 
+## Target path
+## /etc/systemd/system/pm2-root.service
+
+# 开机启动
+systemctl enable pm2-root
+
 # Once you started all the applications you want to manage, you have to save the list you wanna respawn at machine reboot with:
 pm2 save
+```
+
+> cat /etc/systemd/system/pm2-root.service
+
+```systemd
+[Unit]
+Description=PM2 process manager
+Documentation=https://pm2.keymetrics.io/
+After=network.target
+
+[Service]
+Type=forking
+User=root
+LimitNOFILE=infinity
+LimitNPROC=infinity
+LimitCORE=infinity
+Environment=PATH=/usr/lib64/qt-3.3/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/root/bin:/usr/local/node/bin/:/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin
+Environment=PM2_HOME=/root/.pm2
+PIDFile=/root/.pm2/pm2.pid
+Restart=on-failure
+
+ExecStart=/usr/local/node/lib/node_modules/pm2/bin/pm2 resurrect
+ExecReload=/usr/local/node/lib/node_modules/pm2/bin/pm2 reload all
+ExecStop=/usr/local/node/lib/node_modules/pm2/bin/pm2 kill
+
+[Install]
+WantedBy=multi-user.target
 ```
 
 ### cheatsheet
