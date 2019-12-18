@@ -8,6 +8,23 @@
   - [pm2](#pm2)
     - [cheatsheet](#cheatsheet)
     - [Nginx as a HTTP proxy](#nginx-as-a-http-proxy)
+  - [library](#library)
+    - [async](#async)
+    - [bluebird](#bluebird)
+    - [cli-table](#cli-table)
+    - [colors](#colors)
+    - [commander](#commander)
+    - [consola](#consola)
+    - [Chalk](#chalk)
+    - [ky](#ky)
+    - [got](#got)
+    - [axios](#axios)
+    - [request](#request)
+    - [request-promise](#request-promise)
+    - [pm2 process manager](#pm2-process-manager)
+    - [jake](#jake)
+    - [puppeteer](#puppeteer)
+    - [yo](#yo)
 
 ## install
 
@@ -221,3 +238,83 @@ server {
     }
 }
 ```
+
+## library
+
+### async
+
+[Async](https://www.npmjs.com/package/async) is a utility module which provides straight-forward, powerful functions for working with asynchronous JavaScript. Although originally designed for use with Node.js and installable via npm install async, it can also be used directly in the browser. A ESM version is included in the main async package that should automatically be used with compatible bundlers such as Webpack and Rollup.
+
+### bluebird
+
+[Bluebird](https://www.npmjs.com/package/bluebird) is a fully featured promise library with focus on innovative features and performance
+
+----------------
+
+### cli-table
+
+[cli-table](https://www.npmjs.com/package/cli-table)
+This utility allows you to render unicode-aided tables on the command line from your node.js scripts.
+
+### colors
+
+[colors](https://www.npmjs.com/package/colors)
+get color and style in your node.js console
+
+### commander
+
+[commander](https://www.npmjs.com/package/commander)
+The complete solution for node.js command-line interfaces, inspired by Ruby's commander
+
+### consola
+
+[consola](https://www.npmjs.com/package/consola)
+Elegant Console Logger for Node.js and Browser
+
+### Chalk
+
+[Chalk](https://www.npmjs.com/package/chalk)
+Terminal string styling done right
+
+----------------
+
+### ky
+
+[Ky](https://www.npmjs.com/package/ky) is a tiny and elegant HTTP client based on the browser Fetch API
+
+### got
+
+[got](https://www.npmjs.com/package/got)
+Human-friendly and powerful HTTP request library for Node.js
+
+### axios
+
+[axios](https://www.npmjs.com/package/axios)
+Promise based HTTP client for the browser and node.js
+
+### request
+
+[Request](https://www.npmjs.com/package/request) is designed to be the simplest way possible to make http calls. It supports HTTPS and follows redirects by default.
+
+### request-promise
+
+The simplified HTTP request client 'request' with Promise support. Powered by Bluebird.
+
+----------------
+
+### pm2 process manager
+
+[PM2](https://www.npmjs.com/package/pm2) is a production process manager for Node.js applications with a built-in load balancer. It allows you to keep applications alive forever, to reload them without downtime and to facilitate common system admin tasks.
+
+### jake
+
+[jake](https://www.npmjs.com/package/jake)
+the JavaScript build tool for Node.js
+
+### puppeteer
+
+[Puppeteer](https://www.npmjs.com/package/puppeteer) is a Node library which provides a high-level API to control Chrome or Chromium over the DevTools Protocol. Puppeteer runs headless by default, but can be configured to run full (non-headless) Chrome or Chromium.
+
+### yo
+
+[Yeoman](https://www.npmjs.com/package/yo) helps you to kickstart new projects, prescribing best practices and tools to help you stay productive.
