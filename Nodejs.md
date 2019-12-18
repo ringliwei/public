@@ -25,6 +25,7 @@
     - [jake](#jake)
     - [puppeteer](#puppeteer)
     - [yo](#yo)
+    - [rxjs](#rxjs)
 
 ## install
 
@@ -318,3 +319,7 @@ the JavaScript build tool for Node.js
 ### yo
 
 [Yeoman](https://www.npmjs.com/package/yo) helps you to kickstart new projects, prescribing best practices and tools to help you stay productive.
+
+### rxjs
+
+[RxJS](https://www.npmjs.com/package/rxjs): Reactive Extensions For JavaScript
