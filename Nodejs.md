@@ -27,6 +27,7 @@
     - [yo](#yo)
     - [rxjs](#rxjs)
     - [prettier](#prettier)
+    - [koa-generator](#koa-generator)
 
 ## install
 
@@ -328,3 +329,8 @@ the JavaScript build tool for Node.js
 ### prettier
 
 [Prettier](https://www.npmjs.com/package/prettier) is an opinionated code formatter. It enforces a consistent style by parsing your code and re-printing it with its own rules that take the maximum line length into account, wrapping code when necessary.
+
+### koa-generator
+
+[koa-generator](https://www.npmjs.com/package/koa-generator)
+Koa application generator.
