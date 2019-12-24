@@ -29,6 +29,7 @@
     - [rxjs](#rxjs)
     - [prettier](#prettier)
     - [koa-generator](#koa-generator)
+    - [art-template](#art-template)
 
 ## install
 
@@ -365,3 +366,7 @@ the JavaScript build tool for Node.js
 
 [koa-generator](https://www.npmjs.com/package/koa-generator)
 Koa application generator.
+
+### art-template
+
+[art-template](https://www.npmjs.com/package/art-template) is a simple and superfast templating engine that optimizes template rendering speed by scope pre-declared technique, hence achieving runtime performance which is close to the limits of JavaScript. At the same time, it supports both NodeJS and browser.
