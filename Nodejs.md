@@ -4,6 +4,7 @@
 
 - [Node.js](#nodejs)
   - [install](#install)
+    - [How to install Node.js via binary archive on Linux](#how-to-install-nodejs-via-binary-archive-on-linux)
   - [npm](#npm)
   - [pm2](#pm2)
     - [cheatsheet](#cheatsheet)
@@ -63,6 +64,36 @@ ln -s /usr/local/node/bin/npx /usr/bin/npx
 export PATH="$PATH:/usr/local/node/bin/"
 
 # 立即生效
+source /etc/profile
+```
+
+### How to install Node.js via binary archive on Linux
+
+[How to install Node.js via binary archive on Linux](https://github.com/nodejs/help/wiki/Installation#how-to-install-nodejs-via-binary-archive-on-linux)
+
+step 1. Unzip the binary archive to any directory you wanna install Node, I use `/usr/local/node`
+
+```bash
+PROD_NODE_VERSION=v10.15.0
+PROD_NODE_DISTRO=linux-x64
+sudo mkdir -p /usr/local/node
+sudo tar -xJvf node-$PROD_NODE_VERSION-$PROD_NODE_DISTRO.tar.xz -C /usr/local/node
+```
+
+step 2. Set the environment variable `/etc/profile` or `~/.profile`, add below to the end
+
+```bash
+# Nodejs
+PROD_NODE_VERSION=v10.15.0
+PROD_NODE_DISTRO=linux-x64
+export PATH=/usr/local/node/node-$PROD_NODE_VERSION-$PROD_NODE_DISTRO/bin:$PATH
+```
+
+step 3. Refresh profile
+
+```bash
+source ~/.profile
+# or
 source /etc/profile
 ```
 
