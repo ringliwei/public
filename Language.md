@@ -49,6 +49,10 @@ Linux shell中那些命令调用也是这个样子。
 
 但这并不是对人类友好的。在此基础上，各种语言都添加了while，for，if 等流程控制语句来丰富语言表达的简洁性。
 
+## 词法作用域
+
+[词法作用域、动态作用域、回调函数、闭包](https://www.cnblogs.com/f-ck-need-u/p/9735955.html)
+
 ## to be continued
 
 待续
