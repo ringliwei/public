@@ -27,6 +27,11 @@
     - [puppeteer](#puppeteer)
     - [yo](#yo)
     - [rxjs](#rxjs)
+    - [lodash](#lodash)
+    - [ramda](#ramda)
+    - [immer](#immer)
+    - [date-fns](#date-fns)
+    - [moment](#moment)
     - [prettier](#prettier)
     - [koa-generator](#koa-generator)
     - [art-template](#art-template)
@@ -357,6 +362,31 @@ the JavaScript build tool for Node.js
 ### rxjs
 
 [RxJS](https://www.npmjs.com/package/rxjs): Reactive Extensions For JavaScript
+
+### lodash
+
+[lodash](https://www.npmjs.com/package/lodash)
+A modern JavaScript utility library delivering modularity, performance, & extras.
+
+### ramda
+
+[ramda](https://www.npmjs.com/package/ramda)
+A practical functional library for JavaScript programmers.
+
+### immer
+
+[immer](https://www.npmjs.com/package/immer)
+Create the next immutable state tree by simply modifying the current tree
+
+### date-fns
+
+[date-fns](https://www.npmjs.com/package/date-fns)
+provides the most comprehensive, yet simple and consistent toolset for manipulating JavaScript dates in a browser & Node.js.
+
+### moment
+
+[moment](https://www.npmjs.com/package/moment)
+A lightweight JavaScript date library for parsing, validating, manipulating, and formatting dates.
 
 ### prettier
 
