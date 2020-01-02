@@ -2,6 +2,7 @@
 
 - [Nginx](#nginx)
   - [document](#document)
+  - [gcc](#gcc)
   - [install nginx by bash](#install-nginx-by-bash)
   - [install nginx by bash width versioning](#install-nginx-by-bash-width-versioning)
   - [start nginx](#start-nginx)
@@ -21,6 +22,13 @@
 [nginx docs](http://nginx.org/en/docs/)
 
 [nginx configure](http://nginx.org/en/docs/configure.html)
+
+## gcc
+
+```bash
+# 可能需要安装C++
+yum -y install gcc-c++
+```
 
 ## install nginx by bash
 
