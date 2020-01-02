@@ -177,6 +177,14 @@ PrivateTmp=true
 WantedBy=multi-user.target
 ```
 
+```bash
+# 开机启动
+systemctl enable nginx
+
+# 立即启动
+systemctl start nginx
+```
+
 ## add module
 
 以`--with-stream=dynamic`为例，`--add-module`类似
