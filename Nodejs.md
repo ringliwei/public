@@ -25,6 +25,7 @@
     - [pm2 process manager](#pm2-process-manager)
     - [jake](#jake)
     - [puppeteer](#puppeteer)
+    - [generic-pool](#generic-pool)
     - [yo](#yo)
     - [rxjs](#rxjs)
     - [lodash](#lodash)
@@ -354,6 +355,11 @@ the JavaScript build tool for Node.js
 ### puppeteer
 
 [Puppeteer](https://www.npmjs.com/package/puppeteer) is a Node library which provides a high-level API to control Chrome or Chromium over the DevTools Protocol. Puppeteer runs headless by default, but can be configured to run full (non-headless) Chrome or Chromium.
+
+### generic-pool
+
+[generic-pool](https://www.npmjs.com/package/generic-pool)
+Generic resource pool with Promise based API. Can be used to reuse or throttle usage of expensive resources such as database connections.
 
 ### yo
 
