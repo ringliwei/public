@@ -13,3 +13,7 @@ it is public for everyone.
 [zsythink.net](http://www.zsythink.net/)
 
 [yolinux](http://yolinux.com)
+
+[骏马金龙](https://www.cnblogs.com/f-ck-need-u/)
+
+> python perl ruby shell linux sed mysql ...

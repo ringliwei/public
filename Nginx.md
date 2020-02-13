@@ -2,8 +2,9 @@
 
 - [Nginx](#nginx)
   - [document](#document)
+  - [gcc](#gcc)
   - [install nginx by bash](#install-nginx-by-bash)
-  - [install nginx by bash width versioning](#install-nginx-by-bash-width-versioning)
+  - [install nginx by bash with versioning](#install-nginx-by-bash-with-versioning)
   - [start nginx](#start-nginx)
   - [nginx systemd service file](#nginx-systemd-service-file)
   - [add module](#add-module)
@@ -13,6 +14,7 @@
   - [learn nginx](#learn-nginx)
     - [Starting, Stopping, and Reloading Configuration](#starting-stopping-and-reloading-configuration)
     - [Resource](#resource)
+  - [Problem](#problem)
 
 ## document
 
@@ -21,6 +23,13 @@
 [nginx docs](http://nginx.org/en/docs/)
 
 [nginx configure](http://nginx.org/en/docs/configure.html)
+
+## gcc
+
+```bash
+# 可能需要安装C++
+yum -y install gcc-c++
+```
 
 ## install nginx by bash
 
@@ -68,7 +77,7 @@ make && make install
 test -e /usr/bin/nginx || ln -s /usr/local/nginx/sbin/nginx /usr/bin/nginx
 ```
 
-## install nginx by bash width versioning
+## install nginx by bash with versioning
 
 ```bash
 cd /usr/local/src
@@ -167,6 +176,14 @@ PrivateTmp=true
 
 [Install]
 WantedBy=multi-user.target
+```
+
+```bash
+# 开机启动
+systemctl enable nginx
+
+# 立即启动
+systemctl start nginx
 ```
 
 ## add module
@@ -306,3 +323,17 @@ Once the master process receives the signal to reload configuration, it checks t
 ![nginx-connection-diagram](images/nginx-connection-diagram-2.png)
 
 [如何监控 NGINX](https://linux.cn/article-5970-1.html)
+
+[SSL under IE8/Windows XP with NGINX and OpenSSL](https://ablagoev.github.io/ssl/nginx/ie8/winxp/cipher/2016/12/23/ie8-winxp-nginx-ssl.html)
+
+nginx.conf
+
+- ssl_ciphers "EECDH+AESGCM:EDH+AESGCM:ECDHE-RSA-AES128-GCM-SHA256:AES256+EECDH:DHE-RSA-AES128-GCM-SHA256:AES256+EDH:ECDHE-RSA-AES256-GCM-SHA384:DHE-RSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-SHA384:ECDHE-RSA-AES128-SHA256:ECDHE-RSA-AES256-SHA:ECDHE-RSA-AES128-SHA:DHE-RSA-AES256-SHA256:DHE-RSA-AES128-SHA256:DHE-RSA-AES256-SHA:DHE-RSA-AES128-SHA:ECDHE-RSA-DES-CBC3-SHA:EDH-RSA-DES-CBC3-SHA:AES256-GCM-SHA384:AES128-GCM-SHA256:AES256-SHA256:AES128-SHA256:AES256-SHA:AES128-SHA:DES-CBC3-SHA:HIGH:!aNULL:!eNULL:!EXPORT:!DES:!MD5:!PSK:!RC4";
+
+compile
+
+- --with-openssl-opt=enable-weak-ssl-ciphers
+
+## Problem
+
+- 在 `nginx 1.12.2` 版本配置upstream时, 可以使用upstream `backend_service` 这样的名称（包含下划线）来命名，但 `nginx 1.16.1` 命名 upstream 时由不能带`下划线`
