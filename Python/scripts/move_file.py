@@ -3,6 +3,7 @@
 import os
 import re
 import shutil
+from functools import cmp_to_key
 
 
 def search(filepath, file_list):
@@ -27,11 +28,24 @@ def move():
             shutil.move(file_fullpath, target_dir)
 
 
+def compare(x, y):
+    stat_x = os.stat(scan_dir + "/" + x)
+    stat_y = os.stat(scan_dir + "/" + y)
+    if stat_x.st_mtime < stat_y.st_mtime:
+        return -1
+    elif stat_x.st_mtime > stat_y.st_mtime:
+        return 1
+    else:
+        return 0
+
+
 def rename():
     i = 1
     name_prefix = 'ABC-'
     reg_rename = re.compile(r'(.+)(.mp4|.avi|.mkv)$', re.IGNORECASE)
-    for file_name in os.listdir(scan_dir):
+    myfilelist = os.listdir(scan_dir)
+    myfilelist = sorted(myfilelist, key=cmp_to_key(compare))
+    for file_name in myfilelist:
 
         file_name_old_path = os.path.join(scan_dir, file_name)
         new_name = re.sub(reg_rename, name_prefix +
