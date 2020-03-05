@@ -6,6 +6,8 @@
 
 ## Flex
 
+[Flexbox 计算原理](https://segmentfault.com/a/1190000009932882)
+
 [Flex 布局教程：语法篇](http://www.ruanyifeng.com/blog/2015/07/flex-grammar.html)
 
 [Flex 布局教程：实例篇](http://www.ruanyifeng.com/blog/2015/07/flex-examples.html)
@@ -23,7 +25,6 @@
 [Flexbox Patterns](https://github.com/cjcenizal/flexbox-patterns)
 
 ## Grid
-
 
 [A Complete Guide to Grid](https://css-tricks.com/snippets/css/complete-guide-grid/)
 
