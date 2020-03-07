@@ -11,6 +11,7 @@
     - [PostgreSQL](#postgresql)
     - [Greenplum](#greenplum)
     - [Mysql](#mysql)
+    - [ClickHouse](#clickhouse)
 
 ## db-readings
 
@@ -55,3 +56,7 @@ The Leading Time Series Platform
 ### Mysql
 
 [doc](https://dev.mysql.com/doc/)
+
+### ClickHouse
+
+[ClickHouse](https://github.com/ClickHouse/ClickHouse)
