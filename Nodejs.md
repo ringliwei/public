@@ -33,6 +33,7 @@
     - [immer](#immer)
     - [date-fns](#date-fns)
     - [moment](#moment)
+    - [mathjs](#mathjs)
     - [prettier](#prettier)
     - [koa-generator](#koa-generator)
     - [art-template](#art-template)
@@ -393,6 +394,10 @@ provides the most comprehensive, yet simple and consistent toolset for manipulat
 
 [moment](https://www.npmjs.com/package/moment)
 A lightweight JavaScript date library for parsing, validating, manipulating, and formatting dates.
+
+### mathjs
+
+[Math.js](https://www.npmjs.com/package/mathjs) is an extensive math library for JavaScript and Node.js
 
 ### prettier
 
