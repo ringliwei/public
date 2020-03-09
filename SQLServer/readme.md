@@ -111,7 +111,7 @@ SELECT
     [used(KB)]=8*dpages,
     unused=8*(reserved-dpages)/1024,
     free=8*dpages/1024-rows/1024*minlen/1024,
-rows
+    rows
 FROM sysindexes
 WHERE indid=1
 ORDER BY used DESC
