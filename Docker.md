@@ -1,5 +1,35 @@
 # Docker
 
+- [Docker](#docker)
+  - [Install](#install)
+  - [入门必看](#%e5%85%a5%e9%97%a8%e5%bf%85%e7%9c%8b)
+  - [DOCKER基础技术](#docker%e5%9f%ba%e7%a1%80%e6%8a%80%e6%9c%af)
+
+## Install
+
+[Get Docker Engine - Community for CentOS](https://docs.docker.com/install/linux/docker-ce/centos/)
+
+[Aliyun CentOS 7](https://developer.aliyun.com/mirror/docker-ce)
+
+```bash
+# step 1: 安装必要的一些系统工具
+sudo yum install -y yum-utils device-mapper-persistent-data lvm2
+
+# Step 2: 添加软件源信息
+sudo yum-config-manager --add-repo https://mirrors.aliyun.com/
+docker-ce/linux/centos/docker-ce.repo
+
+# Step 3: 更新并安装Docker-CE
+sudo yum makecache fast
+sudo yum -y install docker-ce
+
+# Step 4: 开启Docker服务
+sudo service docker start
+
+# Step 5: 开机启动
+systemctl enable docker
+```
+
 ## 入门必看
 
 [这可能是最为详细的Docker入门吐血总结](https://www.cnblogs.com/ECJTUACM-873284962/p/9789130.html)
