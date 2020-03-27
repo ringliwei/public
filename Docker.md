@@ -2,6 +2,7 @@
 
 - [Docker](#docker)
   - [Install](#install)
+  - [Command](#command)
   - [入门必看](#%e5%85%a5%e9%97%a8%e5%bf%85%e7%9c%8b)
   - [DOCKER基础技术](#docker%e5%9f%ba%e7%a1%80%e6%8a%80%e6%9c%af)
 
@@ -28,6 +29,37 @@ sudo service docker start
 
 # Step 5: 开机启动
 systemctl enable docker
+```
+
+```bash
+docker version
+```
+
+[mirror](https://docs.docker.com/registry/recipes/mirror/)
+
+```bash
+# vim /etc/docker/daemon.json
+
+{
+    "registry-mirrors": [
+       "https://mirror.ccs.tencentyun.com"
+    ]
+}
+
+```
+
+```bash
+docker info
+```
+
+## Command
+
+```bash
+# 删除所有容器
+docker rm -f `docker ps -a -q`
+
+# 删除所有的镜像
+docker rmi -f `docker images -q`
 ```
 
 ## 入门必看
