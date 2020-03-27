@@ -136,6 +136,4 @@ firewall-cmd --reload
 #
 # add kibana Sample data.
 #
-
-
 ```
