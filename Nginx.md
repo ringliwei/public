@@ -350,8 +350,11 @@ mkdir /usr/local/nginx/logs
 mkdir /usr/local/nginx/html
 ```
 
-```nginx
+```bash
 # vim /usr/local/nginx/conf/nginx.conf
+```
+
+```nginx
 #user  nobody;
 worker_processes  1;
 
@@ -473,7 +476,7 @@ http {
 ```bash
 docker run -d --name nginx7 \
 -v /usr/local/nginx/conf/nginx.conf:/etc/nginx/nginx.conf \
--v /usr/local/nginx/logs:/var/log/nginx \
+-v /usr/local/nginx/logs:/etc/nginx/logs \
 -v /usr/local/nginx/html:/etc/nginx/html \
 -p 80:80 -p 443:443 \
 nginx:1.17.9
