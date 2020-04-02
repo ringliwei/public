@@ -15,6 +15,7 @@
     - [Starting, Stopping, and Reloading Configuration](#starting-stopping-and-reloading-configuration)
     - [Resource](#resource)
   - [docker](#docker)
+    - [mynginx](#mynginx)
   - [Problem](#problem)
 
 ## document
@@ -473,6 +474,8 @@ http {
 }
 ```
 
+配置文件中相对路径由build时确定，查看[Building nginx from Sources](http://nginx.org/en/docs/configure.html)
+
 ```bash
 docker run -d --name nginx7 \
 -v /usr/local/nginx/conf/nginx.conf:/etc/nginx/nginx.conf \
@@ -480,6 +483,86 @@ docker run -d --name nginx7 \
 -v /usr/local/nginx/html:/etc/nginx/html \
 -p 80:80 -p 443:443 \
 nginx:1.17.9
+```
+
+### mynginx
+
+根据 [showdoc](https://hub.docker.com/r/star7th/showdoc/dockerfile) 的 Dockerfile
+
+```Dockerfile
+FROM richarvey/nginx-php-fpm:1.5.3
+COPY ./ /var/www/html/
+
+RUN apk update
+RUN apk add openldap-dev
+RUN docker-php-ext-install ldap
+
+RUN chmod -R 777 /var/www/html/
+RUN mkdir /showdoc_data
+RUN mkdir /showdoc_data/html
+RUN cp -R /var/www/html/ /showdoc_data/
+CMD if [ ! -f "/var/www/html/index.php" ]; then \cp -fr /showdoc_data/html/ /var/www/ ;fi;chmod 777 -R /showdoc_data ;/start.sh
+```
+
+定制自己的 nginx Dockerfile，启动命令 `CMD` 可将容器内的复制文件复制到主机上
+
+```Dockerfile
+FROM nginx:1.17.9
+
+RUN mkdir -p /tmp/nginx/conf
+
+RUN cp -R /etc/nginx/* /tmp/nginx/conf
+
+CMD if [ ! -f "/etc/nginx/nginx.conf" ]; then \cp -fr /tmp/nginx/conf/* /etc/nginx/;fi;chmod 777 -R /etc/nginx/; nginx -g 'daemon off;';
+
+```
+
+usage
+
+```bash
+
+# nginx 数据目录
+
+mkdir /root/nginx/
+
+# 注意 -v
+docker run -d --name mynginx -v /root/nginx/conf:/etc/nginx/ -v /root/nginx/logs:/etc/nginx/logs -v /root/nginx/html:/etc/nginx/html -p 82:80 ringliwei/nginx:v1.3
+```
+
+nginx 配置文件（配置文件中相对路径由build时确定，查看[Building nginx from Sources](http://nginx.org/en/docs/configure.html)
+
+```nginx
+user  nginx;
+worker_processes  1;
+
+error_log  logs/error.log warn;
+pid        logs/nginx.pid;
+
+
+events {
+    worker_connections  1024;
+}
+
+
+http {
+    include       mime.types;
+    default_type  application/octet-stream;
+
+    log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+                      '$status $body_bytes_sent "$http_referer" '
+                      '"$http_user_agent" "$http_x_forwarded_for"';
+
+    access_log  logs/access.log  main;
+
+    sendfile        on;
+    #tcp_nopush     on;
+
+    keepalive_timeout  65;
+
+    #gzip  on;
+    # this is a moment
+    include conf.d/*.conf;
+}
 ```
 
 ## Problem
