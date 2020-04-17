@@ -8,12 +8,21 @@
     - [Show Table Information Schema](#show-table-information-schema)
     - [Show Table Row Count](#show-table-row-count)
     - [Show Table Space And Rows](#show-table-space-and-rows)
+  - [Performance optimization](#performance-optimization)
+    - [查看是否有死锁](#%e6%9f%a5%e7%9c%8b%e6%98%af%e5%90%a6%e6%9c%89%e6%ad%bb%e9%94%81)
+    - [查看当前正在执行的sql语句](#%e6%9f%a5%e7%9c%8b%e5%bd%93%e5%89%8d%e6%ad%a3%e5%9c%a8%e6%89%a7%e8%a1%8c%e7%9a%84sql%e8%af%ad%e5%8f%a5)
+    - [查询前 10 个可能是性能最差的 SQL 语句](#%e6%9f%a5%e8%af%a2%e5%89%8d-10-%e4%b8%aa%e5%8f%af%e8%83%bd%e6%98%af%e6%80%a7%e8%83%bd%e6%9c%80%e5%b7%ae%e7%9a%84-sql-%e8%af%ad%e5%8f%a5)
+    - [查询逻辑读取最高的存储过程](#%e6%9f%a5%e8%af%a2%e9%80%bb%e8%be%91%e8%af%bb%e5%8f%96%e6%9c%80%e9%ab%98%e7%9a%84%e5%ad%98%e5%82%a8%e8%bf%87%e7%a8%8b)
+    - [查询从未使用过的索引](#%e6%9f%a5%e8%af%a2%e4%bb%8e%e6%9c%aa%e4%bd%bf%e7%94%a8%e8%bf%87%e7%9a%84%e7%b4%a2%e5%bc%95)
+    - [查询表下索引使用情况](#%e6%9f%a5%e8%af%a2%e8%a1%a8%e4%b8%8b%e7%b4%a2%e5%bc%95%e4%bd%bf%e7%94%a8%e6%83%85%e5%86%b5)
+    - [查询缺失的索引](#%e6%9f%a5%e8%af%a2%e7%bc%ba%e5%a4%b1%e7%9a%84%e7%b4%a2%e5%bc%95)
+  - [Monitor](#monitor)
 
 ## Script Snippet
 
 ### Table To POCO
 
-```SQL
+```sql
 SELECT
     DATA_TYPE,
     GET_SET=CONCAT('public ',
@@ -48,29 +57,29 @@ WHERE
 
 ### Ticks To Datetime
 
-```SQL
+```sql
 SELECT date2long=CAST (DATEDIFF(s, '2000-1-1', GETDATE()) AS BIGINT) * 10000000 + 630822816000000000,
        long2date=DATEADD(s, 634687411300000000 / 10000000 - 630822816000000000 / 10000000, '2000-1-1')
 ```
 
 ### Search Text In PROC
 
-```SQL
+```sql
 SELECT A.name FROM sys.sysobjects A JOIN sys.syscomments B ON A.id=B.id
 WHERE A.xtype='P' AND B.text LIKE '%update weizhan%'
 ```
 
 ### Show Table Information Schema
 
-```SQL
+```sql
 SELECT
 [表名]=(CASE WHEN a.colorder=1 THEN d.name ELSE NULL END),
 [字段序号]=a.colorder,
 [字段名]=a.name,
-[标识]=(CASE WHEN COLUMNPROPERTY(a.id, a.name,'IsIdentity')=1 THEN '√' ELSE '' END), 
+[标识]=(CASE WHEN COLUMNPROPERTY(a.id, a.name,'IsIdentity')=1 THEN '√' ELSE '' END),
 [主键]=(CASE WHEN (
         SELECT COUNT(*) FROM sysobjects
-        WHERE (name in (SELECT name FROM sysindexes WHERE (id = a.id) 
+        WHERE (name in (SELECT name FROM sysindexes WHERE (id = a.id)
             AND (indid in (SELECT indid FROM sysindexkeys WHERE (id = a.id)
             AND (colid in (SELECT colid FROM syscolumns WHERE (id = a.id) AND (name = a.name))))))
         )
@@ -95,8 +104,8 @@ ORDER BY a.id,a.colorder
 
 ### Show Table Row Count
 
-```SQL
-SELECT TabeName=a.name, [RowCount]=b.rows 
+```sql
+SELECT TabeName=a.name, [RowCount]=b.rows
 FROM sysobjects a INNER JOIN sysindexes b ON a.id = b.id
 WHERE (a.type = 'u') AND (b.indid IN (0, 1))
 ORDER BY a.name, b.rows DESC
@@ -104,7 +113,7 @@ ORDER BY a.name, b.rows DESC
 
 ### Show Table Space And Rows
 
-```SQL
+```sql
 SELECT
     tablename=OBJECT_NAME(id),
     reserved=8*reserved/1024,
@@ -116,3 +125,212 @@ FROM sysindexes
 WHERE indid=1
 ORDER BY used DESC
 ```
+
+## Performance optimization
+
+### 查看是否有死锁
+
+```sql
+DECLARE @tab TABLE (NAME VARCHAR(100), value VARCHAR(200));
+
+INSERT INTO @tab
+EXEC ('DBCC OPENTRAN WITH TABLERESULTS');
+
+SELECT NAME,
+       CAST(value AS DATETIME)                         startDate,
+       GETDATE()                                       currentDate,
+       DATEDIFF(s, CAST(value AS DATETIME), GETDATE()) diffsecond
+FROM @tab
+WHERE NAME IN ('OLDACT_STARTTIME');
+
+SELECT spid,
+       blocked,
+       DB_NAME(sp.dbid) AS DBName,
+       program_name,
+       waitresource,
+       lastwaittype,
+       sp.loginame,
+       sp.hostname,
+       A.[text]         AS [TextData],
+       SUBSTRING(
+                    A.text,
+                    sp.stmt_start / 2,
+                    (CASE WHEN sp.stmt_end = -1 THEN DATALENGTH(A.text)ELSE sp.stmt_end END - sp.stmt_start) / 2
+                )       AS [current_cmd]
+FROM sys.sysprocesses                                AS sp
+     OUTER APPLY sys.dm_exec_sql_text(sp.sql_handle) AS A
+WHERE spid = (
+                 SELECT CASE WHEN ISNUMERIC(value) = 0 THEN -1 ELSE value END
+                 FROM @tab
+                 WHERE NAME IN ('OLDACT_SPID')
+             );
+```
+
+### 查看当前正在执行的sql语句
+
+```sql
+SELECT [Spid]             = session_id,
+       ecid,
+       [Database]         = DB_NAME(sp.dbid),
+       [User]             = nt_username,
+       [Status]           = er.status,
+       [Wait]             = wait_type,
+       [Individual Query] = SUBSTRING(
+                                         qt.text,
+                                         er.statement_start_offset / 2,
+                                         (CASE
+                                              WHEN er.statement_end_offset = -1 THEN
+                                                  LEN(CONVERT(NVARCHAR(MAX), qt.text)) * 2
+                                              ELSE
+                                                  er.statement_end_offset
+                                          END - er.statement_start_offset
+                                         ) / 2
+                                     ),
+       [Parent Query]     = qt.text,
+       Program            = program_name,
+       hostname,
+       nt_domain,
+       start_time
+FROM sys.dm_exec_requests                            er
+     INNER JOIN sys.sysprocesses                     sp
+         ON er.session_id = sp.spid
+     CROSS APPLY sys.dm_exec_sql_text(er.sql_handle) AS qt
+WHERE session_id > 50 -- Ignore system spids.
+      AND session_id NOT IN (@@SPID) -- Ignore this current statement.
+ORDER BY Spid, sp.ecid;
+```
+
+### 查询前 10 个可能是性能最差的 SQL 语句
+
+```sql
+SELECT TOP (10)
+       text                                                                                  AS 'SQL Statement',
+       last_execution_time                                                                   AS 'Last Execution Time',
+       (total_logical_reads + total_physical_reads + total_logical_writes) / execution_count AS [Average IO],
+       (total_worker_time / execution_count) / 1000000.0                                     AS [Average CPU Time (sec)],
+       (total_elapsed_time / execution_count) / 1000000.0                                    AS [Average Elapsed Time (sec)],
+       execution_count                                                                       AS "Execution Count",
+       qp.query_plan                                                                         AS "Query Plan"
+FROM sys.dm_exec_query_stats                          qs
+     CROSS APPLY sys.dm_exec_sql_text(qs.plan_handle) st
+     CROSS APPLY sys.dm_exec_query_plan(qs.plan_handle) qp
+ORDER BY total_elapsed_time / execution_count DESC;
+```
+
+### 查询逻辑读取最高的存储过程
+
+```sql
+SELECT TOP (25)
+       p.name                                                                          AS [SP Name],
+       deps.total_logical_reads                                                        AS [TotalLogicalReads],
+       deps.total_logical_reads / deps.execution_count                                 AS [AvgLogicalReads],
+       deps.execution_count,
+       ISNULL(deps.execution_count / DATEDIFF(SECOND, deps.cached_time, GETDATE()), 0) AS [Calls/Second],
+       deps.total_elapsed_time,
+       deps.total_elapsed_time / deps.execution_count                                  AS [avg_elapsed_time],
+       deps.cached_time
+FROM sys.procedures                         AS p
+     INNER JOIN sys.dm_exec_procedure_stats AS deps
+         ON p.[object_id] = deps.[object_id]
+WHERE deps.database_id = DB_ID()
+ORDER BY deps.total_logical_reads DESC;
+```
+
+### 查询从未使用过的索引
+
+```sql
+SELECT DB_NAME(diu.database_id)                                                  AS DatabaseName,
+       s.name + '.' + QUOTENAME(o.name)                                          AS TableName,
+       i.index_id                                                                AS IndexID,
+       i.name                                                                    AS IndexName,
+       CASE WHEN i.is_unique = 1 THEN 'UNIQUE INDEX' ELSE 'NOT UNIQUE INDEX' END AS IS_UNIQUE,
+       CASE WHEN i.is_disabled = 1 THEN 'DISABLE' ELSE 'ENABLE' END              AS IndexStatus,
+       o.create_date                                                             AS IndexCreated,
+       STATS_DATE(o.object_id, i.index_id)                                       AS StatisticsUpdateDate,
+       diu.user_seeks                                                            AS UserSeek,
+       diu.user_scans                                                            AS UserScans,
+       diu.user_lookups                                                          AS UserLookups,
+       diu.user_updates                                                          AS UserUpdates,
+       p.TableRows,
+       'DROP INDEX ' + QUOTENAME(i.name) + ' ON ' + QUOTENAME(s.name) + '.' + QUOTENAME(OBJECT_NAME(diu.object_id))
+       + ';'                                                                     AS 'Drop Index Statement'
+FROM sys.dm_db_index_usage_stats diu
+     INNER JOIN sys.indexes      i
+         ON i.index_id = diu.index_id AND diu.object_id = i.object_id
+     INNER JOIN sys.objects      o
+         ON diu.object_id = o.object_id
+     INNER JOIN sys.schemas      s
+         ON o.schema_id = s.schema_id
+     INNER JOIN (
+                    SELECT SUM(p.rows) TableRows, p.index_id, p.object_id
+                    FROM sys.partitions p
+                    GROUP BY p.index_id, p.object_id
+                )                p
+         ON p.index_id = diu.index_id AND diu.object_id = p.object_id
+WHERE OBJECTPROPERTY(diu.object_id, 'IsUserTable') = 1 AND diu.database_id = DB_ID() AND i.is_primary_key = 0 --排除主键索引
+
+      AND i.is_unique_constraint = 0 --排除唯一索引
+
+      AND diu.user_updates <> 0 --排除没有数据变化的索引
+
+      AND diu.user_lookups = 0 AND diu.user_seeks = 0 AND diu.user_scans = 0 AND i.name IS NOT NULL --排除那些没有任何索引的堆表
+
+ORDER BY (diu.user_seeks + diu.user_scans + diu.user_lookups) ASC, diu.user_updates DESC;
+```
+
+### 查询表下索引使用情况
+
+```sql
+SELECT DB_NAME(database_id)     AS N'数据库名称',
+       OBJECT_NAME(a.object_id) AS N'表名',
+       b.name                   AS N'索引名称',
+       user_seeks               AS N'用户索引查找次数',
+       user_scans               AS N'用户索引扫描次数',
+       MAX(last_user_seek)      AS N'最后查找时间',
+       MAX(last_user_scan)      AS N'最后扫描时间',
+       MAX(rows)                AS N'表中的行数'
+FROM sys.dm_db_index_usage_stats a
+     JOIN sys.indexes            b
+         ON a.index_id = b.index_id AND a.object_id = b.object_id
+     JOIN sysindexes             c
+         ON c.id = b.object_id
+WHERE database_id = DB_ID() --指定数据库
+
+      AND OBJECT_NAME(a.object_id)NOT LIKE 'sys%' -- AND OBJECT_NAME(a.object_id) LIKE '表名' --指定索引表
+
+      AND b.name IS NOT NULL
+
+--and b.name like '索引名' --指定索引名称 可以先使用 sp_help '你的表名' 查看表的结构和所有的索引信息
+
+GROUP BY DB_NAME(database_id), OBJECT_NAME(a.object_id), b.name, user_seeks, user_scans
+ORDER BY user_seeks, user_scans, OBJECT_NAME(a.object_id);
+```
+
+### 查询缺失的索引
+
+```sql
+SELECT c.statement           AS [表名],
+       c.equality_columns    AS [索引列],
+       c.included_columns    AS [包含列],
+       c.avg_user_impact     AS [百分比收益],
+       c.last_user_seek      AS [使用后影响上次结果],
+       c.avg_total_user_cost AS [减少的平均成本]
+FROM (
+         SELECT a.name, b.*
+         FROM (
+                  SELECT d.*, s.avg_total_user_cost, s.avg_user_impact, s.last_user_seek, s.unique_compiles
+                  FROM sys.dm_db_missing_index_group_stats s WITH (NOLOCK),
+                       sys.dm_db_missing_index_groups g WITH (NOLOCK),
+                       sys.dm_db_missing_index_details d WITH (NOLOCK)
+                  WHERE s.group_handle = g.index_group_handle AND d.index_handle = g.index_handle
+              ) b ,
+              sys.databases a WITH (NOLOCK)
+         WHERE a.database_id = b.database_id
+     ) c
+WHERE avg_user_impact >= 99.5
+ORDER BY last_user_seek DESC, avg_user_impact + avg_total_user_cost + unique_compiles DESC;
+```
+
+## Monitor
+
+[sp_whoisactive](https://github.com/amachanic/sp_whoisactive)
