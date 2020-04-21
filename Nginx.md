@@ -284,6 +284,10 @@ crontab -e
 0 3 * * * /usr/local/nginx/clean_access_log.sh
 ```
 
+```bash
+systemctl reload crond
+```
+
 ## learn nginx
 
 [Beginner’s Guide](http://nginx.org/en/docs/beginners_guide.html)
