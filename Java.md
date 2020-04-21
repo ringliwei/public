@@ -25,5 +25,5 @@ vim /etc/profile
 
 # append
 export JAVA_HOME="/usr/local/jvm/jdk-13.0.1/"
-export PATH="$PATH:/usr/local/jvm/jdk-13.0.1/bin/"
+export PATH="${JAVA_HOME}bin/:$PATH"
 ```
