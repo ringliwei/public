@@ -16,7 +16,7 @@ netfilter/conntrack 相关内核参数往往是用 Linux 服务器的互联网�
 
 在 `dmesg` 或 `/var/log/messages` 看到大量以下记录：
 
-`kernel: nf_conntrack: table full, dropping packet.` 
+`kernel: nf_conntrack: table full, dropping packet.`
 
 ---
 
