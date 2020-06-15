@@ -249,6 +249,12 @@ public static Task WithTimeout(this Task task, TimeSpan timeout)
 
 ## Stream
 
+[Java8 Stream原理深度解析](https://www.cnblogs.com/Dorae/p/7779246.html)
+
+[深入理解Java Stream流水线](https://www.cnblogs.com/CarpenterLee/p/6637118.html)
+
+[Java 8 Stream探秘](https://colobu.com/2014/11/18/Java-8-Stream/)
+
 ## Reactive-Streams
 
 [reactive-streams.org](http://www.reactive-streams.org/)
