@@ -810,7 +810,7 @@ public class Pipeline<TInput, TOutput>
  * 2. executor 接受两个参数，分别是 resolve 和 reject
  * 3. promise 只能从 pending 到 rejected, 或者从 pending 到 fulfilled
  * 4. promise 的状态一旦确认，就不会再改变
- * 5. promise 都有 then 方法，then 接收两个参数，分别是 promise 成功的回调 onFulfilled, 
+ * 5. promise 都有 then 方法，then 接收两个参数，分别是 promise 成功的回调 onFulfilled,
  *      和 promise 失败的回调 onRejected
  * 6. 如果调用 then 时，promise已经成功，则执行 onFulfilled，并将promise的值作为参数传递进去。
  *      如果promise已经失败，那么执行 onRejected, 并将 promise 失败的原因作为参数传递进去。
