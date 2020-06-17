@@ -18,7 +18,11 @@
     - [RxJava](#rxjava)
     - [Rx.NET](#rxnet)
       - [Pulling vs. Pushing Data](#pulling-vs-pushing-data)
-  - [Pipeline](#pipeline)
+  - [Linq](#linq)
+    - [Pipeline](#pipeline)
+  - [Node.js](#nodejs)
+    - [Promise](#promise)
+    - [Observable](#observable)
 
 ## Promise, Future
 
@@ -623,11 +627,13 @@ This is the push pattern employed by Reactive Extensions. It is similar to joini
 
 The push model implemented by Rx is represented by the observable pattern of `IObservable<T>/IObserver<T>`. The `IObservable<T>` interface is a dual of the familiar `IEnumerable<T>` interface. It abstracts a sequence of data, and keeps a list of `IObserver<T>` implementations that are interested in the data sequence. The IObservable will notify all the observers automatically of any state changes. To register an interest through a subscription, you use the Subscribe method of IObservable, which takes on an IObserver and returns an IDisposable. This gives you the ability to track and dispose of the subscription. In addition, Rx’s LINQ implementation over observable sequences allows developers to compose complex event processing queries over push-based sequences such as .NET events, APM-based (“IAsyncResult”) computations, `Task<T>-based` computations,  Windows 7 Sensor and Location APIs, SQL StreamInsight temporal event streams, F# first-class events, and asynchronous workflows. For more information on the `IObservable<T>/IObserver<T>` interfaces, see Exploring The Major Interfaces in Rx. For tutorials on using the different features in Rx, see Using Rx.
 
-## Pipeline
+## Linq
+
+### Pipeline
 
 [ParallelExtensionsExtras](https://github.com/dotnet/samples/blob/master/csharp/parallel/ParallelExtensionsExtras/CoordinationDataStructures/Pipeline.cs)
 
-```C#
+```CSharp
 /// <summary>Provides support for pipelined data processing.</summary>
 public static class Pipeline
 {
@@ -796,7 +802,9 @@ public class Pipeline<TInput, TOutput>
 }
 ```
 
-## JavaScript
+## Node.js
+
+Node 库以多种方式[处理异步功能](https://www.gulpjs.com.cn/docs/getting-started/async-completion/)。最常见的模式是 [error-first callbacks](https://nodejs.org/api/errors.html#errors_error_first_callbacks)，但是你还可能会遇到 [streams](https://nodejs.org/api/stream.html)、[promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises)、[event emitters](https://nodejs.org/api/events.html)、[child processes](https://nodejs.org/api/child_process.html), 或 [observables](https://github.com/tc39/proposal-observable/blob/master/README.md)。
 
 ### Promise
 
@@ -955,3 +963,7 @@ function resolvePromise(promise2, x, resolve, reject) {
 
 module.exports = Promise;
 ```
+
+### Observable
+
+[RxJS](https://github.com/ReactiveX/RxJS)
