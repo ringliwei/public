@@ -974,6 +974,8 @@ module.exports = Promise;
 
 ## Schedule
 
+模拟 js 的单线程执行机制。1. 可执行普通Task, 2. 可执行定时任务。
+
 ### okio
 
 ```java
