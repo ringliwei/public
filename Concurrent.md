@@ -977,7 +977,7 @@ module.exports = Promise;
 
 ### Streams
 
-A stream is an abstract interface for working with streaming data in Node.js.
+A [stream](https://nodejs.org/api/stream.html) is an abstract interface for working with streaming data in Node.js.
 
 [gulp](https://www.gulpjs.com.cn/docs/api/concepts/) 实现了流式处理。
 
