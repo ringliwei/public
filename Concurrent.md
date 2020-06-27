@@ -981,6 +981,8 @@ A stream is an abstract interface for working with streaming data in Node.js.
 
 [gulp](https://www.gulpjs.com.cn/docs/api/concepts/) 实现了流式处理。
 
+[stream-handbook](https://github.com/substack/stream-handbook) covers the basics of how to write node.js programs with streams.
+
 ## Schedule
 
 模拟 js 的单线程执行机制。1. 可执行普通Task, 2. 可执行定时任务。
