@@ -983,6 +983,8 @@ A stream is an abstract interface for working with streaming data in Node.js.
 
 [stream-handbook](https://github.com/substack/stream-handbook) covers the basics of how to write node.js programs with streams.
 
+[through2](https://github.com/rvagg/through2) A tiny wrapper around Node.js streams.Transform (Streams2/3) to avoid explicit subclassing noise
+
 ## Schedule
 
 模拟 js 的单线程执行机制。1. 可执行普通Task, 2. 可执行定时任务。
