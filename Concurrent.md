@@ -23,6 +23,7 @@
   - [Node.js](#nodejs)
     - [Promise](#promise)
     - [Observable](#observable)
+    - [Streams](#streams)
   - [Schedule](#schedule)
     - [okio](#okio)
     - [Netty](#netty)
@@ -810,6 +811,8 @@ public class Pipeline<TInput, TOutput>
 
 Node 库以多种方式[处理异步功能](https://www.gulpjs.com.cn/docs/getting-started/async-completion/)。最常见的模式是 [error-first callbacks](https://nodejs.org/api/errors.html#errors_error_first_callbacks)，但是你还可能会遇到 [streams](https://nodejs.org/api/stream.html)、[promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises)、[event emitters](https://nodejs.org/api/events.html)、[child processes](https://nodejs.org/api/child_process.html), 或 [observables](https://github.com/tc39/proposal-observable/blob/master/README.md)。
 
+`Promise` 与 `Observable` 可以解决js中的回调地狱。
+
 ### Promise
 
 [MDN](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Promise)
@@ -971,6 +974,12 @@ module.exports = Promise;
 ### Observable
 
 [RxJS](https://github.com/ReactiveX/RxJS)
+
+### Streams
+
+A stream is an abstract interface for working with streaming data in Node.js.
+
+[gulp](https://www.gulpjs.com.cn/docs/api/concepts/) 实现了流式处理。
 
 ## Schedule
 
