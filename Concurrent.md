@@ -6,6 +6,10 @@
     - [CompletableFuture, Future](#completablefuture-future)
     - [TaskCompletionSource, Task, CancellationTokenSource, CancellationToken](#taskcompletionsource-task-cancellationtokensource-cancellationtoken)
   - [Stream](#stream)
+    - [Sink](#sink)
+    - [ReferencePipeline](#referencepipeline)
+    - [ReduceOps](#reduceops)
+    - [Collector](#collector)
   - [Reactive-Streams](#reactive-streams)
     - [Reactor](#reactor)
       - [Publisher](#publisher)
@@ -264,10 +268,17 @@ public static Task WithTimeout(this Task task, TimeSpan timeout)
 
 [Java 8 Stream探秘](https://colobu.com/2014/11/18/Java-8-Stream/)
 
+| Stream（pull） | Reactive-Stream(push) | Desc  |
+|--------------|-----------------------|-----|
+| Stream       | Flux                  | 0…N |
+| Optional     | Mono                  | 0…1 |
+
 ```java
 // view source
 Stream.of(1, 2, 3).map(x -> x + 1).filter(x -> x % 2 == 0).collect(Collectors.toList());
 ```
+
+### Sink
 
 ```java
 /**
@@ -602,6 +613,8 @@ interface Sink<T> extends Consumer<T> {
 }
 ```
 
+### ReferencePipeline
+
 ```java
 /**
  * Abstract base class for an intermediate pipeline stage or pipeline source
@@ -840,6 +853,8 @@ abstract class ReferencePipeline<P_IN, P_OUT>
 }
 ```
 
+### ReduceOps
+
 ```java
 /**
  * Factory for creating instances of {@code TerminalOp} that implement
@@ -905,8 +920,9 @@ final class ReduceOps {
 }
 ```
 
-```java
+### Collector
 
+```java
 /**
  * A <a href="package-summary.html#Reduction">mutable reduction operation</a> that
  * accumulates input elements into a mutable result container, optionally transforming
