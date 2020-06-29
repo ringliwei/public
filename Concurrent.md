@@ -264,6 +264,957 @@ public static Task WithTimeout(this Task task, TimeSpan timeout)
 
 [Java 8 Stream探秘](https://colobu.com/2014/11/18/Java-8-Stream/)
 
+```java
+// view source
+Stream.of(1, 2, 3).map(x -> x + 1).filter(x -> x % 2 == 0).collect(Collectors.toList());
+```
+
+```java
+/**
+ * An extension of {@link Consumer} used to conduct values through the stages of
+ * a stream pipeline, with additional methods to manage size information,
+ * control flow, etc.  Before calling the {@code accept()} method on a
+ * {@code Sink} for the first time, you must first call the {@code begin()}
+ * method to inform it that data is coming (optionally informing the sink how
+ * much data is coming), and after all data has been sent, you must call the
+ * {@code end()} method.  After calling {@code end()}, you should not call
+ * {@code accept()} without again calling {@code begin()}.  {@code Sink} also
+ * offers a mechanism by which the sink can cooperatively signal that it does
+ * not wish to receive any more data (the {@code cancellationRequested()}
+ * method), which a source can poll before sending more data to the
+ * {@code Sink}.
+ *
+ * <p>A sink may be in one of two states: an initial state and an active state.
+ * It starts out in the initial state; the {@code begin()} method transitions
+ * it to the active state, and the {@code end()} method transitions it back into
+ * the initial state, where it can be re-used.  Data-accepting methods (such as
+ * {@code accept()} are only valid in the active state.
+ *
+ * @apiNote
+ * A stream pipeline consists of a source, zero or more intermediate stages
+ * (such as filtering or mapping), and a terminal stage, such as reduction or
+ * for-each.  For concreteness, consider the pipeline:
+ *
+ * <pre>{@code
+ *     int longestStringLengthStartingWithA
+ *         = strings.stream()
+ *                  .filter(s -> s.startsWith("A"))
+ *                  .mapToInt(String::length)
+ *                  .max();
+ * }</pre>
+ *
+ * <p>Here, we have three stages, filtering, mapping, and reducing.  The
+ * filtering stage consumes strings and emits a subset of those strings; the
+ * mapping stage consumes strings and emits ints; the reduction stage consumes
+ * those ints and computes the maximal value.
+ *
+ * <p>A {@code Sink} instance is used to represent each stage of this pipeline,
+ * whether the stage accepts objects, ints, longs, or doubles.  Sink has entry
+ * points for {@code accept(Object)}, {@code accept(int)}, etc, so that we do
+ * not need a specialized interface for each primitive specialization.  (It
+ * might be called a "kitchen sink" for this omnivorous tendency.)  The entry
+ * point to the pipeline is the {@code Sink} for the filtering stage, which
+ * sends some elements "downstream" -- into the {@code Sink} for the mapping
+ * stage, which in turn sends integral values downstream into the {@code Sink}
+ * for the reduction stage. The {@code Sink} implementations associated with a
+ * given stage is expected to know the data type for the next stage, and call
+ * the correct {@code accept} method on its downstream {@code Sink}.  Similarly,
+ * each stage must implement the correct {@code accept} method corresponding to
+ * the data type it accepts.
+ *
+ * <p>The specialized subtypes such as {@link Sink.OfInt} override
+ * {@code accept(Object)} to call the appropriate primitive specialization of
+ * {@code accept}, implement the appropriate primitive specialization of
+ * {@code Consumer}, and re-abstract the appropriate primitive specialization of
+ * {@code accept}.
+ *
+ * <p>The chaining subtypes such as {@link ChainedInt} not only implement
+ * {@code Sink.OfInt}, but also maintain a {@code downstream} field which
+ * represents the downstream {@code Sink}, and implement the methods
+ * {@code begin()}, {@code end()}, and {@code cancellationRequested()} to
+ * delegate to the downstream {@code Sink}.  Most implementations of
+ * intermediate operations will use these chaining wrappers.  For example, the
+ * mapping stage in the above example would look like:
+ *
+ * <pre>{@code
+ *     IntSink is = new Sink.ChainedReference<U>(sink) {
+ *         public void accept(U u) {
+ *             downstream.accept(mapper.applyAsInt(u));
+ *         }
+ *     };
+ * }</pre>
+ *
+ * <p>Here, we implement {@code Sink.ChainedReference<U>}, meaning that we expect
+ * to receive elements of type {@code U} as input, and pass the downstream sink
+ * to the constructor.  Because the next stage expects to receive integers, we
+ * must call the {@code accept(int)} method when emitting values to the downstream.
+ * The {@code accept()} method applies the mapping function from {@code U} to
+ * {@code int} and passes the resulting value to the downstream {@code Sink}.
+ *
+ * @param <T> type of elements for value streams
+ * @since 1.8
+ */
+interface Sink<T> extends Consumer<T> {
+    /**
+     * Resets the sink state to receive a fresh data set.  This must be called
+     * before sending any data to the sink.  After calling {@link #end()},
+     * you may call this method to reset the sink for another calculation.
+     * @param size The exact size of the data to be pushed downstream, if
+     * known or {@code -1} if unknown or infinite.
+     *
+     * <p>Prior to this call, the sink must be in the initial state, and after
+     * this call it is in the active state.
+     */
+    default void begin(long size) {}
+
+    /**
+     * Indicates that all elements have been pushed.  If the {@code Sink} is
+     * stateful, it should send any stored state downstream at this time, and
+     * should clear any accumulated state (and associated resources).
+     *
+     * <p>Prior to this call, the sink must be in the active state, and after
+     * this call it is returned to the initial state.
+     */
+    default void end() {}
+
+    /**
+     * Indicates that this {@code Sink} does not wish to receive any more data.
+     *
+     * @implSpec The default implementation always returns false.
+     *
+     * @return true if cancellation is requested
+     */
+    default boolean cancellationRequested() {
+        return false;
+    }
+
+    /**
+     * Accepts an int value.
+     *
+     * @implSpec The default implementation throws IllegalStateException.
+     *
+     * @throws IllegalStateException if this sink does not accept int values
+     */
+    default void accept(int value) {
+        throw new IllegalStateException("called wrong accept method");
+    }
+
+    /**
+     * Accepts a long value.
+     *
+     * @implSpec The default implementation throws IllegalStateException.
+     *
+     * @throws IllegalStateException if this sink does not accept long values
+     */
+    default void accept(long value) {
+        throw new IllegalStateException("called wrong accept method");
+    }
+
+    /**
+     * Accepts a double value.
+     *
+     * @implSpec The default implementation throws IllegalStateException.
+     *
+     * @throws IllegalStateException if this sink does not accept double values
+     */
+    default void accept(double value) {
+        throw new IllegalStateException("called wrong accept method");
+    }
+
+    /**
+     * {@code Sink} that implements {@code Sink<Integer>}, re-abstracts
+     * {@code accept(int)}, and wires {@code accept(Integer)} to bridge to
+     * {@code accept(int)}.
+     */
+    interface OfInt extends Sink<Integer>, IntConsumer {
+        @Override
+        void accept(int value);
+
+        @Override
+        default void accept(Integer i) {
+            if (Tripwire.ENABLED)
+                Tripwire.trip(getClass(), "{0} calling Sink.OfInt.accept(Integer)");
+            accept(i.intValue());
+        }
+    }
+
+    /**
+     * {@code Sink} that implements {@code Sink<Long>}, re-abstracts
+     * {@code accept(long)}, and wires {@code accept(Long)} to bridge to
+     * {@code accept(long)}.
+     */
+    interface OfLong extends Sink<Long>, LongConsumer {
+        @Override
+        void accept(long value);
+
+        @Override
+        default void accept(Long i) {
+            if (Tripwire.ENABLED)
+                Tripwire.trip(getClass(), "{0} calling Sink.OfLong.accept(Long)");
+            accept(i.longValue());
+        }
+    }
+
+    /**
+     * {@code Sink} that implements {@code Sink<Double>}, re-abstracts
+     * {@code accept(double)}, and wires {@code accept(Double)} to bridge to
+     * {@code accept(double)}.
+     */
+    interface OfDouble extends Sink<Double>, DoubleConsumer {
+        @Override
+        void accept(double value);
+
+        @Override
+        default void accept(Double i) {
+            if (Tripwire.ENABLED)
+                Tripwire.trip(getClass(), "{0} calling Sink.OfDouble.accept(Double)");
+            accept(i.doubleValue());
+        }
+    }
+
+    /**
+     * Abstract {@code Sink} implementation for creating chains of
+     * sinks.  The {@code begin}, {@code end}, and
+     * {@code cancellationRequested} methods are wired to chain to the
+     * downstream {@code Sink}.  This implementation takes a downstream
+     * {@code Sink} of unknown input shape and produces a {@code Sink<T>}.  The
+     * implementation of the {@code accept()} method must call the correct
+     * {@code accept()} method on the downstream {@code Sink}.
+     */
+    abstract static class ChainedReference<T, E_OUT> implements Sink<T> {
+        protected final Sink<? super E_OUT> downstream;
+
+        public ChainedReference(Sink<? super E_OUT> downstream) {
+            this.downstream = Objects.requireNonNull(downstream);
+        }
+
+        @Override
+        public void begin(long size) {
+            downstream.begin(size);
+        }
+
+        @Override
+        public void end() {
+            downstream.end();
+        }
+
+        @Override
+        public boolean cancellationRequested() {
+            return downstream.cancellationRequested();
+        }
+    }
+
+    /**
+     * Abstract {@code Sink} implementation designed for creating chains of
+     * sinks.  The {@code begin}, {@code end}, and
+     * {@code cancellationRequested} methods are wired to chain to the
+     * downstream {@code Sink}.  This implementation takes a downstream
+     * {@code Sink} of unknown input shape and produces a {@code Sink.OfInt}.
+     * The implementation of the {@code accept()} method must call the correct
+     * {@code accept()} method on the downstream {@code Sink}.
+     */
+    abstract static class ChainedInt<E_OUT> implements Sink.OfInt {
+        protected final Sink<? super E_OUT> downstream;
+
+        public ChainedInt(Sink<? super E_OUT> downstream) {
+            this.downstream = Objects.requireNonNull(downstream);
+        }
+
+        @Override
+        public void begin(long size) {
+            downstream.begin(size);
+        }
+
+        @Override
+        public void end() {
+            downstream.end();
+        }
+
+        @Override
+        public boolean cancellationRequested() {
+            return downstream.cancellationRequested();
+        }
+    }
+
+    /**
+     * Abstract {@code Sink} implementation designed for creating chains of
+     * sinks.  The {@code begin}, {@code end}, and
+     * {@code cancellationRequested} methods are wired to chain to the
+     * downstream {@code Sink}.  This implementation takes a downstream
+     * {@code Sink} of unknown input shape and produces a {@code Sink.OfLong}.
+     * The implementation of the {@code accept()} method must call the correct
+     * {@code accept()} method on the downstream {@code Sink}.
+     */
+    abstract static class ChainedLong<E_OUT> implements Sink.OfLong {
+        protected final Sink<? super E_OUT> downstream;
+
+        public ChainedLong(Sink<? super E_OUT> downstream) {
+            this.downstream = Objects.requireNonNull(downstream);
+        }
+
+        @Override
+        public void begin(long size) {
+            downstream.begin(size);
+        }
+
+        @Override
+        public void end() {
+            downstream.end();
+        }
+
+        @Override
+        public boolean cancellationRequested() {
+            return downstream.cancellationRequested();
+        }
+    }
+
+    /**
+     * Abstract {@code Sink} implementation designed for creating chains of
+     * sinks.  The {@code begin}, {@code end}, and
+     * {@code cancellationRequested} methods are wired to chain to the
+     * downstream {@code Sink}.  This implementation takes a downstream
+     * {@code Sink} of unknown input shape and produces a {@code Sink.OfDouble}.
+     * The implementation of the {@code accept()} method must call the correct
+     * {@code accept()} method on the downstream {@code Sink}.
+     */
+    abstract static class ChainedDouble<E_OUT> implements Sink.OfDouble {
+        protected final Sink<? super E_OUT> downstream;
+
+        public ChainedDouble(Sink<? super E_OUT> downstream) {
+            this.downstream = Objects.requireNonNull(downstream);
+        }
+
+        @Override
+        public void begin(long size) {
+            downstream.begin(size);
+        }
+
+        @Override
+        public void end() {
+            downstream.end();
+        }
+
+        @Override
+        public boolean cancellationRequested() {
+            return downstream.cancellationRequested();
+        }
+    }
+}
+```
+
+```java
+/**
+ * Abstract base class for an intermediate pipeline stage or pipeline source
+ * stage implementing whose elements are of type {@code U}.
+ *
+ * @param <P_IN> type of elements in the upstream source
+ * @param <P_OUT> type of elements in produced by this stage
+ *
+ * @since 1.8
+ */
+abstract class ReferencePipeline<P_IN, P_OUT>
+        extends AbstractPipeline<P_IN, P_OUT, Stream<P_OUT>>
+        implements Stream<P_OUT>  {
+    @Override
+    @SuppressWarnings("unchecked")
+    public final <R> Stream<R> map(Function<? super P_OUT, ? extends R> mapper) {
+        Objects.requireNonNull(mapper);
+        return new StatelessOp<P_OUT, R>(this, StreamShape.REFERENCE,
+                                     StreamOpFlag.NOT_SORTED | StreamOpFlag.NOT_DISTINCT) {
+            @Override
+            Sink<P_OUT> opWrapSink(int flags, Sink<R> sink) {
+                return new Sink.ChainedReference<P_OUT, R>(sink) {
+                    @Override
+                    public void accept(P_OUT u) {
+                        downstream.accept(mapper.apply(u));
+                    }
+                };
+            }
+        };
+    }
+
+    @Override
+    public final <R> Stream<R> flatMap(Function<? super P_OUT, ? extends Stream<? extends R>> mapper) {
+        Objects.requireNonNull(mapper);
+        return new StatelessOp<P_OUT, R>(this, StreamShape.REFERENCE,
+                                     StreamOpFlag.NOT_SORTED | StreamOpFlag.NOT_DISTINCT | StreamOpFlag.NOT_SIZED) {
+            @Override
+            Sink<P_OUT> opWrapSink(int flags, Sink<R> sink) {
+                return new Sink.ChainedReference<P_OUT, R>(sink) {
+                    // true if cancellationRequested() has been called
+                    boolean cancellationRequestedCalled;
+
+                    @Override
+                    public void begin(long size) {
+                        downstream.begin(-1);
+                    }
+
+                    @Override
+                    public void accept(P_OUT u) {
+                        try (Stream<? extends R> result = mapper.apply(u)) {
+                            if (result != null) {
+                                if (!cancellationRequestedCalled) {
+                                    result.sequential().forEach(downstream);
+                                }
+                                else {
+                                    var s = result.sequential().spliterator();
+                                    do { } while (!downstream.cancellationRequested() && s.tryAdvance(downstream));
+                                }
+                            }
+                        }
+                    }
+
+                    @Override
+                    public boolean cancellationRequested() {
+                        // If this method is called then an operation within the stream
+                        // pipeline is short-circuiting (see AbstractPipeline.copyInto).
+                        // Note that we cannot differentiate between an upstream or
+                        // downstream operation
+                        cancellationRequestedCalled = true;
+                        return downstream.cancellationRequested();
+                    }
+                };
+            }
+        };
+    }
+
+    @Override
+    public final Stream<P_OUT> filter(Predicate<? super P_OUT> predicate) {
+        Objects.requireNonNull(predicate);
+        return new StatelessOp<P_OUT, P_OUT>(this, StreamShape.REFERENCE,
+                                     StreamOpFlag.NOT_SIZED) {
+            @Override
+            Sink<P_OUT> opWrapSink(int flags, Sink<P_OUT> sink) {
+                return new Sink.ChainedReference<P_OUT, P_OUT>(sink) {
+                    @Override
+                    public void begin(long size) {
+                        downstream.begin(-1);
+                    }
+
+                    @Override
+                    public void accept(P_OUT u) {
+                        if (predicate.test(u))
+                            downstream.accept(u);
+                    }
+                };
+            }
+        };
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    public final <R, A> R collect(Collector<? super P_OUT, A, R> collector) {
+        A container;
+        if (isParallel()
+                && (collector.characteristics().contains(Collector.Characteristics.CONCURRENT))
+                && (!isOrdered() || collector.characteristics().contains(Collector.Characteristics.UNORDERED))) {
+            container = collector.supplier().get();
+            BiConsumer<A, ? super P_OUT> accumulator = collector.accumulator();
+            forEach(u -> accumulator.accept(container, u));
+        }
+        else {
+            // ReduceOps 生成 TerminalOp
+            // 假定接下来再调用 ReduceOps.evaluateSequential 生成 ReducingSink 传递给 wrapAndCopyInto
+            container = evaluate(ReduceOps.makeRef(collector));
+        }
+        return collector.characteristics().contains(Collector.Characteristics.IDENTITY_FINISH)
+               ? (R) container
+               : collector.finisher().apply(container);
+    }
+
+    /**
+     * Evaluate the pipeline with a terminal operation to produce a result.
+     *
+     * @param <R> the type of result
+     * @param terminalOp the terminal operation to be applied to the pipeline.
+     * @return the result
+     */
+    final <R> R evaluate(TerminalOp<E_OUT, R> terminalOp) {
+        assert getOutputShape() == terminalOp.inputShape();
+        if (linkedOrConsumed)
+            throw new IllegalStateException(MSG_STREAM_LINKED);
+        linkedOrConsumed = true;
+
+        return isParallel()
+               ? terminalOp.evaluateParallel(this, sourceSpliterator(terminalOp.getOpFlags()))
+               : terminalOp.evaluateSequential(this, sourceSpliterator(terminalOp.getOpFlags()));
+    }
+
+    /**
+     * Get the source spliterator for this pipeline stage.  For a sequential or
+     * stateless parallel pipeline, this is the source spliterator.  For a
+     * stateful parallel pipeline, this is a spliterator describing the results
+     * of all computations up to and including the most recent stateful
+     * operation.
+     */
+    @SuppressWarnings("unchecked")
+    private Spliterator<?> sourceSpliterator(int terminalFlags) {
+        // Get the source spliterator of the pipeline
+        Spliterator<?> spliterator = null;
+        if (sourceStage.sourceSpliterator != null) {
+            spliterator = sourceStage.sourceSpliterator;
+            sourceStage.sourceSpliterator = null;
+        }
+        else if (sourceStage.sourceSupplier != null) {
+            spliterator = (Spliterator<?>) sourceStage.sourceSupplier.get();
+            sourceStage.sourceSupplier = null;
+        }
+        else {
+            throw new IllegalStateException(MSG_CONSUMED);
+        }
+
+        if (isParallel() && sourceStage.sourceAnyStateful) {
+            // Adapt the source spliterator, evaluating each stateful op
+            // in the pipeline up to and including this pipeline stage.
+            // The depth and flags of each pipeline stage are adjusted accordingly.
+            int depth = 1;
+            for (@SuppressWarnings("rawtypes") AbstractPipeline u = sourceStage, p = sourceStage.nextStage, e = this;
+                 u != e;
+                 u = p, p = p.nextStage) {
+
+                int thisOpFlags = p.sourceOrOpFlags;
+                if (p.opIsStateful()) {
+                    depth = 0;
+
+                    if (StreamOpFlag.SHORT_CIRCUIT.isKnown(thisOpFlags)) {
+                        // Clear the short circuit flag for next pipeline stage
+                        // This stage encapsulates short-circuiting, the next
+                        // stage may not have any short-circuit operations, and
+                        // if so spliterator.forEachRemaining should be used
+                        // for traversal
+                        thisOpFlags = thisOpFlags & ~StreamOpFlag.IS_SHORT_CIRCUIT;
+                    }
+
+                    spliterator = p.opEvaluateParallelLazy(u, spliterator);
+
+                    // Inject or clear SIZED on the source pipeline stage
+                    // based on the stage's spliterator
+                    thisOpFlags = spliterator.hasCharacteristics(Spliterator.SIZED)
+                            ? (thisOpFlags & ~StreamOpFlag.NOT_SIZED) | StreamOpFlag.IS_SIZED
+                            : (thisOpFlags & ~StreamOpFlag.IS_SIZED) | StreamOpFlag.NOT_SIZED;
+                }
+                p.depth = depth++;
+                p.combinedFlags = StreamOpFlag.combineOpFlags(thisOpFlags, u.combinedFlags);
+            }
+        }
+
+        if (terminalFlags != 0)  {
+            // Apply flags from the terminal operation to last pipeline stage
+            combinedFlags = StreamOpFlag.combineOpFlags(terminalFlags, combinedFlags);
+        }
+
+        return spliterator;
+    }
+
+    @Override
+    final <P_IN, S extends Sink<E_OUT>> S wrapAndCopyInto(S sink, Spliterator<P_IN> spliterator) {
+        copyInto(wrapSink(Objects.requireNonNull(sink)), spliterator);
+        return sink;
+    }
+
+    @Override
+    @SuppressWarnings("unchecked")
+    final <P_IN> Sink<P_IN> wrapSink(Sink<E_OUT> sink) {
+        // 代表 TerminalOp 的 ReducingSink
+        Objects.requireNonNull(sink);
+
+        for ( @SuppressWarnings("rawtypes") AbstractPipeline p=AbstractPipeline.this; p.depth > 0; p=p.previousStage) {
+            sink = p.opWrapSink(p.previousStage.combinedFlags, sink);
+        }
+        return (Sink<P_IN>) sink;
+    }
+
+    @Override
+    final <P_IN> void copyInto(Sink<P_IN> wrappedSink, Spliterator<P_IN> spliterator) {
+        Objects.requireNonNull(wrappedSink);
+
+        if (!StreamOpFlag.SHORT_CIRCUIT.isKnown(getStreamAndOpFlags())) {
+            wrappedSink.begin(spliterator.getExactSizeIfKnown());
+            spliterator.forEachRemaining(wrappedSink);
+            wrappedSink.end();
+        }
+        else {
+            copyIntoWithCancel(wrappedSink, spliterator);
+        }
+    }
+}
+```
+
+```java
+/**
+ * Factory for creating instances of {@code TerminalOp} that implement
+ * reductions.
+ *
+ * @since 1.8
+ */
+final class ReduceOps {
+
+    private ReduceOps() { }
+
+    @Override
+    public <P_IN> R evaluateSequential(PipelineHelper<T> helper,
+                                        Spliterator<P_IN> spliterator) {
+        return helper.wrapAndCopyInto(makeSink(), spliterator).get();
+    }
+
+    /**
+     * Constructs a {@code TerminalOp} that implements a mutable reduce on
+     * reference values.
+     *
+     * @param <T> the type of the input elements
+     * @param <I> the type of the intermediate reduction result
+     * @param collector a {@code Collector} defining the reduction
+     * @return a {@code ReduceOp} implementing the reduction
+     */
+    public static <T, I> TerminalOp<T, I>
+    makeRef(Collector<? super T, I, ?> collector) {
+        Supplier<I> supplier = Objects.requireNonNull(collector).supplier();
+        BiConsumer<I, ? super T> accumulator = collector.accumulator();
+        BinaryOperator<I> combiner = collector.combiner();
+        class ReducingSink extends Box<I>
+                implements AccumulatingSink<T, I, ReducingSink> {
+            @Override
+            public void begin(long size) {
+                state = supplier.get();
+            }
+
+            @Override
+            public void accept(T t) {
+                accumulator.accept(state, t);
+            }
+
+            @Override
+            public void combine(ReducingSink other) {
+                state = combiner.apply(state, other.state);
+            }
+        }
+        return new ReduceOp<T, I, ReducingSink>(StreamShape.REFERENCE) {
+            @Override
+            public ReducingSink makeSink() {
+                return new ReducingSink();
+            }
+
+            @Override
+            public int getOpFlags() {
+                return collector.characteristics().contains(Collector.Characteristics.UNORDERED)
+                       ? StreamOpFlag.NOT_ORDERED
+                       : 0;
+            }
+        };
+    }
+}
+```
+
+```java
+
+/**
+ * A <a href="package-summary.html#Reduction">mutable reduction operation</a> that
+ * accumulates input elements into a mutable result container, optionally transforming
+ * the accumulated result into a final representation after all input elements
+ * have been processed.  Reduction operations can be performed either sequentially
+ * or in parallel.
+ *
+ * <p>Examples of mutable reduction operations include:
+ * accumulating elements into a {@code Collection}; concatenating
+ * strings using a {@code StringBuilder}; computing summary information about
+ * elements such as sum, min, max, or average; computing "pivot table" summaries
+ * such as "maximum valued transaction by seller", etc.  The class {@link Collectors}
+ * provides implementations of many common mutable reductions.
+ *
+ * <p>A {@code Collector} is specified by four functions that work together to
+ * accumulate entries into a mutable result container, and optionally perform
+ * a final transform on the result.  They are: <ul>
+ *     <li>creation of a new result container ({@link #supplier()})</li>
+ *     <li>incorporating a new data element into a result container ({@link #accumulator()})</li>
+ *     <li>combining two result containers into one ({@link #combiner()})</li>
+ *     <li>performing an optional final transform on the container ({@link #finisher()})</li>
+ * </ul>
+ *
+ * <p>Collectors also have a set of characteristics, such as
+ * {@link Characteristics#CONCURRENT}, that provide hints that can be used by a
+ * reduction implementation to provide better performance.
+ *
+ * <p>A sequential implementation of a reduction using a collector would
+ * create a single result container using the supplier function, and invoke the
+ * accumulator function once for each input element.  A parallel implementation
+ * would partition the input, create a result container for each partition,
+ * accumulate the contents of each partition into a subresult for that partition,
+ * and then use the combiner function to merge the subresults into a combined
+ * result.
+ *
+ * <p>To ensure that sequential and parallel executions produce equivalent
+ * results, the collector functions must satisfy an <em>identity</em> and an
+ * <a href="package-summary.html#Associativity">associativity</a> constraints.
+ *
+ * <p>The identity constraint says that for any partially accumulated result,
+ * combining it with an empty result container must produce an equivalent
+ * result.  That is, for a partially accumulated result {@code a} that is the
+ * result of any series of accumulator and combiner invocations, {@code a} must
+ * be equivalent to {@code combiner.apply(a, supplier.get())}.
+ *
+ * <p>The associativity constraint says that splitting the computation must
+ * produce an equivalent result.  That is, for any input elements {@code t1}
+ * and {@code t2}, the results {@code r1} and {@code r2} in the computation
+ * below must be equivalent:
+ * <pre>{@code
+ *     A a1 = supplier.get();
+ *     accumulator.accept(a1, t1);
+ *     accumulator.accept(a1, t2);
+ *     R r1 = finisher.apply(a1);  // result without splitting
+ *
+ *     A a2 = supplier.get();
+ *     accumulator.accept(a2, t1);
+ *     A a3 = supplier.get();
+ *     accumulator.accept(a3, t2);
+ *     R r2 = finisher.apply(combiner.apply(a2, a3));  // result with splitting
+ * } </pre>
+ *
+ * <p>For collectors that do not have the {@code UNORDERED} characteristic,
+ * two accumulated results {@code a1} and {@code a2} are equivalent if
+ * {@code finisher.apply(a1).equals(finisher.apply(a2))}.  For unordered
+ * collectors, equivalence is relaxed to allow for non-equality related to
+ * differences in order.  (For example, an unordered collector that accumulated
+ * elements to a {@code List} would consider two lists equivalent if they
+ * contained the same elements, ignoring order.)
+ *
+ * <p>Libraries that implement reduction based on {@code Collector}, such as
+ * {@link Stream#collect(Collector)}, must adhere to the following constraints:
+ * <ul>
+ *     <li>The first argument passed to the accumulator function, both
+ *     arguments passed to the combiner function, and the argument passed to the
+ *     finisher function must be the result of a previous invocation of the
+ *     result supplier, accumulator, or combiner functions.</li>
+ *     <li>The implementation should not do anything with the result of any of
+ *     the result supplier, accumulator, or combiner functions other than to
+ *     pass them again to the accumulator, combiner, or finisher functions,
+ *     or return them to the caller of the reduction operation.</li>
+ *     <li>If a result is passed to the combiner or finisher
+ *     function, and the same object is not returned from that function, it is
+ *     never used again.</li>
+ *     <li>Once a result is passed to the combiner or finisher function, it
+ *     is never passed to the accumulator function again.</li>
+ *     <li>For non-concurrent collectors, any result returned from the result
+ *     supplier, accumulator, or combiner functions must be serially
+ *     thread-confined.  This enables collection to occur in parallel without
+ *     the {@code Collector} needing to implement any additional synchronization.
+ *     The reduction implementation must manage that the input is properly
+ *     partitioned, that partitions are processed in isolation, and combining
+ *     happens only after accumulation is complete.</li>
+ *     <li>For concurrent collectors, an implementation is free to (but not
+ *     required to) implement reduction concurrently.  A concurrent reduction
+ *     is one where the accumulator function is called concurrently from
+ *     multiple threads, using the same concurrently-modifiable result container,
+ *     rather than keeping the result isolated during accumulation.
+ *     A concurrent reduction should only be applied if the collector has the
+ *     {@link Characteristics#UNORDERED} characteristics or if the
+ *     originating data is unordered.</li>
+ * </ul>
+ *
+ * <p>In addition to the predefined implementations in {@link Collectors}, the
+ * static factory methods {@link #of(Supplier, BiConsumer, BinaryOperator, Characteristics...)}
+ * can be used to construct collectors.  For example, you could create a collector
+ * that accumulates widgets into a {@code TreeSet} with:
+ *
+ * <pre>{@code
+ *     Collector<Widget, ?, TreeSet<Widget>> intoSet =
+ *         Collector.of(TreeSet::new, TreeSet::add,
+ *                      (left, right) -> { left.addAll(right); return left; });
+ * }</pre>
+ *
+ * (This behavior is also implemented by the predefined collector
+ * {@link Collectors#toCollection(Supplier)}).
+ *
+ * @apiNote
+ * Performing a reduction operation with a {@code Collector} should produce a
+ * result equivalent to:
+ * <pre>{@code
+ *     R container = collector.supplier().get();
+ *     for (T t : data)
+ *         collector.accumulator().accept(container, t);
+ *     return collector.finisher().apply(container);
+ * }</pre>
+ *
+ * <p>However, the library is free to partition the input, perform the reduction
+ * on the partitions, and then use the combiner function to combine the partial
+ * results to achieve a parallel reduction.  (Depending on the specific reduction
+ * operation, this may perform better or worse, depending on the relative cost
+ * of the accumulator and combiner functions.)
+ *
+ * <p>Collectors are designed to be <em>composed</em>; many of the methods
+ * in {@link Collectors} are functions that take a collector and produce
+ * a new collector.  For example, given the following collector that computes
+ * the sum of the salaries of a stream of employees:
+ *
+ * <pre>{@code
+ *     Collector<Employee, ?, Integer> summingSalaries
+ *         = Collectors.summingInt(Employee::getSalary))
+ * }</pre>
+ *
+ * If we wanted to create a collector to tabulate the sum of salaries by
+ * department, we could reuse the "sum of salaries" logic using
+ * {@link Collectors#groupingBy(Function, Collector)}:
+ *
+ * <pre>{@code
+ *     Collector<Employee, ?, Map<Department, Integer>> summingSalariesByDept
+ *         = Collectors.groupingBy(Employee::getDepartment, summingSalaries);
+ * }</pre>
+ *
+ * @see Stream#collect(Collector)
+ * @see Collectors
+ *
+ * @param <T> the type of input elements to the reduction operation
+ * @param <A> the mutable accumulation type of the reduction operation (often
+ *            hidden as an implementation detail)
+ * @param <R> the result type of the reduction operation
+ * @since 1.8
+ */
+public interface Collector<T, A, R> {
+    /**
+     * A function that creates and returns a new mutable result container.
+     *
+     * @return a function which returns a new, mutable result container
+     */
+    Supplier<A> supplier();
+
+    /**
+     * A function that folds a value into a mutable result container.
+     *
+     * @return a function which folds a value into a mutable result container
+     */
+    BiConsumer<A, T> accumulator();
+
+    /**
+     * A function that accepts two partial results and merges them.  The
+     * combiner function may fold state from one argument into the other and
+     * return that, or may return a new result container.
+     *
+     * @return a function which combines two partial results into a combined
+     * result
+     */
+    BinaryOperator<A> combiner();
+
+    /**
+     * Perform the final transformation from the intermediate accumulation type
+     * {@code A} to the final result type {@code R}.
+     *
+     * <p>If the characteristic {@code IDENTITY_FINISH} is
+     * set, this function may be presumed to be an identity transform with an
+     * unchecked cast from {@code A} to {@code R}.
+     *
+     * @return a function which transforms the intermediate result to the final
+     * result
+     */
+    Function<A, R> finisher();
+
+    /**
+     * Returns a {@code Set} of {@code Collector.Characteristics} indicating
+     * the characteristics of this Collector.  This set should be immutable.
+     *
+     * @return an immutable set of collector characteristics
+     */
+    Set<Characteristics> characteristics();
+
+    /**
+     * Returns a new {@code Collector} described by the given {@code supplier},
+     * {@code accumulator}, and {@code combiner} functions.  The resulting
+     * {@code Collector} has the {@code Collector.Characteristics.IDENTITY_FINISH}
+     * characteristic.
+     *
+     * @param supplier The supplier function for the new collector
+     * @param accumulator The accumulator function for the new collector
+     * @param combiner The combiner function for the new collector
+     * @param characteristics The collector characteristics for the new
+     *                        collector
+     * @param <T> The type of input elements for the new collector
+     * @param <R> The type of intermediate accumulation result, and final result,
+     *           for the new collector
+     * @throws NullPointerException if any argument is null
+     * @return the new {@code Collector}
+     */
+    public static<T, R> Collector<T, R, R> of(Supplier<R> supplier,
+                                              BiConsumer<R, T> accumulator,
+                                              BinaryOperator<R> combiner,
+                                              Characteristics... characteristics) {
+        Objects.requireNonNull(supplier);
+        Objects.requireNonNull(accumulator);
+        Objects.requireNonNull(combiner);
+        Objects.requireNonNull(characteristics);
+        Set<Characteristics> cs = (characteristics.length == 0)
+                                  ? Collectors.CH_ID
+                                  : Collections.unmodifiableSet(EnumSet.of(Collector.Characteristics.IDENTITY_FINISH,
+                                                                           characteristics));
+        return new Collectors.CollectorImpl<>(supplier, accumulator, combiner, cs);
+    }
+
+    /**
+     * Returns a new {@code Collector} described by the given {@code supplier},
+     * {@code accumulator}, {@code combiner}, and {@code finisher} functions.
+     *
+     * @param supplier The supplier function for the new collector
+     * @param accumulator The accumulator function for the new collector
+     * @param combiner The combiner function for the new collector
+     * @param finisher The finisher function for the new collector
+     * @param characteristics The collector characteristics for the new
+     *                        collector
+     * @param <T> The type of input elements for the new collector
+     * @param <A> The intermediate accumulation type of the new collector
+     * @param <R> The final result type of the new collector
+     * @throws NullPointerException if any argument is null
+     * @return the new {@code Collector}
+     */
+    public static<T, A, R> Collector<T, A, R> of(Supplier<A> supplier,
+                                                 BiConsumer<A, T> accumulator,
+                                                 BinaryOperator<A> combiner,
+                                                 Function<A, R> finisher,
+                                                 Characteristics... characteristics) {
+        Objects.requireNonNull(supplier);
+        Objects.requireNonNull(accumulator);
+        Objects.requireNonNull(combiner);
+        Objects.requireNonNull(finisher);
+        Objects.requireNonNull(characteristics);
+        Set<Characteristics> cs = Collectors.CH_NOID;
+        if (characteristics.length > 0) {
+            cs = EnumSet.noneOf(Characteristics.class);
+            Collections.addAll(cs, characteristics);
+            cs = Collections.unmodifiableSet(cs);
+        }
+        return new Collectors.CollectorImpl<>(supplier, accumulator, combiner, finisher, cs);
+    }
+
+    /**
+     * Characteristics indicating properties of a {@code Collector}, which can
+     * be used to optimize reduction implementations.
+     */
+    enum Characteristics {
+        /**
+         * Indicates that this collector is <em>concurrent</em>, meaning that
+         * the result container can support the accumulator function being
+         * called concurrently with the same result container from multiple
+         * threads.
+         *
+         * <p>If a {@code CONCURRENT} collector is not also {@code UNORDERED},
+         * then it should only be evaluated concurrently if applied to an
+         * unordered data source.
+         */
+        CONCURRENT,
+
+        /**
+         * Indicates that the collection operation does not commit to preserving
+         * the encounter order of input elements.  (This might be true if the
+         * result container has no intrinsic order, such as a {@link Set}.)
+         */
+        UNORDERED,
+
+        /**
+         * Indicates that the finisher function is the identity function and
+         * can be elided.  If set, it must be the case that an unchecked cast
+         * from A to R will succeed.
+         */
+        IDENTITY_FINISH
+    }
+}
+```
+
 ## Reactive-Streams
 
 [reactive-streams.org](http://www.reactive-streams.org/)
