@@ -5,6 +5,7 @@
   - [gcc](#gcc)
   - [install nginx by bash](#install-nginx-by-bash)
   - [install nginx by bash with versioning](#install-nginx-by-bash-with-versioning)
+  - [install nginx with lua](#install-nginx-with-lua)
   - [start nginx](#start-nginx)
   - [nginx systemd service file](#nginx-systemd-service-file)
   - [add module](#add-module)
@@ -135,6 +136,108 @@ test -e /usr/bin/nginx || ln -s /usr/local/nginx/sbin/nginx /usr/bin/nginx
 # useradd -M -s /sbin/nologin nginx
 ```
 
+## install nginx with lua
+
+[lua-nginx-module](https://github.com/openresty/lua-nginx-module)
+
+[dynamic-nginx-upstreams-with-lua-and-redis](https://sosedoff.com/2012/06/11/dynamic-nginx-upstreams-with-lua-and-redis.html)
+
+[installation](https://github.com/openresty/lua-nginx-module#installation)
+
+```bash
+
+########################### Download ###########################
+
+wget -O "luajit2-v2.1-20200102.tar.gz" https://github.com/openresty/luajit2/archive/v2.1-20200102.tar.gz
+
+wget -O "ngx_devel_kit-v0.3.1.tar.gz" https://github.com/vision5/ngx_devel_kit/archive/v0.3.1.tar.gz
+
+wget -O "lua-nginx-module-v0.10.17.tar.gz" https://github.com/openresty/lua-nginx-module/archive/v0.10.17.tar.gz
+
+nginx_version=1.17.8
+pcre_version=8.43
+openssl_version=1.1.1d
+zlib_version=1.2.11
+
+#
+# @see http://nginx.org/en/download.html
+#
+wget http://nginx.org/download/nginx-${nginx_version}.tar.gz
+
+tar -xzvf nginx-${nginx_version}.tar.gz
+
+#
+# @see http://www.pcre.org/
+#
+wget https://ftp.pcre.org/pub/pcre/pcre-${pcre_version}.tar.gz
+
+tar -xzvf pcre-${pcre_version}.tar.gz
+
+#
+# @see https://www.openssl.org/source/
+#
+wget https://www.openssl.org/source/openssl-${openssl_version}.tar.gz
+
+tar -xzvf openssl-${openssl_version}.tar.gz
+
+#
+# @see http://www.zlib.net/
+#
+wget http://www.zlib.net/zlib-${zlib_version}.tar.gz
+
+tar -xzvf zlib-${zlib_version}.tar.gz
+```
+
+```bash
+########################### 安装 ###########################
+cd luajit2-v2.1-20200102
+make install PREFIX=/usr/local/LuaJIT
+###
+
+```
+
+```bash
+########################### make-nginx.sh ###########################
+
+nginx_version=1.17.8
+pcre_version=8.43
+openssl_version=1.1.1d
+zlib_version=1.2.11
+
+# 重点来了！！！
+cd nginx-${nginx_version}
+
+
+# tell nginx's build system where to find LuaJIT 2.1:
+export LUAJIT_LIB=/usr/local/LuaJIT/lib
+export LUAJIT_INC=/usr/local/LuaJIT/include/luajit-2.1
+
+./configure --prefix=/usr/local/nginx \
+--with-ld-opt="-Wl,-rpath,/usr/local/LuaJIT/lib" \
+--with-http_stub_status_module \
+--with-http_ssl_module \
+--with-pcre=../pcre-${pcre_version} \
+--with-zlib=../zlib-${zlib_version} \
+--with-openssl=../openssl-${openssl_version} \
+--add-dynamic-module=../ngx_devel_kit-0.3.1 \
+--add-dynamic-module=../lua-nginx-module-0.10.17
+
+make
+```
+
+```bash
+########################### install-nginx.sh ###########################
+nginx_version=1.17.8
+pcre_version=8.43
+openssl_version=1.1.1d
+zlib_version=1.2.11
+
+# 重点来了！！！
+cd nginx-${nginx_version}
+
+make install
+```
+
 ## start nginx
 
 ```bash
@@ -160,7 +263,7 @@ nginx
 
 The location of the PIDFile and the NGINX binary may be different depending on how NGINX was compiled.
 
-Save this file as /lib/systemd/system/nginx.service
+Save this file as `/lib/systemd/system/nginx.service`
 
 ```systemd
 [Unit]
