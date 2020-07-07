@@ -6,6 +6,7 @@
   - [install nginx by bash](#install-nginx-by-bash)
   - [install nginx by bash with versioning](#install-nginx-by-bash-with-versioning)
   - [install nginx with lua](#install-nginx-with-lua)
+  - [install nginx with njs](#install-nginx-with-njs)
   - [start nginx](#start-nginx)
   - [nginx systemd service file](#nginx-systemd-service-file)
   - [add module](#add-module)
@@ -138,6 +139,8 @@ test -e /usr/bin/nginx || ln -s /usr/local/nginx/sbin/nginx /usr/bin/nginx
 
 ## install nginx with lua
 
+> 结论：直接使用 [OpenResty](https://openresty.org/en/)
+
 [lua-nginx-module](https://github.com/openresty/lua-nginx-module)
 
 [dynamic-nginx-upstreams-with-lua-and-redis](https://sosedoff.com/2012/06/11/dynamic-nginx-upstreams-with-lua-and-redis.html)
@@ -189,7 +192,7 @@ tar -xzvf zlib-${zlib_version}.tar.gz
 ```
 
 ```bash
-########################### 安装 ###########################
+########################### 安装 LuaJIT ###########################
 cd luajit2-v2.1-20200102
 make install PREFIX=/usr/local/LuaJIT
 ###
@@ -219,8 +222,8 @@ export LUAJIT_INC=/usr/local/LuaJIT/include/luajit-2.1
 --with-pcre=../pcre-${pcre_version} \
 --with-zlib=../zlib-${zlib_version} \
 --with-openssl=../openssl-${openssl_version} \
---add-dynamic-module=../ngx_devel_kit-0.3.1 \
---add-dynamic-module=../lua-nginx-module-0.10.17
+--add-module=../ngx_devel_kit-0.3.1 \
+--add-module=../lua-nginx-module-0.10.17
 
 make
 ```
@@ -228,6 +231,79 @@ make
 ```bash
 ########################### install-nginx.sh ###########################
 nginx_version=1.17.8
+pcre_version=8.43
+openssl_version=1.1.1d
+zlib_version=1.2.11
+
+# 重点来了！！！
+cd nginx-${nginx_version}
+
+make install
+```
+
+```bash
+########################### 最后的最后 ###########################
+
+# 启动 nginx 出错：
+
+#nginx: [alert] failed to load the 'resty.core' module (https://github.com/openresty/lua-resty-core); ensure you are using an #OpenResty release from https://openresty.org/en/download.html (reason: module 'resty.core' not found:
+# no field package.preload['resty.core']
+# no file './resty/core.lua'
+# no file '/usr/local/LuaJIT/share/luajit-2.1.0-beta3/resty/core.lua'
+# no file '/usr/local/share/lua/5.1/resty/core.lua'
+# no file '/usr/local/share/lua/5.1/resty/core/init.lua'
+# no file '/usr/local/LuaJIT/share/lua/5.1/resty/core.lua'
+# no file '/usr/local/LuaJIT/share/lua/5.1/resty/core/init.lua'
+# no file './resty/core.so'
+# no file '/usr/local/lib/lua/5.1/resty/core.so'
+# no file '/usr/local/LuaJIT/lib/lua/5.1/resty/core.so'
+# no file '/usr/local/lib/lua/5.1/loadall.so'
+# no file './resty.so'
+# no file '/usr/local/lib/lua/5.1/resty.so'
+# no file '/usr/local/LuaJIT/lib/lua/5.1/resty.so'
+# no file '/usr/local/lib/lua/5.1/loadall.so') in /usr/local/nginx/conf/nginx.conf:121
+
+# 根据上面的错误提示下载下面的包
+wget https://openresty.org/download/openresty-1.17.8.1.tar.gz
+
+# 复制 lua-resty-core-0.1.19 及 lua-resty-lrucache-0.10 中的库到 /usr/local/LuaJIT/share/lua/5.1/
+```
+
+## install nginx with njs
+
+[Building from the sources](http://nginx.org/en/docs/njs/install.html)
+
+```bash
+njs_version=0.4.1
+wget -O "njs-${njs_version}.tar.gz" http://hg.nginx.org/njs/archive/${njs_version}.tar.gz
+tar -xzvf njs-${njs_version}.tar.gz
+```
+
+```bash
+########################### make-nginx.sh ###########################
+nginx_version=1.16.1
+pcre_version=8.43
+openssl_version=1.1.1d
+zlib_version=1.2.11
+njs_version=0.4.1
+
+# 重点来了！！！
+cd nginx-${nginx_version}
+
+./configure --prefix=/usr/local/nginx \
+--with-http_stub_status_module \
+--with-http_ssl_module \
+--with-pcre=../pcre-${pcre_version} \
+--with-zlib=../zlib-${zlib_version} \
+--with-openssl=../openssl-${openssl_version} \
+--add-dynamic-module=../njs-${njs_version}/nginx
+
+make
+```
+
+```bash
+########################### install-nginx.sh ###########################
+nginx_version=1.16.1
 pcre_version=8.43
 openssl_version=1.1.1d
 zlib_version=1.2.11
