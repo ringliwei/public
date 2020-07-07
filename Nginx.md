@@ -13,6 +13,8 @@
   - [clean nginx log](#clean-nginx-log)
     - [clean script](#clean-script)
     - [crontab](#crontab)
+  - [configuration](#configuration)
+    - [proxy_cache](#proxy_cache)
   - [learn nginx](#learn-nginx)
     - [Starting, Stopping, and Reloading Configuration](#starting-stopping-and-reloading-configuration)
     - [Resource](#resource)
@@ -465,6 +467,99 @@ crontab -e
 
 ```bash
 systemctl reload crond
+```
+
+## configuration
+
+### proxy_cache
+
+[ngx_http_proxy_module](http://nginx.org/en/docs/http/ngx_http_proxy_module.html)
+
+[nginx proxy_cache 缓存配置](https://blog.csdn.net/ai2000ai/article/details/80485352)
+
+```nginx
+http {
+    include mime.types;
+    default_type application/octet-stream;
+
+    log_format main '$remote_addr - $remote_user [$time_local] "$request" '
+    '$status $body_bytes_sent "$http_referer" '
+    '"$http_user_agent" "$http_x_forwarded_for" '
+    '$request_time $upstream_response_time $upstream_addr $upstream_cache_status';
+
+    access_log logs/access.log main;
+
+    sendfile on;
+    #tcp_nopush     on;
+
+    #keepalive_timeout  0;
+    keepalive_timeout 65;
+    resolver 223.5.5.5 114.114.114.114 8.8.8.8;
+
+    gzip on;
+    gzip_min_length 1k;
+    gzip_buffers 4 16k;
+    gzip_http_version 1.0;
+    gzip_comp_level 2;
+    gzip_types application/json text/plain application/x-javascript application/javascript text/css application/xml text/javascript application/x-httpd-php image/jpeg image/gif image/png;
+    gzip_vary off;
+
+    # step 1: 配置 cache path
+    proxy_cache_path /usr/local/nginx/proxy_cache levels=1:2 keys_zone=static-cache:1024m max_size=100g inactive=30d;
+
+    js_import js/http.js;
+    js_set $summary http.summary;
+
+    upstream city-w-sites {
+        ip_hash;
+
+        server 192.168.1.68;
+        server 192.168.1.69;
+        server 192.168.1.120;
+    }
+    server {
+        listen 80;
+        server_name localhost;
+
+        #charset koi8-r;
+
+        #access_log  logs/host.access.log  main;
+        location / {
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            #proxy_set_header X-Real-IP $http_x_real_ip;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_read_timeout 300;
+            proxy_pass http://city-w-sites;
+        }
+        location ~* \.(gif|jpg|jpeg|png|bmp|swf|svg|woff|woff2|eot|ttf|js|css)$ {
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_read_timeout 300;
+            proxy_pass http://city-w-sites;
+            # step 2: 配置 proxy cache
+            proxy_cache static-cache;
+            proxy_cache_key $scheme$proxy_host$request_uri;
+            proxy_cache_valid 200 206 304 301 302 10d;
+        }
+        location = /summary {
+            default_type text/plain;
+            return 200 $summary;
+        }
+        location = /hello {
+            default_type text/plain;
+            js_content http.hello;
+        }
+        #error_page  404              /404.html;
+
+        # redirect server error pages to the static page /50x.html
+        #
+        error_page 500 502 503 504 /50x.html;
+        location = /50x.html {
+            root html;
+        }
+    }
 ```
 
 ## learn nginx
