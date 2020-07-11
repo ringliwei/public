@@ -4,9 +4,21 @@
 
 [PowerShell about](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/about/?view=powershell-6)
 
+- [PowerShell](#powershell)
+  - [PSTip](#pstip)
+    - [New-HttpQueryString](#new-httpquerystring)
+    - [Remove-FileSystemItem](#remove-filesystemitem)
+    - [log](#log)
+    - [Load-Assembly](#load-assembly)
+    - [Invoke-With-Retry](#invoke-with-retry)
+    - [GetHTTPResponse](#gethttpresponse)
+    - [DownloadFile](#downloadfile)
+
 ## PSTip
 
 [A Better Way to Generate HTTP Query Strings in PowerShell](https://www.powershellmagazine.com/2019/06/14/pstip-a-better-way-to-generate-http-query-strings-in-powershell/)
+
+### New-HttpQueryString
 
 ```powershell
 function New-HttpQueryString
@@ -48,9 +60,9 @@ function New-HttpQueryString
 
 [Cannot remove item, The Directory is not empty](https://stackoverflow.com/questions/53553729/cannot-remove-item-the-directory-is-not-empty/)
 
+### Remove-FileSystemItem
+
 ``` powershell
-
-
 function Remove-FileSystemItem {
     <#
     .SYNOPSIS
@@ -226,6 +238,152 @@ function Remove-FileSystemItem {
                     continue
                 }
             }
+        }
+    }
+}
+```
+
+### log
+
+```powershell
+function Say($str) {
+    Write-Host "Hello: $str"
+}
+
+function Say-Verbose($str) {
+    Write-Verbose "Hello: $str"
+}
+```
+
+### Load-Assembly
+
+```powershell
+function Load-Assembly([string] $Assembly) {
+    try {
+        Add-Type -Assembly $Assembly | Out-Null
+    }
+    catch {
+        # On Nano Server, Powershell Core Edition is used.  Add-Type is unable to resolve base class assemblies because they are not GAC'd.
+        # Loading the base class assemblies is not unnecessary as the types will automatically get resolved.
+    }
+}
+```
+
+### Invoke-With-Retry
+
+```powershell
+function Invoke-With-Retry([ScriptBlock]$ScriptBlock, [int]$MaxAttempts = 3, [int]$SecondsBetweenAttempts = 1) {
+    $Attempts = 0
+
+    while ($true) {
+        try {
+            return $ScriptBlock.Invoke()
+        }
+        catch {
+            $Attempts++
+            if ($Attempts -lt $MaxAttempts) {
+                Start-Sleep $SecondsBetweenAttempts
+            }
+            else {
+                throw
+            }
+        }
+    }
+}
+```
+
+### GetHTTPResponse
+
+```powershell
+function GetHTTPResponse([Uri] $Uri)
+{
+    Invoke-With-Retry(
+    {
+
+        $HttpClient = $null
+
+        try {
+            # HttpClient is used vs Invoke-WebRequest in order to support Nano Server which doesn't support the Invoke-WebRequest cmdlet.
+            Load-Assembly -Assembly System.Net.Http
+
+            if(-not $ProxyAddress) {
+                try {
+                    # Despite no proxy being explicitly specified, we may still be behind a default proxy
+                    $DefaultProxy = [System.Net.WebRequest]::DefaultWebProxy;
+                    if($DefaultProxy -and (-not $DefaultProxy.IsBypassed($Uri))) {
+                        $ProxyAddress = $DefaultProxy.GetProxy($Uri).OriginalString
+                        $ProxyUseDefaultCredentials = $true
+                    }
+                } catch {
+                    # Eat the exception and move forward as the above code is an attempt
+                    #    at resolving the DefaultProxy that may not have been a problem.
+                    $ProxyAddress = $null
+                    Say-Verbose("Exception ignored: $_.Exception.Message - moving forward...")
+                }
+            }
+
+            if($ProxyAddress) {
+                $HttpClientHandler = New-Object System.Net.Http.HttpClientHandler
+                $HttpClientHandler.Proxy =  New-Object System.Net.WebProxy -Property @{Address=$ProxyAddress;UseDefaultCredentials=$ProxyUseDefaultCredentials}
+                $HttpClient = New-Object System.Net.Http.HttpClient -ArgumentList $HttpClientHandler
+            }
+            else {
+
+                $HttpClient = New-Object System.Net.Http.HttpClient
+            }
+            # Default timeout for HttpClient is 100s.  For a 50 MB download this assumes 500 KB/s average, any less will time out
+            # 20 minutes allows it to work over much slower connections.
+            $HttpClient.Timeout = New-TimeSpan -Minutes 20
+            $Response = $HttpClient.GetAsync("${Uri}${FeedCredential}").Result
+            if (($Response -eq $null) -or (-not ($Response.IsSuccessStatusCode))) {
+                 # The feed credential is potentially sensitive info. Do not log FeedCredential to console output.
+                $ErrorMsg = "Failed to download $Uri."
+                if ($Response -ne $null) {
+                    $ErrorMsg += "  $Response"
+                }
+
+                throw $ErrorMsg
+            }
+
+             return $Response
+        }
+        finally {
+             if ($HttpClient -ne $null) {
+                $HttpClient.Dispose()
+            }
+        }
+    })
+}
+```
+
+### DownloadFile
+
+```powershell
+function DownloadFile($Source, [string]$OutPath) {
+    if ($Source -notlike "http*") {
+        #  Using System.IO.Path.GetFullPath to get the current directory
+        #    does not work in this context - $pwd gives the current directory
+        if (![System.IO.Path]::IsPathRooted($Source)) {
+            $Source = $(Join-Path -Path $pwd -ChildPath $Source)
+        }
+        $Source = Get-Absolute-Path $Source
+        Say "Copying file from $Source to $OutPath"
+        Copy-Item $Source $OutPath
+        return
+    }
+
+    $Stream = $null
+
+    try {
+        $Response = GetHTTPResponse -Uri $Source
+        $Stream = $Response.Content.ReadAsStreamAsync().Result
+        $File = [System.IO.File]::Create($OutPath)
+        $Stream.CopyTo($File)
+        $File.Close()
+    }
+    finally {
+        if ($Stream -ne $null) {
+            $Stream.Dispose()
         }
     }
 }
