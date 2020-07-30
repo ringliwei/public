@@ -457,15 +457,35 @@ chmod 755 clean_access_log.sh
 ### crontab
 
 ```bash
+
+# Example of job definition:
+# .---------------- minute (0 - 59)
+# |  .------------- hour (0 - 23)
+# |  |  .---------- day of month (1 - 31)
+# |  |  |  .------- month (1 - 12) OR jan,feb,mar,apr ...
+# |  |  |  |  .---- day of week (0 - 6) (Sunday=0 or 7) OR sun,mon,tue,wed,thu,fri,sat
+# |  |  |  |  |
+# *  *  *  *  * user-name  command to be executed
+
+# cron service
+systemctl status crond
+
 crontab -e
 ```
 
 ```bash
 # 每天凌晨3点清理
 0 3 * * * /usr/local/nginx/clean_access_log.sh
+
+# 每隔30分钟
+*/30 * * * * /usr/local/nginx/clean_access_log.sh
 ```
 
 ```bash
+# 查看定时任务
+crontab -l
+
+# 重启生效
 systemctl reload crond
 ```
 
