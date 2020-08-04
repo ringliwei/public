@@ -116,7 +116,9 @@ public void test() {
 
 [.NET 4.0中的泛型协变和反变](https://www.cnblogs.com/Ninputer/archive/2008/11/22/generic_covariant.html)
 
-> 反变<===>逆变
+[Covariance and Contravariance](https://docs.microsoft.com/en-us/dotnet/csharp/programming-guide/concepts/covariance-contravariance/)
+
+> 协变<===>逆变
 
 随Visual Studio 2010 CTP亮相的C#4和VB10，虽然在支持语言新特性方面走了相当不一样的两条路：C#着重增加后期绑定和与动态语言相容的若干特性，VB10着重简化语言和提高抽象能力；但是两者都增加了一项功能：泛型类型的协变（covariant）和逆变（contravariant）。许多人对其了解可能仅限于增加的in/out关键字，而对其诸多特性有所不知。下面我们就对此进行一些详细的解释，帮助大家正确使用该特性。
 
