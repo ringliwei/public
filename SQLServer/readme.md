@@ -206,6 +206,12 @@ WHERE session_id > 50 -- Ignore system spids.
 ORDER BY Spid, sp.ecid;
 ```
 
+[sys.dm_exec_requests](https://docs.microsoft.com/zh-cn/sql/relational-databases/system-dynamic-management-views/sys-dm-exec-requests-transact-sql?view=sql-server-ver15)
+
+[sys.sysprocesses](https://docs.microsoft.com/zh-cn/sql/relational-databases/system-compatibility-views/sys-sysprocesses-transact-sql?view=sql-server-ver15)
+
+[sys.dm_exec_sql_text](https://docs.microsoft.com/zh-cn/sql/relational-databases/system-dynamic-management-views/sys-dm-exec-sql-text-transact-sql?view=sql-server-ver15)
+
 ### 查询前 10 个可能是性能最差的 SQL 语句
 
 ```sql
