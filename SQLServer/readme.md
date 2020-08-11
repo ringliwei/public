@@ -9,13 +9,13 @@
     - [Show Table Row Count](#show-table-row-count)
     - [Show Table Space And Rows](#show-table-space-and-rows)
   - [Performance optimization](#performance-optimization)
-    - [查看是否有死锁](#%e6%9f%a5%e7%9c%8b%e6%98%af%e5%90%a6%e6%9c%89%e6%ad%bb%e9%94%81)
-    - [查看当前正在执行的sql语句](#%e6%9f%a5%e7%9c%8b%e5%bd%93%e5%89%8d%e6%ad%a3%e5%9c%a8%e6%89%a7%e8%a1%8c%e7%9a%84sql%e8%af%ad%e5%8f%a5)
-    - [查询前 10 个可能是性能最差的 SQL 语句](#%e6%9f%a5%e8%af%a2%e5%89%8d-10-%e4%b8%aa%e5%8f%af%e8%83%bd%e6%98%af%e6%80%a7%e8%83%bd%e6%9c%80%e5%b7%ae%e7%9a%84-sql-%e8%af%ad%e5%8f%a5)
-    - [查询逻辑读取最高的存储过程](#%e6%9f%a5%e8%af%a2%e9%80%bb%e8%be%91%e8%af%bb%e5%8f%96%e6%9c%80%e9%ab%98%e7%9a%84%e5%ad%98%e5%82%a8%e8%bf%87%e7%a8%8b)
-    - [查询从未使用过的索引](#%e6%9f%a5%e8%af%a2%e4%bb%8e%e6%9c%aa%e4%bd%bf%e7%94%a8%e8%bf%87%e7%9a%84%e7%b4%a2%e5%bc%95)
-    - [查询表下索引使用情况](#%e6%9f%a5%e8%af%a2%e8%a1%a8%e4%b8%8b%e7%b4%a2%e5%bc%95%e4%bd%bf%e7%94%a8%e6%83%85%e5%86%b5)
-    - [查询缺失的索引](#%e6%9f%a5%e8%af%a2%e7%bc%ba%e5%a4%b1%e7%9a%84%e7%b4%a2%e5%bc%95)
+    - [查看是否有死锁](#查看是否有死锁)
+    - [查看当前正在执行的sql语句](#查看当前正在执行的sql语句)
+    - [查询前 10 个可能是性能最差的 SQL 语句](#查询前-10-个可能是性能最差的-sql-语句)
+    - [查询逻辑读取最高的存储过程](#查询逻辑读取最高的存储过程)
+    - [查询从未使用过的索引](#查询从未使用过的索引)
+    - [查询表下索引使用情况](#查询表下索引使用情况)
+    - [查询缺失的索引](#查询缺失的索引)
   - [Monitor](#monitor)
 
 ## Script Snippet
@@ -169,28 +169,34 @@ WHERE spid = (
 ### 查看当前正在执行的sql语句
 
 ```sql
-SELECT [Spid]             = session_id,
-       ecid,
-       [Database]         = DB_NAME(sp.dbid),
-       [User]             = nt_username,
-       [Status]           = er.status,
-       [Wait]             = wait_type,
-       [Individual Query] = SUBSTRING(
-                                         qt.text,
-                                         er.statement_start_offset / 2,
-                                         (CASE
-                                              WHEN er.statement_end_offset = -1 THEN
-                                                  LEN(CONVERT(NVARCHAR(MAX), qt.text)) * 2
-                                              ELSE
-                                                  er.statement_end_offset
-                                          END - er.statement_start_offset
-                                         ) / 2
-                                     ),
-       [Parent Query]     = qt.text,
-       Program            = program_name,
-       hostname,
-       nt_domain,
-       start_time
+SELECT [Spid]                = er.session_id,
+       [Blocking_session_id] = er.blocking_session_id,
+       [Database]            = DB_NAME(sp.dbid),
+       [User]                = nt_username,
+       [Command]             = er.command,
+       [Status]              = er.status,
+       [Wait_type]           = er.wait_type,
+       [Wait_time]           = er.wait_time,
+       [Wait_resource]       = er.wait_resource,
+       [Read]                = er.reads,
+       [Writes]              = er.writes,
+       [Logical_reads]       = er.logical_reads,
+       [Individual Query]    = SUBSTRING(
+                                            qt.text,
+                                            er.statement_start_offset / 2,
+                                            (CASE
+                                                 WHEN er.statement_end_offset = -1 THEN
+                                                     LEN(CONVERT(NVARCHAR(MAX), qt.text)) * 2
+                                                 ELSE
+                                                     er.statement_end_offset
+                                             END - er.statement_start_offset
+                                            ) / 2
+                                        ),
+       [Parent Query]        = qt.text,
+       Program               = sp.program_name,
+       sp.hostname,
+       sp.nt_domain,
+       er.start_time
 FROM sys.dm_exec_requests                            er
      INNER JOIN sys.sysprocesses                     sp
          ON er.session_id = sp.spid
