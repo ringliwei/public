@@ -18,6 +18,7 @@
   - [learn nginx](#learn-nginx)
     - [Starting, Stopping, and Reloading Configuration](#starting-stopping-and-reloading-configuration)
     - [Resource](#resource)
+  - [zabbix](#zabbix)
   - [docker](#docker)
     - [mynginx](#mynginx)
   - [Problem](#problem)
@@ -633,6 +634,10 @@ nginx.conf
 compile
 
 - --with-openssl-opt=enable-weak-ssl-ciphers
+
+## zabbix
+
+[ZBX_NGINX](https://github.com/AlexGluck/ZBX_NGINX)
 
 ## docker
 
