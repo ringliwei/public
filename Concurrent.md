@@ -2545,6 +2545,13 @@ public class AsyncTimeout extends Timeout {
 
 [MessageQueue](https://android.googlesource.com/platform/frameworks/base/+/refs/heads/master/core/java/android/os/MessageQueue.java)
 
+[Handler](https://mp.weixin.qq.com/s/H8mHoYHyTe6oOaUwfYh6_g)
+
+[ActivityThread.main](https://android.googlesource.com/platform/frameworks/base/+/refs/heads/master/core/java/android/app/ActivityThread.java)
+
+- Looper.prepareMainLooper()
+- Looper.loop()
+
 ```java
 /*
  * Copyright (C) 2006 The Android Open Source Project
