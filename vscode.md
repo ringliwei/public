@@ -22,3 +22,42 @@ sudo apt install cmake
 ## Remote
 
 [VS Code Remote Development](https://code.visualstudio.com/docs/remote/remote-overview)
+
+## VS Code - Debugger for Chrome
+
+### step 1
+
+安装 Debugger for Chrome
+
+[vscode-chrome-debug](https://github.com/Microsoft/vscode-chrome-debug)
+
+### step 2
+
+启动vue项目：npm run serve
+
+### step 3
+
+编辑 lanuch.json
+
+> url：项目运行的url， 来自step 2
+
+```json
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "chrome",
+            "request": "launch",
+            "name": "activity20201111",
+            "url": "http://localhost:8008",
+            "webRoot": "${workspaceFolder}/src",
+            "sourceMapPathOverrides": {
+                "webpack:///src/*": "${webRoot}/*"
+            }
+        }
+    ]
+}
+```
