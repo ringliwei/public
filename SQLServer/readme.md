@@ -6,6 +6,7 @@
     - [Ticks To Datetime](#ticks-to-datetime)
     - [Search Text In PROC](#search-text-in-proc)
     - [Show Table Information Schema](#show-table-information-schema)
+    - [Show Table Information Schema by MarkDown](#show-table-information-schema-by-markdown)
     - [Show Table Row Count](#show-table-row-count)
     - [Show Table Space And Rows](#show-table-space-and-rows)
   - [Performance optimization](#performance-optimization)
@@ -100,6 +101,45 @@ FROM syscolumns a LEFT JOIN
 WHERE b.name IS NOT NULL
 --WHERE d.name='要查询的表' --如果只查询指定表,加上此条件
 ORDER BY a.id,a.colorder
+```
+
+### Show Table Information Schema by MarkDown
+
+```sql
+DECLARE @TableName NVARCHAR(256)='input your table name'
+DECLARE @FieldTable TABLE
+(
+    FieldName NVARCHAR(256),
+    PrimaryKey NVARCHAR(20),
+    DataType NVARCHAR(50),
+    FieldLength NVARCHAR(50),
+    NeedNull NVARCHAR(50),
+    DefaultValue NVARCHAR(1024),
+    Description NVARCHAR(1024)
+)
+INSERT INTO @FieldTable VALUES('|字段名','|主键','| 类型','| 长度','| 允许空','| 默认值','| 字段说明|')
+INSERT INTO @FieldTable VALUES('|:-------','|:-------','|:-------','|:-------','|:-------','|:-------','|:-------|')
+INSERT INTO @FieldTable
+SELECT
+    字段名     = '|' + a.name ,
+    主键       = '|' + case when exists(SELECT 1 FROM sysobjects where xtype='PK' and parent_obj=a.id and name in (
+                     SELECT name FROM sysindexes WHERE indid in( SELECT indid FROM sysindexkeys WHERE id = a.id AND colid=a.colid))) then '√' else '' end,
+    类型       = '|' + b.name,
+    长度       = '|' + CONVERT(NVARCHAR(10),COLUMNPROPERTY(a.id,a.name,'PRECISION')),
+    允许空     = '|' + case when a.isnullable=1 then '√' else '×' end,
+    默认值     = '|' + ISNULL(e.text,''),
+    字段说明   = '|' + CONVERT(NVARCHAR(1024),ISNULL(g.[value],'')) + '|'
+FROM
+    syscolumns a left join
+    systypes b on a.xusertype=b.xusertype inner join
+    sysobjects d on a.id=d.id  and d.xtype='U' and  d.name<>'dtproperties' left join
+    syscomments e on a.cdefault=e.id left join
+    sys.extended_properties g on a.id=G.major_id and a.colid=g.minor_id left join
+    sys.extended_properties f on d.id=f.major_id and f.minor_id=0
+WHERE d.name=@TableName
+ORDER BY a.id, a.colorder
+
+SELECT * FROM @FieldTable
 ```
 
 ### Show Table Row Count
