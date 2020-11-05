@@ -3,8 +3,8 @@
 - [Docker](#docker)
   - [Install](#install)
   - [Command](#command)
-  - [入门必看](#%e5%85%a5%e9%97%a8%e5%bf%85%e7%9c%8b)
-  - [DOCKER基础技术](#docker%e5%9f%ba%e7%a1%80%e6%8a%80%e6%9c%af)
+  - [入门必看](#入门必看)
+  - [DOCKER基础技术](#docker基础技术)
 
 ## Install
 
@@ -17,8 +17,7 @@
 sudo yum install -y yum-utils device-mapper-persistent-data lvm2
 
 # Step 2: 添加软件源信息
-sudo yum-config-manager --add-repo https://mirrors.aliyun.com/
-docker-ce/linux/centos/docker-ce.repo
+sudo yum-config-manager --add-repo https://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
 
 # Step 3: 更新并安装Docker-CE
 sudo yum makecache fast
