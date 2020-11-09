@@ -689,6 +689,8 @@ git clone http://yourname:password@github.com/name/project.git
 
 [learn git branching oschina](https://oschina.gitee.io/learn-git-branching/)
 
+[Git 工作流程](http://www.ruanyifeng.com/blog/2015/12/git-workflow.html)
+
 [gitmagic](http://www-cs-students.stanford.edu/~blynn/gitmagic/)
 
 [The Git Parable](https://www.cnblogs.com/3Tai/p/4255285.html)
