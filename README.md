@@ -19,3 +19,5 @@ it is public for everyone.
 [骏马金龙](https://www.cnblogs.com/f-ck-need-u/)
 
 > python perl ruby shell linux sed mysql ...
+
+[语义化版本](https://semver.org/lang/zh-CN/)
