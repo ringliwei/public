@@ -1,6 +1,6 @@
 # Git基础命令
 
-- [Git基础命令](#git%e5%9f%ba%e7%a1%80%e5%91%bd%e4%bb%a4)
+- [Git基础命令](#git基础命令)
   - [git init](#git-init)
   - [git clone](#git-clone)
   - [git status](#git-status)
@@ -8,14 +8,14 @@
   - [git log](#git-log)
   - [git commit](#git-commit)
   - [git remote](#git-remote)
-    - [远程跟踪分支](#%e8%bf%9c%e7%a8%8b%e8%b7%9f%e8%b8%aa%e5%88%86%e6%94%af)
-    - [我能自己指定这个属性吗](#%e6%88%91%e8%83%bd%e8%87%aa%e5%b7%b1%e6%8c%87%e5%ae%9a%e8%bf%99%e4%b8%aa%e5%b1%9e%e6%80%a7%e5%90%97)
+    - [远程跟踪分支](#远程跟踪分支)
+    - [我能自己指定这个属性吗](#我能自己指定这个属性吗)
   - [git push](#git-push)
-    - [`<place>` 参数详解](#place-%e5%8f%82%e6%95%b0%e8%af%a6%e8%a7%a3)
+    - [`<place>` 参数详解](#place-参数详解)
     - [create a new repository on the command line](#create-a-new-repository-on-the-command-line)
     - [push an existing repository from the command line](#push-an-existing-repository-from-the-command-line)
   - [git fetch](#git-fetch)
-  - [古怪的 `<source>`](#%e5%8f%a4%e6%80%aa%e7%9a%84-source)
+  - [古怪的 `<source>`](#古怪的-source)
   - [git pull](#git-pull)
   - [git tag](#git-tag)
   - [git describe](#git-describe)
@@ -30,7 +30,7 @@
   - [git mergetool](#git-mergetool)
   - [start with `git init`](#start-with-git-init)
   - [git http](#git-http)
-  - [参考](#%e5%8f%82%e8%80%83)
+  - [参考](#参考)
 
 ## git init
 
@@ -686,6 +686,8 @@ git clone http://yourname:password@github.com/name/project.git
 [Pro Git book](https://git-scm.com/book/zh/v2/)
 
 [learn git branching online](https://learngitbranching.js.org/)
+
+[learn git branching oschina](https://oschina.gitee.io/learn-git-branching/)
 
 [gitmagic](http://www-cs-students.stanford.edu/~blynn/gitmagic/)
 
