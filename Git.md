@@ -691,6 +691,8 @@ git clone http://yourname:password@github.com/name/project.git
 
 [Git 工作流程](http://www.ruanyifeng.com/blog/2015/12/git-workflow.html)
 
+[Git 分支管理策略](http://www.ruanyifeng.com/blog/2012/07/git.html)
+
 [gitmagic](http://www-cs-students.stanford.edu/~blynn/gitmagic/)
 
 [The Git Parable](https://www.cnblogs.com/3Tai/p/4255285.html)
