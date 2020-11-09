@@ -698,7 +698,7 @@ git clone http://yourname:password@github.com/name/project.git
 - [A successful Git branching model](https://nvie.com/posts/a-successful-git-branching-model/)
 ![git-model](./images/git-model@2x.png)
 - [A collection of Git extensions to provide high-level repository operations for Vincent Driessen's branching model.](https://github.com/nvie/gitflow/)
-
+- [gitflow-workflow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow)
 [gitmagic](http://www-cs-students.stanford.edu/~blynn/gitmagic/)
 
 [The Git Parable](https://www.cnblogs.com/3Tai/p/4255285.html)
