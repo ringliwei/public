@@ -685,13 +685,18 @@ git clone http://yourname:password@github.com/name/project.git
 
 [Pro Git book](https://git-scm.com/book/zh/v2/)
 
+- [Pro Git 简体中文版](http://scottchacon.com/2010/06/09/pro-git-zh.html)
+
 [learn git branching online](https://learngitbranching.js.org/)
 
-[learn git branching oschina](https://oschina.gitee.io/learn-git-branching/)
+- [learn git branching oschina](https://oschina.gitee.io/learn-git-branching/)
 
 [Git 工作流程](http://www.ruanyifeng.com/blog/2015/12/git-workflow.html)
 
 [Git 分支管理策略](http://www.ruanyifeng.com/blog/2012/07/git.html)
+
+- [A successful Git branching model](https://nvie.com/posts/a-successful-git-branching-model/)
+- [A collection of Git extensions to provide high-level repository operations for Vincent Driessen's branching model.](https://github.com/nvie/gitflow/)
 
 [gitmagic](http://www-cs-students.stanford.edu/~blynn/gitmagic/)
 
