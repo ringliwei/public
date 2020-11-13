@@ -2,6 +2,8 @@
 
 - [Docker](#docker)
   - [Install](#install)
+    - [Docker Engine](#docker-engine)
+    - [Docker Compose](#docker-compose)
   - [Docker Command](#docker-command)
     - [Management Commands](#management-commands)
     - [Commands](#commands)
@@ -14,7 +16,9 @@
 
 ## Install
 
-[Get Docker Engine - Community for CentOS](https://docs.docker.com/install/linux/docker-ce/centos/)
+### Docker Engine
+
+[Get Docker Engine - Community for CentOS](https://docs.docker.com/engine/install/centos/)
 
 [Aliyun CentOS 7](https://developer.aliyun.com/mirror/docker-ce)
 
@@ -55,6 +59,15 @@ docker version
 
 ```bash
 docker info
+```
+
+### Docker Compose
+
+[Docker Compose](https://docs.docker.com/compose/install/)
+
+```bash
+curl -L "https://github.com/docker/compose/releases/download/1.27.4/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
 ```
 
 ## Docker Command
