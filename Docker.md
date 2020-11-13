@@ -11,9 +11,9 @@
     - [Image](#image)
     - [Container](#container)
     - [Batch](#batch)
-  - [Docker tutorial](#docker-tutorial)
-  - [入门必看](#入门必看)
-  - [DOCKER基础技术](#docker基础技术)
+  - [Docker Tutorial](#docker-tutorial)
+  - [Docker Tutorial2](#docker-tutorial2)
+  - [Docker Foundation](#docker-foundation)
 
 ## Install
 
@@ -250,13 +250,13 @@ docker rm -f `docker ps -a -q`
 docker rmi -f `docker images -q`
 ```
 
-## Docker tutorial
+## Docker Tutorial
 
 [docker-tutorial](http://www.ruanyifeng.com/blog/2018/02/docker-tutorial.html)
 
 [docker-wordpress-tutorial](http://www.ruanyifeng.com/blog/2018/02/docker-wordpress-tutorial.html)
 
-## 入门必看
+## Docker Tutorial2
 
 [这可能是最为详细的Docker入门吐血总结](https://www.cnblogs.com/ECJTUACM-873284962/p/9789130.html)
 
@@ -288,7 +288,7 @@ docker rmi -f `docker images -q`
 
 [深入浅出 Docker（六）：像谷歌一样部署你的应用](https://www.infoq.cn/article/deploy-your-application-like-google)
 
-## DOCKER基础技术
+## Docker Foundation
 
 [DOCKER基础技术：LINUX NAMESPACE（上）](https://coolshell.cn/articles/17010.html)
 
