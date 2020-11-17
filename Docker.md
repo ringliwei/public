@@ -10,7 +10,9 @@
     - [Commands](#commands)
     - [Image](#image)
     - [Container](#container)
-    - [Batch](#batch)
+    - [Samples](#samples)
+      - [Batch](#batch)
+      - [docker system](#docker-system)
   - [Docker Tutorial](#docker-tutorial)
   - [Docker Tutorial2](#docker-tutorial2)
   - [Docker Foundation](#docker-foundation)
@@ -240,7 +242,9 @@ Commands:
   wait        Block until one or more containers stop, then print their exit codes
 ```
 
-### Batch
+### Samples
+
+#### Batch
 
 ```bash
 # 删除所有容器
@@ -248,6 +252,15 @@ docker rm -f `docker ps -a -q`
 
 # 删除所有的镜像
 docker rmi -f `docker images -q`
+```
+
+#### docker system
+
+[清理 Docker 占用的磁盘空间](https://www.cnblogs.com/wuxingwang/p/12170071.html)
+
+```bash
+# docker 使用空间
+docker system df
 ```
 
 ## Docker Tutorial
