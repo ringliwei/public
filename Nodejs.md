@@ -37,6 +37,7 @@
     - [prettier](#prettier)
     - [koa-generator](#koa-generator)
     - [art-template](#art-template)
+  - [Node.js On Windows XP](#nodejs-on-windows-xp)
 
 ## install
 
@@ -411,3 +412,9 @@ Koa application generator.
 ### art-template
 
 [art-template](https://www.npmjs.com/package/art-template) is a simple and superfast templating engine that optimizes template rendering speed by scope pre-declared technique, hence achieving runtime performance which is close to the limits of JavaScript. At the same time, it supports both NodeJS and browser.
+
+## Node.js On Windows XP
+
+[which-nodejs-version-should-i-set-up-on-an-old-windows-xp-machine](https://stackoverflow.com/questions/37744391/which-nodejs-version-should-i-set-up-on-an-old-windows-xp-machine)
+
+[v5.12.0](https://nodejs.org/dist/v5.12.0/)
