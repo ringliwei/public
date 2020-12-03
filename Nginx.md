@@ -21,6 +21,7 @@
   - [zabbix](#zabbix)
   - [docker](#docker)
     - [mynginx](#mynginx)
+  - [CORS](#cors)
   - [Problem](#problem)
 
 ## document
@@ -865,6 +866,24 @@ http {
     #gzip  on;
     # this is a moment
     include conf.d/*.conf;
+}
+```
+
+## CORS
+
+```nginx
+location / {
+    if ($request_method = 'OPTIONS') {
+        add_header 'Access-Control-Allow-Origin' '$http_origin';
+        add_header 'Access-Control-Allow-Credentials' 'true';
+        add_header 'Access-Control-Allow-Methods' 'GET, POST, PUT, DELETE, PATCH, OPTIONS';
+        add_header 'Access-Control-Allow-Headers' 'AppId';
+        # OPTIONS
+        return 204;
+    }
+    # must
+    add_header 'Access-Control-Allow-Origin' '$http_origin';
+    proxy_pass http://web;
 }
 ```
 
