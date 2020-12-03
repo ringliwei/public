@@ -874,15 +874,16 @@ http {
 ```nginx
 location / {
     if ($request_method = 'OPTIONS') {
-        add_header 'Access-Control-Allow-Origin' '$http_origin';
-        add_header 'Access-Control-Allow-Credentials' 'true';
-        add_header 'Access-Control-Allow-Methods' 'GET, POST, PUT, DELETE, PATCH, OPTIONS';
-        add_header 'Access-Control-Allow-Headers' 'AppId';
+        add_header Access-Control-Allow-Origin '$http_origin';
+        add_header Access-Control-Allow-Credentials 'true';
+        add_header Access-Control-Allow-Methods '$http_access_control_request_method';
+        add_header Access-Control-Allow-Headers '$http_access_control_request_headers';
+        add_header Access-Control-Max-Age '2592000';
         # OPTIONS
         return 204;
     }
-    # must
-    add_header 'Access-Control-Allow-Origin' '$http_origin';
+    add_header Access-Control-Allow-Origin '$http_origin';
+    add_header Access-Control-Allow-Credentials 'true';
     proxy_pass http://web;
 }
 ```
