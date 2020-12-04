@@ -1,5 +1,10 @@
 # Ansible
 
+- [Ansible](#ansible)
+  - [Control Host(Ubuntu)](#control-hostubuntu)
+  - [Windows](#windows)
+  - [Reference](#reference)
+
 环境：
 
 | 主机            | OS              | 备注        |
@@ -88,3 +93,19 @@ winrm set winrm/config/service '@{AllowUnencrypted="true"}'
 # 在ubuntu上执行
 ansible W7 -i hosts -m win_ping
 ```
+
+## Reference
+
+[Ansible docs](https://docs.ansible.com/ansible/latest/index.html)
+
+[ansible-playbook command](https://docs.ansible.com/ansible/latest/cli/ansible-playbook.html)
+
+[Patterns: targeting hosts and groups](https://docs.ansible.com/ansible/latest/user_guide/intro_patterns.html)
+
+[Windows modules](https://docs.ansible.com/ansible/latest/collections/ansible/windows/index.html)
+
+[jinja2](http://docs.jinkan.org/docs/jinja2/)
+
+[Ansible中文权威指南](http://ansible.com.cn/)
+
+[Getting started with Ansible](https://steampunk.si/blog/getting-started-with-ansible/)
