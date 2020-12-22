@@ -25,6 +25,7 @@
     - [pm2 process manager](#pm2-process-manager)
     - [jake](#jake)
     - [puppeteer](#puppeteer)
+    - [playwright](#playwright)
     - [generic-pool](#generic-pool)
     - [yo](#yo)
     - [rxjs](#rxjs)
@@ -358,6 +359,10 @@ the JavaScript build tool for Node.js
 ### puppeteer
 
 [Puppeteer](https://www.npmjs.com/package/puppeteer) is a Node library which provides a high-level API to control Chrome or Chromium over the DevTools Protocol. Puppeteer runs headless by default, but can be configured to run full (non-headless) Chrome or Chromium.
+
+### playwright
+
+[playwright](https://www.npmjs.com/package/playwright) is a Node.js library to automate Chromium, Firefox and WebKit with a single API.
 
 ### generic-pool
 
