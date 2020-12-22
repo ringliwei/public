@@ -312,3 +312,5 @@ docker system df
 [DOCKER基础技术：AUFS](https://coolshell.cn/articles/17061.html)
 
 [DOCKER基础技术：DEVICEMAPPER](https://coolshell.cn/articles/17200.html)
+
+[How to implement container in golang?](https://mp.weixin.qq.com/s/wTby-KcsQdss7Sg20ay6vw)
