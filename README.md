@@ -16,7 +16,7 @@ it is public for everyone.
 
 [yolinux](http://yolinux.com)
 
-[骏马金龙](https://www.cnblogs.com/f-ck-need-u/)
+[骏马金龙](https://www.junmajinlong.com/)
 
 > python perl ruby shell linux sed mysql ...
 
