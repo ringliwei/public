@@ -39,6 +39,7 @@
     - [koa-generator](#koa-generator)
     - [art-template](#art-template)
   - [Framework](#framework)
+  - [Package Tool](#package-tool)
   - [Node.js On Windows XP](#nodejs-on-windows-xp)
 
 ## install
@@ -446,6 +447,10 @@ Koa application generator.
 [egg](https://github.com/eggjs/egg)
 
 [thinkjs](https://github.com/thinkjs/thinkjs)
+
+## Package Tool
+
+[pkg](https://github.com/vercel/pkg) Package your Node.js project into an executable
 
 ## Node.js On Windows XP
 
