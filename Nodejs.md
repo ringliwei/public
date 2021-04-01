@@ -38,6 +38,7 @@
     - [prettier](#prettier)
     - [koa-generator](#koa-generator)
     - [art-template](#art-template)
+    - [nanoid](#nanoid)
   - [Framework](#framework)
   - [Package Tool](#package-tool)
   - [Node.js On Windows XP](#nodejs-on-windows-xp)
@@ -419,6 +420,10 @@ Koa application generator.
 ### art-template
 
 [art-template](https://www.npmjs.com/package/art-template) is a simple and superfast templating engine that optimizes template rendering speed by scope pre-declared technique, hence achieving runtime performance which is close to the limits of JavaScript. At the same time, it supports both NodeJS and browser.
+
+### nanoid
+
+[nanoid](https://github.com/ai/nanoid/) A tiny (108 bytes), secure, URL-friendly, unique string ID generator for JavaScript
 
 ## Framework
 
