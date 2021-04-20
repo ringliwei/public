@@ -21,25 +21,42 @@
 
 ### Docker Engine
 
-[Get Docker Engine - Community for CentOS](https://docs.docker.com/engine/install/centos/)
+[Install Docker Engine on CentOS](https://docs.docker.com/engine/install/centos/)
 
 [Aliyun CentOS 7](https://developer.aliyun.com/mirror/docker-ce)
 
 ```bash
 # step 1: 安装必要的一些系统工具
-sudo yum install -y yum-utils device-mapper-persistent-data lvm2
+yum install -y yum-utils
 
 # Step 2: 添加软件源信息
-sudo yum-config-manager --add-repo https://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
+yum-config-manager --add-repo https://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
 
 # Step 3: 更新并安装Docker-CE
-sudo yum makecache fast
-sudo yum -y install docker-ce
+yum makecache fast
+yum -y install docker-ce docker-ce-cli containerd.io
 
-# Step 4: 开启Docker服务
-sudo service docker start
+
+# Step 4: 配置
+mkdir /etc/docker
+cat <<EOF | tee /etc/docker/daemon.json
+{
+  "registry-mirrors": [
+    "https://registry.cn-hangzhou.aliyuncs.com",
+    "https://docker.mirrors.ustc.edu.cn"
+  ],
+  "exec-opts": ["native.cgroupdriver=systemd"],
+  "log-driver": "json-file",
+  "log-opts": {
+    "max-size": "100m"
+  },
+  "storage-driver": "overlay2"
+}
+EOF
 
 # Step 5: 开机启动
+systemctl daemon-reload
+systemctl restart docker
 systemctl enable docker
 ```
 
