@@ -46,3 +46,5 @@
 [如何在 Linux 中扩展/增加 LVM 大小（逻辑卷调整）](https://linux.cn/article-12673-1.html)
 
 [Linux文件系统-XFS收缩与扩展](https://blog.csdn.net/baidu_39459954/article/details/89446794)
+
+[archlinux LVM](https://wiki.archlinux.org/title/LVM)
