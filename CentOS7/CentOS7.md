@@ -9,7 +9,15 @@
 # 以下命令都可获取版本信息
 cat /etc/os-release
 cat /etc/redhat-release
-uname -a
+cat /etc/fedora-release
 cat /proc/version
+uname -a
 hostnamectl
+lsb_release -a
+
+
+lscpu
+cat /proc/cpuinfo
+
+lsmod
 ```
