@@ -10,6 +10,7 @@
   - [start redis](#start-redis)
   - [benchmark](#benchmark)
   - [redis in docker](#redis-in-docker)
+    - [volume redis.conf](#volume-redisconf)
   - [redis in zabbix](#redis-in-zabbix)
   - [redis-cli](#redis-cli)
 
@@ -155,6 +156,33 @@ docker exec -it [container_id] redis-cli -h [host] -p [port] -a [password]
 
 # eg.
 docker exec -it 05f92d468e05 redis-cli -a 123456
+```
+
+### volume redis.conf
+
+```bash
+#
+# @see https://redis.io/topics/config
+#
+vim /usr/local/redis/redis1/redis.conf
+
+# pasword
+requirepass Abc@dfdfdfdf
+
+# 设置以下两项：
+# daemonize no
+# supervised auto
+```
+
+```bash
+docker run -d \
+    -v /usr/local/redis/redis1/data:/data \
+    -v /usr/local/redis/redis1/:/usr/local/etc/redis \
+    --sysctl net.core.somaxconn=1024 \
+    --restart unless-stopped \
+    -p 6381:6379 \
+    --name redis1 \
+    redis:6.2.3 redis-server /usr/local/etc/redis/redis.conf
 ```
 
 ## redis in zabbix
