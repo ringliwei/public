@@ -8,6 +8,7 @@
   - [redis systemd service file](#redis-systemd-service-file)
   - [firewall](#firewall)
   - [start redis](#start-redis)
+  - [benchmark](#benchmark)
   - [redis in docker](#redis-in-docker)
   - [redis in zabbix](#redis-in-zabbix)
   - [redis-cli](#redis-cli)
@@ -132,6 +133,15 @@ systemctl start redis
 
 # 停止
 systemctl stop redis
+```
+
+## benchmark
+
+```bash
+
+cd /usr/local/redis
+
+./bin/redis-benchmark -h localhost -p 6380 -a Abc@dfdfdfdf  -c 100 -n 100000
 ```
 
 ## redis in docker
