@@ -13,6 +13,10 @@
     - [Samples](#samples)
       - [Batch](#batch)
       - [docker system](#docker-system)
+  - [Dockerfile](#dockerfile)
+    - [CMD & ENTRYPOINT](#cmd--entrypoint)
+    - [VOLUME](#volume)
+    - [SHELL](#shell)
   - [Docker Tutorial](#docker-tutorial)
   - [Docker Tutorial2](#docker-tutorial2)
   - [Docker Foundation](#docker-foundation)
@@ -279,6 +283,22 @@ docker rmi -f `docker images -q`
 # docker 使用空间
 docker system df
 ```
+
+## Dockerfile
+
+### CMD & ENTRYPOINT
+
+[CMD ENTRYPOINT 区别](https://blog.csdn.net/u010900754/article/details/78526443)
+
+### VOLUME
+
+[Dockerfile 指令 VOLUME 介绍](https://www.cnblogs.com/51kata/p/5266626.html)
+
+### SHELL
+
+The SHELL instruction allows the default shell used for the shell form of commands to be overridden. The default shell on Linux is `["/bin/sh", "-c"]`, and on Windows is `["cmd", "/S", "/C"]`. The SHELL instruction must be written in JSON form in a Dockerfile.
+
+The following instructions can be affected by the SHELL instruction when the shell form of them is used in a Dockerfile: `RUN`, `CMD` and `ENTRYPOINT`.
 
 ## Docker Tutorial
 
