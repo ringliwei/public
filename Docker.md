@@ -348,6 +348,8 @@ The following instructions can be affected by the SHELL instruction when the she
 
 [DOCKER基础技术：AUFS](https://coolshell.cn/articles/17061.html)
 
+- [Overlay_filesystem](https://wiki.archlinux.org/title/Overlay_filesystem)
+
 [DOCKER基础技术：DEVICEMAPPER](https://coolshell.cn/articles/17200.html)
 
 [How to implement container in golang?](https://mp.weixin.qq.com/s/wTby-KcsQdss7Sg20ay6vw)
