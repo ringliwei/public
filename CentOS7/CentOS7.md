@@ -1,12 +1,12 @@
 # CentOS7
 
 - [CentOS7](#centos7)
-  - [version](#version)
+  - [System Info](#system-info)
 
-## version
+## System Info
 
 ```bash
-# 以下命令都可获取版本信息
+# 版本信息
 cat /etc/os-release
 cat /etc/redhat-release
 cat /etc/fedora-release
@@ -15,7 +15,7 @@ uname -a
 hostnamectl
 lsb_release -a
 
-
+# CPU
 lscpu
 cat /proc/cpuinfo
 
