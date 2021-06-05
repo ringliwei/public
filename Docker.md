@@ -350,6 +350,7 @@ The following instructions can be affected by the SHELL instruction when the she
 
 - [Overlay_filesystem](https://wiki.archlinux.org/title/Overlay_filesystem)
 - [how-containers-work--overlayfs](https://jvns.ca/blog/2019/11/18/how-containers-work--overlayfs/)
+- [overlayfs](https://www.kernel.org/doc/html/latest/filesystems/overlayfs.html)
 
 [DOCKER 基础技术：DEVICEMAPPER](https://coolshell.cn/articles/17200.html)
 
