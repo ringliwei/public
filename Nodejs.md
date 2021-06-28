@@ -39,6 +39,8 @@
     - [koa-generator](#koa-generator)
     - [art-template](#art-template)
     - [nanoid](#nanoid)
+    - [node-fetch](#node-fetch)
+    - [zx](#zx)
   - [Framework](#framework)
   - [Package Tool](#package-tool)
   - [Node.js On Windows XP](#nodejs-on-windows-xp)
@@ -424,6 +426,14 @@ Koa application generator.
 ### nanoid
 
 [nanoid](https://github.com/ai/nanoid/) A tiny (108 bytes), secure, URL-friendly, unique string ID generator for JavaScript
+
+### node-fetch
+
+[node-fetch](https://www.npmjs.com/package/node-fetch) A light-weight module that brings window.fetch to Node.js
+
+### zx
+
+[zx](https://github.com/google/zx) A tool for writing better scripts
 
 ## Framework
 
