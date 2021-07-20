@@ -7,6 +7,8 @@
   - [install nginx by bash with versioning](#install-nginx-by-bash-with-versioning)
   - [install nginx with lua](#install-nginx-with-lua)
   - [install nginx with njs](#install-nginx-with-njs)
+  - [install nginx with stream](#install-nginx-with-stream)
+    - [sftp](#sftp)
   - [start nginx](#start-nginx)
   - [nginx systemd service file](#nginx-systemd-service-file)
   - [add module](#add-module)
@@ -318,6 +320,56 @@ cd nginx-${nginx_version}
 make install
 ```
 
+## install nginx with stream
+
+```bash
+########################### make-stream-nginx.sh ###########################
+nginx_version=1.21.1
+pcre_version=8.43
+openssl_version=1.1.1d
+zlib_version=1.2.11
+
+# 重点来了！！！
+cd nginx-${nginx_version}
+
+./configure --prefix=/usr/local/stream_nginx \
+--with-http_stub_status_module \
+--with-http_ssl_module \
+--with-openssl-opt=enable-weak-ssl-ciphers \
+--with-pcre=../pcre-${pcre_version} \
+--with-zlib=../zlib-${zlib_version} \
+--with-openssl=../openssl-${openssl_version} \
+--with-stream \
+--with-stream_ssl_module
+
+make
+```
+
+### sftp
+
+假定出口 ip 固定为 192.168.1.2，则可以利用 Nginx Stream 进行代理。
+
+```nginx
+stream {
+    upstream sftp-01 {
+        server 192.168.1.100:22;
+    }
+    upstream sftp-02 {
+        server 192.168.1.101:22;
+    }
+    server {
+        listen 10508;
+        proxy_bind 192.168.1.2;
+        proxy_pass sftp-01;
+    }
+    server {
+        listen 10509;
+        proxy_bind 192.168.1.2;
+        proxy_pass sftp-02;
+    }
+}
+```
+
 ## start nginx
 
 ```bash
@@ -614,9 +666,9 @@ Once the master process receives the signal to reload configuration, it checks t
 
 ### Resource
 
-[nginx location中uri 的截取](https://www.jianshu.com/p/849a6c068daa)
+[nginx location 中 uri 的截取](https://www.jianshu.com/p/849a6c068daa)
 
-[关于一些对location认识的误区](https://www.cnblogs.com/lidabo/p/4169396.html)
+[关于一些对 location 认识的误区](https://www.cnblogs.com/lidabo/p/4169396.html)
 
 [nginx 常用模块整理](https://www.cnblogs.com/fangfei9258/p/9453709.html)
 
@@ -778,7 +830,7 @@ http {
 }
 ```
 
-配置文件中相对路径由build时确定，查看[Building nginx from Sources](http://nginx.org/en/docs/configure.html)
+配置文件中相对路径由 build 时确定，查看[Building nginx from Sources](http://nginx.org/en/docs/configure.html)
 
 ```bash
 docker run -d --name nginx7 \
@@ -833,7 +885,7 @@ mkdir /root/nginx/
 docker run -d --name mynginx -v /root/nginx/conf:/etc/nginx/ -v /root/nginx/logs:/etc/nginx/logs -v /root/nginx/html:/etc/nginx/html -p 82:80 ringliwei/nginx:v1.3
 ```
 
-nginx 配置文件（配置文件中相对路径由build时确定，查看[Building nginx from Sources](http://nginx.org/en/docs/configure.html)
+nginx 配置文件（配置文件中相对路径由 build 时确定，查看[Building nginx from Sources](http://nginx.org/en/docs/configure.html)
 
 ```nginx
 user  nginx;
@@ -890,4 +942,4 @@ location / {
 
 ## Problem
 
-- 在 `nginx 1.12.2` 版本配置upstream时, 可以使用upstream `backend_service` 这样的名称（包含下划线）来命名，但 `nginx 1.16.1` 命名 upstream 时由不能带`下划线`
+- 在 `nginx 1.12.2` 版本配置 upstream 时, 可以使用 upstream `backend_service` 这样的名称（包含下划线）来命名，但 `nginx 1.16.1` 命名 upstream 时由不能带`下划线`
