@@ -10,6 +10,7 @@
     - [Show Table Information Schema by MarkDown](#show-table-information-schema-by-markdown)
     - [Show Table Row Count](#show-table-row-count)
     - [Show Table Space And Rows](#show-table-space-and-rows)
+    - [Generate Time Sequence](#generate-time-sequence)
   - [Performance optimization](#performance-optimization)
     - [查看是否有死锁](#查看是否有死锁)
     - [查看当前正在执行的sql语句](#查看当前正在执行的sql语句)
@@ -257,6 +258,56 @@ SELECT
 FROM sysindexes
 WHERE indid=1
 ORDER BY used DESC
+```
+
+### Generate Time Sequence
+
+```sql
+DECLARE @StartDate DATETIME='2021-07-12'
+DECLARE @StartEnd DATETIME='2022-07-12'
+
+DECLARE @TimeSequenceTable TABLE
+(
+TimeString NVARCHAR(20),
+Status INT
+)
+
+
+WHILE @StartDate<=@StartEnd
+BEGIN
+	
+	DECLARE @DayString NVARCHAR(50)
+	SET @DayString = CONVERT(nvarchar(50), @StartDate, 112)
+
+	DECLARE @DayStart INT=0
+	DECLARE @DayEnd INT=24
+	BEGIN TRANSACTION
+	WHILE @DayStart<@DayEnd
+	BEGIN
+		DECLARE @HourString NVARCHAR(50)
+	    SET @HourString = stuff('00',1,len('' + @DayStart),'')+CONVERT(varchar(50),'' + @DayStart) 
+		SET @DayStart=@DayStart+1
+
+		DECLARE @MinuteStart INT=0
+		DECLARE @MinuteEnd INT=60
+
+		WHILE @MinuteStart<@MinuteEnd
+		BEGIN
+			DECLARE @MinuteString NVARCHAR(50)
+			SET @MinuteString=stuff('00',1,len('' + @MinuteStart),'')+CONVERT(varchar(50),'' + @MinuteStart)
+
+			DECLARE @TimeSequence NVARCHAR(50)
+			SET @TimeSequence = @DayString + @HourString + @MinuteString
+
+			INSERT INTO @TimeSequenceTable(TimeString, Status) VALUES (@TimeSequence, 0)
+			SET @MinuteStart=@MinuteStart+1
+		END
+	END
+	COMMIT
+	SET @StartDate=DATEADD(DAY, 1, @StartDate)
+END
+
+SELECT * FROM @TimeSequenceTable
 ```
 
 ## Performance optimization
