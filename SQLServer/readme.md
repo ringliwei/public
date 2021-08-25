@@ -11,6 +11,7 @@
     - [Show Table Row Count](#show-table-row-count)
     - [Show Table Space And Rows](#show-table-space-and-rows)
     - [Generate Time Sequence](#generate-time-sequence)
+    - [Generate Backup Script](#generate-backup-script)
   - [Performance optimization](#performance-optimization)
     - [查看是否有死锁](#查看是否有死锁)
     - [查看当前正在执行的sql语句](#查看当前正在执行的sql语句)
@@ -308,6 +309,15 @@ BEGIN
 END
 
 SELECT * FROM @TimeSequenceTable
+```
+
+### Generate Backup Script
+
+```sql
+DECLARE @BackDate nvarchar(50) =replace(replace(replace(convert(varchar,getdate(),20),'-',''),' ',''),':','')
+SELECT 'backup database '+name+' to disk=''F:\DBbackup\'+name+'\'+name+'_'+@BackDate+'.bak'' with buffercount = 6, maxtransfersize = 2097152 ,compression,noformat,noinit,NAME=N''完整备份'',skip,norewind,nounload'
+FROM sys.sysdatabases 
+WHERE NAME not in('master','msdb','tempdb','model','ReportServer','ReportServerTempDB') ORDER BY NAME
 ```
 
 ## Performance optimization
