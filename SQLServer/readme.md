@@ -512,6 +512,35 @@ GROUP BY DB_NAME(database_id), OBJECT_NAME(a.object_id), b.name, user_seeks, use
 ORDER BY user_seeks, user_scans, OBJECT_NAME(a.object_id);
 ```
 
+
+```sql
+SELECT o.name AS 表名,
+    p.TableRows as 表行数,
+    i.name AS 索引名,
+    dm_ius.user_seeks AS 搜索次数,
+    dm_ius.user_scans AS 扫描次数,
+    dm_ius.user_lookups AS 查找次数,
+    dm_ius.user_updates AS 更新次数
+FROM sys.dm_db_index_usage_stats dm_ius
+    JOIN sys.indexes i ON i.index_id = dm_ius.index_id
+    AND dm_ius.object_id = i.object_id
+    JOIN sys.objects o ON dm_ius.object_id = o.object_id
+    JOIN sys.schemas s ON o.schema_id = s.schema_id
+    JOIN (
+        SELECT SUM(p.rows) TableRows,
+            p.index_id,
+            p.object_id
+        FROM sys.partitions p
+        GROUP BY p.index_id,
+            p.object_id
+    ) p ON p.index_id = dm_ius.index_id
+    AND dm_ius.object_id = p.object_id
+WHERE OBJECTPROPERTY(dm_ius.object_id, 'IsUserTable') = 1
+    AND dm_ius.database_id = DB_ID()
+order by o.name,
+    i.name
+```
+
 ### 查询缺失的索引
 
 ```sql
