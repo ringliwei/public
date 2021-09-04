@@ -375,6 +375,7 @@ SELECT [session_id]                = r.session_id,
        [read]                = r.reads,
        [writes]              = r.writes,
        [logical_reads]       = r.logical_reads,
+	   [row_count]           = r.row_count,
        [input_buffer]        = ib.event_info,
        [individual_query]    = SUBSTRING(
                                             st.text,
