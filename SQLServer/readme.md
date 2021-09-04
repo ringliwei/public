@@ -14,7 +14,7 @@
     - [Generate Backup Script](#generate-backup-script)
   - [Performance optimization](#performance-optimization)
     - [查看是否有死锁](#查看是否有死锁)
-    - [查看当前正在执行的sql语句](#查看当前正在执行的sql语句)
+    - [查看当前正在执行的 sql 语句](#查看当前正在执行的-sql-语句)
     - [查询前 10 个可能是性能最差的 SQL 语句](#查询前-10-个可能是性能最差的-sql-语句)
     - [查询逻辑读取最高的存储过程](#查询逻辑读取最高的存储过程)
     - [查询从未使用过的索引](#查询从未使用过的索引)
@@ -27,92 +27,92 @@
 ### How To Use `SAVE TRANSACTION`
 
 ```sql
-USE AdventureWorks2012;  
-GO  
-IF EXISTS (SELECT name FROM sys.objects  
-           WHERE name = N'SaveTranExample')  
-    DROP PROCEDURE SaveTranExample;  
-GO  
-CREATE PROCEDURE SaveTranExample  
-    @InputCandidateID INT  
-AS  
-    -- Detect whether the procedure was called  
-    -- from an active transaction and save  
-    -- that for later use.  
-    -- In the procedure, @TranCounter = 0  
-    -- means there was no active transaction  
-    -- and the procedure started one.  
-    -- @TranCounter > 0 means an active  
+USE AdventureWorks2012;
+GO
+IF EXISTS (SELECT name FROM sys.objects
+           WHERE name = N'SaveTranExample')
+    DROP PROCEDURE SaveTranExample;
+GO
+CREATE PROCEDURE SaveTranExample
+    @InputCandidateID INT
+AS
+    -- Detect whether the procedure was called
+    -- from an active transaction and save
+    -- that for later use.
+    -- In the procedure, @TranCounter = 0
+    -- means there was no active transaction
+    -- and the procedure started one.
+    -- @TranCounter > 0 means an active
     -- transaction was started before the
-    -- procedure was called.  
-    DECLARE @TranCounter INT;  
-    SET @TranCounter = @@TRANCOUNT;  
-    IF @TranCounter > 0  
-        -- Procedure called when there is  
-        -- an active transaction.  
-        -- Create a savepoint to be able  
-        -- to roll back only the work done  
-        -- in the procedure if there is an  
-        -- error.  
-        SAVE TRANSACTION ProcedureSave;  
-    ELSE  
-        -- Procedure must start its own  
-        -- transaction.  
-        BEGIN TRANSACTION;  
-    -- Modify database.  
-    BEGIN TRY  
-        DELETE HumanResources.JobCandidate  
-            WHERE JobCandidateID = @InputCandidateID;  
-        -- Get here if no errors; must commit  
-        -- any transaction started in the  
-        -- procedure, but not commit a transaction  
-        -- started before the transaction was called.  
-        IF @TranCounter = 0  
-            -- @TranCounter = 0 means no transaction was  
-            -- started before the procedure was called.  
-            -- The procedure must commit the transaction  
-            -- it started.  
-            COMMIT TRANSACTION;  
-    END TRY  
-    BEGIN CATCH  
-        -- An error occurred; must determine  
-        -- which type of rollback will roll  
-        -- back only the work done in the  
-        -- procedure.  
-        IF @TranCounter = 0  
-            -- Transaction started in procedure.  
-            -- Roll back complete transaction.  
-            ROLLBACK TRANSACTION;  
-        ELSE  
-            -- Transaction started before procedure  
-            -- called, do not roll back modifications  
-            -- made before the procedure was called.  
-            IF XACT_STATE() <> -1  
-                -- If the transaction is still valid, just  
-                -- roll back to the savepoint set at the  
-                -- start of the stored procedure.  
-                ROLLBACK TRANSACTION ProcedureSave;  
-                -- If the transaction is uncommitable, a  
-                -- rollback to the savepoint is not allowed  
-                -- because the savepoint rollback writes to  
-                -- the log. Just return to the caller, which  
-                -- should roll back the outer transaction.  
-  
-        -- After the appropriate rollback, echo error  
-        -- information to the caller.  
-        DECLARE @ErrorMessage NVARCHAR(4000);  
-        DECLARE @ErrorSeverity INT;  
-        DECLARE @ErrorState INT;  
-  
-        SELECT @ErrorMessage = ERROR_MESSAGE();  
-        SELECT @ErrorSeverity = ERROR_SEVERITY();  
-        SELECT @ErrorState = ERROR_STATE();  
-  
-        RAISERROR (@ErrorMessage, -- Message text.  
-                   @ErrorSeverity, -- Severity.  
-                   @ErrorState -- State.  
-                   );  
-    END CATCH  
+    -- procedure was called.
+    DECLARE @TranCounter INT;
+    SET @TranCounter = @@TRANCOUNT;
+    IF @TranCounter > 0
+        -- Procedure called when there is
+        -- an active transaction.
+        -- Create a savepoint to be able
+        -- to roll back only the work done
+        -- in the procedure if there is an
+        -- error.
+        SAVE TRANSACTION ProcedureSave;
+    ELSE
+        -- Procedure must start its own
+        -- transaction.
+        BEGIN TRANSACTION;
+    -- Modify database.
+    BEGIN TRY
+        DELETE HumanResources.JobCandidate
+            WHERE JobCandidateID = @InputCandidateID;
+        -- Get here if no errors; must commit
+        -- any transaction started in the
+        -- procedure, but not commit a transaction
+        -- started before the transaction was called.
+        IF @TranCounter = 0
+            -- @TranCounter = 0 means no transaction was
+            -- started before the procedure was called.
+            -- The procedure must commit the transaction
+            -- it started.
+            COMMIT TRANSACTION;
+    END TRY
+    BEGIN CATCH
+        -- An error occurred; must determine
+        -- which type of rollback will roll
+        -- back only the work done in the
+        -- procedure.
+        IF @TranCounter = 0
+            -- Transaction started in procedure.
+            -- Roll back complete transaction.
+            ROLLBACK TRANSACTION;
+        ELSE
+            -- Transaction started before procedure
+            -- called, do not roll back modifications
+            -- made before the procedure was called.
+            IF XACT_STATE() <> -1
+                -- If the transaction is still valid, just
+                -- roll back to the savepoint set at the
+                -- start of the stored procedure.
+                ROLLBACK TRANSACTION ProcedureSave;
+                -- If the transaction is uncommitable, a
+                -- rollback to the savepoint is not allowed
+                -- because the savepoint rollback writes to
+                -- the log. Just return to the caller, which
+                -- should roll back the outer transaction.
+
+        -- After the appropriate rollback, echo error
+        -- information to the caller.
+        DECLARE @ErrorMessage NVARCHAR(4000);
+        DECLARE @ErrorSeverity INT;
+        DECLARE @ErrorState INT;
+
+        SELECT @ErrorMessage = ERROR_MESSAGE();
+        SELECT @ErrorSeverity = ERROR_SEVERITY();
+        SELECT @ErrorState = ERROR_STATE();
+
+        RAISERROR (@ErrorMessage, -- Message text.
+                   @ErrorSeverity, -- Severity.
+                   @ErrorState -- State.
+                   );
+    END CATCH
 GO
 ```
 
@@ -276,7 +276,7 @@ Status INT
 
 WHILE @StartDate<=@StartEnd
 BEGIN
-	
+
 	DECLARE @DayString NVARCHAR(50)
 	SET @DayString = CONVERT(nvarchar(50), @StartDate, 112)
 
@@ -286,7 +286,7 @@ BEGIN
 	WHILE @DayStart<@DayEnd
 	BEGIN
 		DECLARE @HourString NVARCHAR(50)
-	    SET @HourString = stuff('00',1,len('' + @DayStart),'')+CONVERT(varchar(50),'' + @DayStart) 
+	    SET @HourString = stuff('00',1,len('' + @DayStart),'')+CONVERT(varchar(50),'' + @DayStart)
 		SET @DayStart=@DayStart+1
 
 		DECLARE @MinuteStart INT=0
@@ -316,7 +316,7 @@ SELECT * FROM @TimeSequenceTable
 ```sql
 DECLARE @BackDate nvarchar(50) =replace(replace(replace(convert(varchar,getdate(),20),'-',''),' ',''),':','')
 SELECT 'backup database '+name+' to disk=''F:\DBbackup\'+name+'\'+name+'_'+@BackDate+'.bak'' with buffercount = 6, maxtransfersize = 2097152 ,compression,noformat,noinit,NAME=N''完整备份'',skip,norewind,nounload'
-FROM sys.sysdatabases 
+FROM sys.sysdatabases
 WHERE NAME not in('master','msdb','tempdb','model','ReportServer','ReportServerTempDB') ORDER BY NAME
 ```
 
@@ -360,44 +360,46 @@ WHERE spid = (
              );
 ```
 
-### 查看当前正在执行的sql语句
+### 查看当前正在执行的 sql 语句
 
 ```sql
-SELECT [Spid]                = er.session_id,
-       [Blocking_session_id] = er.blocking_session_id,
-       [Database]            = DB_NAME(sp.dbid),
-       [User]                = nt_username,
-       [Command]             = er.command,
-       [Status]              = er.status,
-       [Wait_type]           = er.wait_type,
-       [Wait_time]           = er.wait_time,
-       [Wait_resource]       = er.wait_resource,
-       [Read]                = er.reads,
-       [Writes]              = er.writes,
-       [Logical_reads]       = er.logical_reads,
-       [Individual Query]    = SUBSTRING(
-                                            qt.text,
-                                            er.statement_start_offset / 2,
+SELECT [session_id]                = r.session_id,
+       [blocking_session_id] = r.blocking_session_id,
+       [database]            = DB_NAME(sp.dbid),
+       [user]                = nt_username,
+       [command]             = r.command,
+       [status]              = r.status,
+       [wait_type]           = r.wait_type,
+       [wait_time]           = r.wait_time,
+       [wait_resource]       = r.wait_resource,
+       [read]                = r.reads,
+       [writes]              = r.writes,
+       [logical_reads]       = r.logical_reads,
+       [input_buffer]        = ib.event_info,
+       [individual_query]    = SUBSTRING(
+                                            st.text,
+                                            r.statement_start_offset / 2,
                                             (CASE
-                                                 WHEN er.statement_end_offset = -1 THEN
-                                                     LEN(CONVERT(NVARCHAR(MAX), qt.text)) * 2
+                                                 WHEN r.statement_end_offset = -1 THEN
+                                                     LEN(CONVERT(NVARCHAR(MAX), st.text)) * 2
                                                  ELSE
-                                                     er.statement_end_offset
-                                             END - er.statement_start_offset
+                                                     r.statement_end_offset
+                                             END - r.statement_start_offset
                                             ) / 2
                                         ),
-       [Parent Query]        = qt.text,
-       Program               = sp.program_name,
+       [parent_query]        = st.text,
+       [program]               = sp.program_name,
        sp.hostname,
        sp.nt_domain,
-       er.start_time
-FROM sys.dm_exec_requests                            er
-     INNER JOIN sys.sysprocesses                     sp
-         ON er.session_id = sp.spid
-     CROSS APPLY sys.dm_exec_sql_text(er.sql_handle) AS qt
+       r.start_time
+FROM sys.dm_exec_requests                            r
+     CROSS APPLY sys.dm_exec_input_buffer(r.session_id, r.request_id) ib
+     CROSS APPLY sys.dm_exec_sql_text(r.sql_handle) st
+	 INNER JOIN sys.sysprocesses                     sp
+         ON r.session_id = sp.spid
 WHERE session_id > 50 -- Ignore system spids.
       AND session_id NOT IN (@@SPID) -- Ignore this current statement.
-ORDER BY Spid, sp.ecid;
+ORDER BY sp.spid, sp.ecid;
 ```
 
 [sys.dm_exec_requests](https://docs.microsoft.com/zh-cn/sql/relational-databases/system-dynamic-management-views/sys-dm-exec-requests-transact-sql?view=sql-server-ver15)
@@ -511,7 +513,6 @@ WHERE database_id = DB_ID() --指定数据库
 GROUP BY DB_NAME(database_id), OBJECT_NAME(a.object_id), b.name, user_seeks, user_scans
 ORDER BY user_seeks, user_scans, OBJECT_NAME(a.object_id);
 ```
-
 
 ```sql
 SELECT o.name AS 表名,
