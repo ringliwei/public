@@ -365,8 +365,8 @@ WHERE spid = (
 ```sql
 SELECT [session_id]                = r.session_id,
        [blocking_session_id] = r.blocking_session_id,
-       [database]            = DB_NAME(sp.dbid),
        [loginame]            = sp.loginame,
+       [db_name]            = DB_NAME(sp.dbid),
        [command]             = r.command,
        [status]              = r.status,
        [wait_type]           = r.wait_type,
