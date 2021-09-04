@@ -15,6 +15,7 @@
   - [Performance optimization](#performance-optimization)
     - [查看是否有死锁](#查看是否有死锁)
     - [查看当前正在执行的 sql 语句](#查看当前正在执行的-sql-语句)
+    - [查询Buffer使用情况](#查询buffer使用情况)
     - [查询前 10 个可能是性能最差的 SQL 语句](#查询前-10-个可能是性能最差的-sql-语句)
     - [查询逻辑读取最高的存储过程](#查询逻辑读取最高的存储过程)
     - [查询从未使用过的索引](#查询从未使用过的索引)
@@ -277,35 +278,35 @@ Status INT
 WHILE @StartDate<=@StartEnd
 BEGIN
 
-	DECLARE @DayString NVARCHAR(50)
-	SET @DayString = CONVERT(nvarchar(50), @StartDate, 112)
+    DECLARE @DayString NVARCHAR(50)
+    SET @DayString = CONVERT(nvarchar(50), @StartDate, 112)
 
-	DECLARE @DayStart INT=0
-	DECLARE @DayEnd INT=24
-	BEGIN TRANSACTION
-	WHILE @DayStart<@DayEnd
-	BEGIN
-		DECLARE @HourString NVARCHAR(50)
-	    SET @HourString = stuff('00',1,len('' + @DayStart),'')+CONVERT(varchar(50),'' + @DayStart)
-		SET @DayStart=@DayStart+1
+    DECLARE @DayStart INT=0
+    DECLARE @DayEnd INT=24
+    BEGIN TRANSACTION
+    WHILE @DayStart<@DayEnd
+    BEGIN
+        DECLARE @HourString NVARCHAR(50)
+        SET @HourString = stuff('00',1,len('' + @DayStart),'')+CONVERT(varchar(50),'' + @DayStart)
+        SET @DayStart=@DayStart+1
 
-		DECLARE @MinuteStart INT=0
-		DECLARE @MinuteEnd INT=60
+        DECLARE @MinuteStart INT=0
+        DECLARE @MinuteEnd INT=60
 
-		WHILE @MinuteStart<@MinuteEnd
-		BEGIN
-			DECLARE @MinuteString NVARCHAR(50)
-			SET @MinuteString=stuff('00',1,len('' + @MinuteStart),'')+CONVERT(varchar(50),'' + @MinuteStart)
+        WHILE @MinuteStart<@MinuteEnd
+        BEGIN
+            DECLARE @MinuteString NVARCHAR(50)
+            SET @MinuteString=stuff('00',1,len('' + @MinuteStart),'')+CONVERT(varchar(50),'' + @MinuteStart)
 
-			DECLARE @TimeSequence NVARCHAR(50)
-			SET @TimeSequence = @DayString + @HourString + @MinuteString
+            DECLARE @TimeSequence NVARCHAR(50)
+            SET @TimeSequence = @DayString + @HourString + @MinuteString
 
-			INSERT INTO @TimeSequenceTable(TimeString, Status) VALUES (@TimeSequence, 0)
-			SET @MinuteStart=@MinuteStart+1
-		END
-	END
-	COMMIT
-	SET @StartDate=DATEADD(DAY, 1, @StartDate)
+            INSERT INTO @TimeSequenceTable(TimeString, Status) VALUES (@TimeSequence, 0)
+            SET @MinuteStart=@MinuteStart+1
+        END
+    END
+    COMMIT
+    SET @StartDate=DATEADD(DAY, 1, @StartDate)
 END
 
 SELECT * FROM @TimeSequenceTable
@@ -363,10 +364,10 @@ WHERE spid = (
 ### 查看当前正在执行的 sql 语句
 
 ```sql
-SELECT [session_id]                = r.session_id,
+SELECT [session_id]          = r.session_id,
        [blocking_session_id] = r.blocking_session_id,
        [loginame]            = sp.loginame,
-       [db_name]            = DB_NAME(sp.dbid),
+       [db_name]             = DB_NAME(sp.dbid),
        [command]             = r.command,
        [status]              = r.status,
        [wait_type]           = r.wait_type,
@@ -375,7 +376,7 @@ SELECT [session_id]                = r.session_id,
        [read]                = r.reads,
        [writes]              = r.writes,
        [logical_reads]       = r.logical_reads,
-	   [row_count]           = r.row_count,
+       [row_count]           = r.row_count,
        [total_elapsed_time]  = r.total_elapsed_time,
        [cpu_time]            = r.cpu_time,
        [input_buffer]        = ib.event_info,
@@ -398,7 +399,7 @@ SELECT [session_id]                = r.session_id,
 FROM sys.dm_exec_requests                            r
      CROSS APPLY sys.dm_exec_input_buffer(r.session_id, r.request_id) ib
      CROSS APPLY sys.dm_exec_sql_text(r.sql_handle) st
-	 INNER JOIN sys.sysprocesses                     sp
+     INNER JOIN sys.sysprocesses                     sp
          ON r.session_id = sp.spid
 WHERE session_id > 50 -- Ignore system spids.
       AND session_id NOT IN (@@SPID) -- Ignore this current statement.
@@ -410,6 +411,57 @@ ORDER BY sp.spid, sp.ecid;
 [sys.sysprocesses](https://docs.microsoft.com/zh-cn/sql/relational-databases/system-compatibility-views/sys-sysprocesses-transact-sql?view=sql-server-ver15)
 
 [sys.dm_exec_sql_text](https://docs.microsoft.com/zh-cn/sql/relational-databases/system-dynamic-management-views/sys-dm-exec-sql-text-transact-sql?view=sql-server-ver15)
+
+### 查询Buffer使用情况
+
+```sql
+SELECT
+	indexes.name AS index_name,
+	objects.name AS object_name,
+	objects.type_desc AS object_type_description,
+	--COUNT(*) AS buffer_cache_total_pages,
+ --   SUM(CASE WHEN dm_os_buffer_descriptors.is_modified = 1
+	--			THEN 1
+	--			ELSE 0
+	--	END) AS buffer_cache_dirty_pages,
+ --   SUM(CASE WHEN dm_os_buffer_descriptors.is_modified = 1
+	--			THEN 0
+	--			ELSE 1
+	--	END) AS buffer_cache_clean_pages,
+	COUNT(*) * 8 /1024 AS buffer_cache_MB,
+    SUM(CASE WHEN dm_os_buffer_descriptors.is_modified = 1
+				THEN 1
+				ELSE 0
+		END) * 8 / 1024 AS buffer_cache_dirty_page_MB,
+    SUM(CASE WHEN dm_os_buffer_descriptors.is_modified = 1
+				THEN 0
+				ELSE 1
+		END) * 8 / 1024 AS buffer_cache_clean_page_MB
+FROM sys.dm_os_buffer_descriptors
+    INNER JOIN sys.allocation_units ON allocation_units.allocation_unit_id = dm_os_buffer_descriptors.allocation_unit_id
+    INNER JOIN sys.partitions ON (
+        (
+            allocation_units.container_id = partitions.hobt_id
+            AND type IN (1, 3)
+        )
+        OR (
+            allocation_units.container_id = partitions.partition_id
+            AND type IN (2)
+        )
+    )
+    INNER JOIN sys.objects ON partitions.object_id = objects.object_id
+    INNER JOIN sys.indexes ON objects.object_id = indexes.object_id
+    AND partitions.index_id = indexes.index_id
+WHERE allocation_units.type IN (1, 2, 3)
+    AND objects.is_ms_shipped = 0
+    AND dm_os_buffer_descriptors.database_id = DB_ID()
+GROUP BY indexes.name,
+    objects.name,
+    objects.type_desc
+ORDER BY COUNT(*) DESC;
+```
+
+- [Insight into the SQL Server buffer cache](https://www.sqlshack.com/insight-into-the-sql-server-buffer-cache/)
 
 ### 查询前 10 个可能是性能最差的 SQL 语句
 
