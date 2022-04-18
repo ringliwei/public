@@ -1,9 +1,10 @@
 # CentOS7
 
 - [CentOS7](#centos7)
-  - [System Info](#system-info)
+  - [system info](#system-info)
+  - [program path](#program-path)
 
-## System Info
+## system info
 
 ```bash
 # 版本信息
@@ -21,3 +22,21 @@ cat /proc/cpuinfo
 
 lsmod
 ```
+
+## program path
+
+```bash
+# get process id
+ps aux | grep redis
+
+# show proc info
+ll /proc/{process}
+```
+
+| Item    | Desc                           |
+| ------- | ------------------------------ |
+| cwd     | 进程工作目录                   |
+| exe     | 执行程序的绝对路径             |
+| cmdline | 程序运行时输入的命令行命令     |
+| environ | 进程运行时的环境变量           |
+| fd      | 进程打开或使用的文件的符号连接 |
