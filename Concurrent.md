@@ -3592,3 +3592,4 @@ public final class Schedulers {
 
 - [异步编程的几种方式](https://ericfu.me/several-ways-to-aync/)
 - [CompletableFuture](https://ericfu.me/completable-future-not-so-bad/)
+- [Java CompletableFuture 详解](https://colobu.com/2016/02/29/Java-CompletableFuture/)
