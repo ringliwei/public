@@ -36,6 +36,7 @@
       - [Looper](#looper)
       - [RxJava AndroidSchedulers](#rxjava-androidschedulers)
       - [RxJava Schedulers](#rxjava-schedulers)
+  - [Resources](#resources)
 
 ## Promise, Future
 
@@ -266,16 +267,16 @@ public static Task WithTimeout(this Task task, TimeSpan timeout)
 
 ## Stream
 
-[Java8 Stream原理深度解析](https://www.cnblogs.com/Dorae/p/7779246.html)
+[Java8 Stream 原理深度解析](https://www.cnblogs.com/Dorae/p/7779246.html)
 
-[深入理解Java Stream流水线](https://www.cnblogs.com/CarpenterLee/p/6637118.html)
+[深入理解 Java Stream 流水线](https://www.cnblogs.com/CarpenterLee/p/6637118.html)
 
-[Java 8 Stream探秘](https://colobu.com/2014/11/18/Java-8-Stream/)
+[Java 8 Stream 探秘](https://colobu.com/2014/11/18/Java-8-Stream/)
 
-| Stream（pull） | Reactive-Stream(push) | Desc  |
-|--------------|-----------------------|-----|
-| Stream       | Flux                  | 0…N |
-| Optional     | Mono                  | 0…1 |
+| Stream（pull） | Reactive-Stream(push) | Desc |
+| -------------- | --------------------- | ---- |
+| Stream         | Flux                  | 0…N  |
+| Optional       | Mono                  | 0…1  |
 
 ```java
 // view source
@@ -1585,7 +1586,7 @@ You can think of the Observable class as a “push” equivalent to Iterable, wh
 
 ### Rx.NET
 
-[reactive-extensions](https://docs.microsoft.com/en-us/previous-versions/dotnet/reactive-extensions/hh242985(v=vs.103))
+[reactive-extensions](<https://docs.microsoft.com/en-us/previous-versions/dotnet/reactive-extensions/hh242985(v=vs.103)>)
 
 [github](https://github.com/dotnet/reactive)
 
@@ -1593,7 +1594,7 @@ You can think of the Observable class as a “push” equivalent to Iterable, wh
 
 #### Pulling vs. Pushing Data
 
-In interactive programming, the application actively polls a data source for more information by pulling data from a sequence that represents the source. Such behavior is represented by the iterator pattern of `IEnumerable<T>/IEnumerator<T>`. The `IEnumerable<T>` interface exposes a single method GetEnumerator() which returns an `IEnumerator<T>` to iterate through this collection.  The `IEnumerator<T>` allows us to get the current item (by returning the Current property), and determine whether there are more items to iterate (by calling the MoveNext method).
+In interactive programming, the application actively polls a data source for more information by pulling data from a sequence that represents the source. Such behavior is represented by the iterator pattern of `IEnumerable<T>/IEnumerator<T>`. The `IEnumerable<T>` interface exposes a single method GetEnumerator() which returns an `IEnumerator<T>` to iterate through this collection. The `IEnumerator<T>` allows us to get the current item (by returning the Current property), and determine whether there are more items to iterate (by calling the MoveNext method).
 
 The application is active in the data retrieval process: besides getting an enumerator by calling GetEnumerator, it also controls the pace of the retrieval by calling MoveNext at its own convenience. This enumeration pattern is synchronous, which means that the application might be blocked while polling the data source. Such pulling pattern is similar to visiting your library and checking out a book. After you are done with the book, you pay another visit to check out another one.
 
@@ -1601,7 +1602,7 @@ On the other hand, in reactive programming, the application is offered more info
 
 This is the push pattern employed by Reactive Extensions. It is similar to joining a book club in which you register your interest in a particular genre, and books that match your interest are automatically sent to you as they are published. You do not need to stand in line to acquire something that you want. Employing a push pattern is helpful in many scenarios, especially in a UI-heavy environment in which the UI thread cannot be blocked while the application is waiting for some events. This is also essential in programming environments such as Silverlight which has its own set of asynchronous requirements. In summary, by using Rx, you can make your application more responsive.
 
-The push model implemented by Rx is represented by the observable pattern of `IObservable<T>/IObserver<T>`. The `IObservable<T>` interface is a dual of the familiar `IEnumerable<T>` interface. It abstracts a sequence of data, and keeps a list of `IObserver<T>` implementations that are interested in the data sequence. The IObservable will notify all the observers automatically of any state changes. To register an interest through a subscription, you use the Subscribe method of IObservable, which takes on an IObserver and returns an IDisposable. This gives you the ability to track and dispose of the subscription. In addition, Rx’s LINQ implementation over observable sequences allows developers to compose complex event processing queries over push-based sequences such as .NET events, APM-based (“IAsyncResult”) computations, `Task<T>-based` computations,  Windows 7 Sensor and Location APIs, SQL StreamInsight temporal event streams, F# first-class events, and asynchronous workflows. For more information on the `IObservable<T>/IObserver<T>` interfaces, see Exploring The Major Interfaces in Rx. For tutorials on using the different features in Rx, see Using Rx.
+The push model implemented by Rx is represented by the observable pattern of `IObservable<T>/IObserver<T>`. The `IObservable<T>` interface is a dual of the familiar `IEnumerable<T>` interface. It abstracts a sequence of data, and keeps a list of `IObserver<T>` implementations that are interested in the data sequence. The IObservable will notify all the observers automatically of any state changes. To register an interest through a subscription, you use the Subscribe method of IObservable, which takes on an IObserver and returns an IDisposable. This gives you the ability to track and dispose of the subscription. In addition, Rx’s LINQ implementation over observable sequences allows developers to compose complex event processing queries over push-based sequences such as .NET events, APM-based (“IAsyncResult”) computations, `Task<T>-based` computations, Windows 7 Sensor and Location APIs, SQL StreamInsight temporal event streams, F# first-class events, and asynchronous workflows. For more information on the `IObservable<T>/IObserver<T>` interfaces, see Exploring The Major Interfaces in Rx. For tutorials on using the different features in Rx, see Using Rx.
 
 ## Linq
 
@@ -1782,7 +1783,7 @@ public class Pipeline<TInput, TOutput>
 
 Node 库以多种方式[处理异步功能](https://www.gulpjs.com.cn/docs/getting-started/async-completion/)。最常见的模式是 [error-first callbacks](https://nodejs.org/api/errors.html#errors_error_first_callbacks)，但是你还可能会遇到 [streams](https://nodejs.org/api/stream.html)、[promises](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Using_promises)、[event emitters](https://nodejs.org/api/events.html)、[child processes](https://nodejs.org/api/child_process.html), 或 [observables](https://github.com/tc39/proposal-observable/blob/master/README.md)。
 
-`Promise` 与 `Observable` 可以解决js中的回调地狱。
+`Promise` 与 `Observable` 可以解决 js 中的回调地狱。
 
 ### Promise
 
@@ -1809,134 +1810,143 @@ Node 库以多种方式[处理异步功能](https://www.gulpjs.com.cn/docs/getti
  *   就走下一个then的成功，如果失败，就走下一个then的失败
  */
 
-const PENDING = 'pending';
-const FULFILLED = 'fulfilled';
-const REJECTED = 'rejected';
+const PENDING = "pending";
+const FULFILLED = "fulfilled";
+const REJECTED = "rejected";
 function Promise(executor) {
-    let self = this;
-    self.status = PENDING;
-    self.onFulfilled = [];//成功的回调
-    self.onRejected = []; //失败的回调
-    //PromiseA+ 2.1
-    function resolve(value) {
-        if (self.status === PENDING) {
-            self.status = FULFILLED;
-            self.value = value;
-            self.onFulfilled.forEach(fn => fn());//PromiseA+ 2.2.6.1
-        }
+  let self = this;
+  self.status = PENDING;
+  self.onFulfilled = []; //成功的回调
+  self.onRejected = []; //失败的回调
+  //PromiseA+ 2.1
+  function resolve(value) {
+    if (self.status === PENDING) {
+      self.status = FULFILLED;
+      self.value = value;
+      self.onFulfilled.forEach((fn) => fn()); //PromiseA+ 2.2.6.1
     }
+  }
 
-    function reject(reason) {
-        if (self.status === PENDING) {
-            self.status = REJECTED;
-            self.reason = reason;
-            self.onRejected.forEach(fn => fn());//PromiseA+ 2.2.6.2
-        }
+  function reject(reason) {
+    if (self.status === PENDING) {
+      self.status = REJECTED;
+      self.reason = reason;
+      self.onRejected.forEach((fn) => fn()); //PromiseA+ 2.2.6.2
     }
+  }
 
-    try {
-        executor(resolve, reject);
-    } catch (e) {
-        reject(e);
-    }
+  try {
+    executor(resolve, reject);
+  } catch (e) {
+    reject(e);
+  }
 }
 
 Promise.prototype.then = function (onFulfilled, onRejected) {
-    //PromiseA+ 2.2.1 / PromiseA+ 2.2.5 / PromiseA+ 2.2.7.3 / PromiseA+ 2.2.7.4
-    onFulfilled = typeof onFulfilled === 'function' ? onFulfilled : value => value;
-    onRejected = typeof onRejected === 'function' ? onRejected : reason => { throw reason };
-    let self = this;
-    //PromiseA+ 2.2.7
-    let promise2 = new Promise((resolve, reject) => {
-        if (self.status === FULFILLED) {
-            //PromiseA+ 2.2.2
-            //PromiseA+ 2.2.4 --- setTimeout
-            setTimeout(() => {
-                try {
-                    //PromiseA+ 2.2.7.1
-                    let x = onFulfilled(self.value);
-                    resolvePromise(promise2, x, resolve, reject);
-                } catch (e) {
-                    //PromiseA+ 2.2.7.2
-                    reject(e);
-                }
-            });
-        } else if (self.status === REJECTED) {
-            //PromiseA+ 2.2.3
-            setTimeout(() => {
-                try {
-                    let x = onRejected(self.reason);
-                    resolvePromise(promise2, x, resolve, reject);
-                } catch (e) {
-                    reject(e);
-                }
-            });
-        } else if (self.status === PENDING) {
-            self.onFulfilled.push(() => {
-                setTimeout(() => {
-                    try {
-                        let x = onFulfilled(self.value);
-                        resolvePromise(promise2, x, resolve, reject);
-                    } catch (e) {
-                        reject(e);
-                    }
-                });
-            });
-            self.onRejected.push(() => {
-                setTimeout(() => {
-                    try {
-                        let x = onRejected(self.reason);
-                        resolvePromise(promise2, x, resolve, reject);
-                    } catch (e) {
-                        reject(e);
-                    }
-                });
-            });
+  //PromiseA+ 2.2.1 / PromiseA+ 2.2.5 / PromiseA+ 2.2.7.3 / PromiseA+ 2.2.7.4
+  onFulfilled =
+    typeof onFulfilled === "function" ? onFulfilled : (value) => value;
+  onRejected =
+    typeof onRejected === "function"
+      ? onRejected
+      : (reason) => {
+          throw reason;
+        };
+  let self = this;
+  //PromiseA+ 2.2.7
+  let promise2 = new Promise((resolve, reject) => {
+    if (self.status === FULFILLED) {
+      //PromiseA+ 2.2.2
+      //PromiseA+ 2.2.4 --- setTimeout
+      setTimeout(() => {
+        try {
+          //PromiseA+ 2.2.7.1
+          let x = onFulfilled(self.value);
+          resolvePromise(promise2, x, resolve, reject);
+        } catch (e) {
+          //PromiseA+ 2.2.7.2
+          reject(e);
         }
-    });
-    return promise2;
-}
+      });
+    } else if (self.status === REJECTED) {
+      //PromiseA+ 2.2.3
+      setTimeout(() => {
+        try {
+          let x = onRejected(self.reason);
+          resolvePromise(promise2, x, resolve, reject);
+        } catch (e) {
+          reject(e);
+        }
+      });
+    } else if (self.status === PENDING) {
+      self.onFulfilled.push(() => {
+        setTimeout(() => {
+          try {
+            let x = onFulfilled(self.value);
+            resolvePromise(promise2, x, resolve, reject);
+          } catch (e) {
+            reject(e);
+          }
+        });
+      });
+      self.onRejected.push(() => {
+        setTimeout(() => {
+          try {
+            let x = onRejected(self.reason);
+            resolvePromise(promise2, x, resolve, reject);
+          } catch (e) {
+            reject(e);
+          }
+        });
+      });
+    }
+  });
+  return promise2;
+};
 
 function resolvePromise(promise2, x, resolve, reject) {
-    let self = this;
-    //PromiseA+ 2.3.1
-    if (promise2 === x) {
-        reject(new TypeError('Chaining cycle'));
-    }
-    if (x && typeof x === 'object' || typeof x === 'function') {
-        let used; //PromiseA+2.3.3.3.3 只能调用一次
-        try {
-            let then = x.then;
-            if (typeof then === 'function') {
-                //PromiseA+2.3.3
-                then.call(x, (y) => {
-                    //PromiseA+2.3.3.1
-                    if (used) return;
-                    used = true;
-                    resolvePromise(promise2, y, resolve, reject);
-                }, (r) => {
-                    //PromiseA+2.3.3.2
-                    if (used) return;
-                    used = true;
-                    reject(r);
-                });
-
-            }else{
-                //PromiseA+2.3.3.4
-                if (used) return;
-                used = true;
-                resolve(x);
-            }
-        } catch (e) {
-            //PromiseA+ 2.3.3.2
+  let self = this;
+  //PromiseA+ 2.3.1
+  if (promise2 === x) {
+    reject(new TypeError("Chaining cycle"));
+  }
+  if ((x && typeof x === "object") || typeof x === "function") {
+    let used; //PromiseA+2.3.3.3.3 只能调用一次
+    try {
+      let then = x.then;
+      if (typeof then === "function") {
+        //PromiseA+2.3.3
+        then.call(
+          x,
+          (y) => {
+            //PromiseA+2.3.3.1
             if (used) return;
             used = true;
-            reject(e);
-        }
-    } else {
-        //PromiseA+ 2.3.3.4
+            resolvePromise(promise2, y, resolve, reject);
+          },
+          (r) => {
+            //PromiseA+2.3.3.2
+            if (used) return;
+            used = true;
+            reject(r);
+          }
+        );
+      } else {
+        //PromiseA+2.3.3.4
+        if (used) return;
+        used = true;
         resolve(x);
+      }
+    } catch (e) {
+      //PromiseA+ 2.3.3.2
+      if (used) return;
+      used = true;
+      reject(e);
     }
+  } else {
+    //PromiseA+ 2.3.3.4
+    resolve(x);
+  }
 }
 
 module.exports = Promise;
@@ -1958,7 +1968,7 @@ A [stream](https://nodejs.org/api/stream.html) is an abstract interface for work
 
 ## Schedule
 
-模拟 js 的单线程执行机制。1. 可执行普通Task, 2. 可执行定时任务。
+模拟 js 的单线程执行机制。1. 可执行普通 Task, 2. 可执行定时任务。
 
 ### okio
 
@@ -3028,7 +3038,7 @@ public final class Looper {
 
 #### RxJava AndroidSchedulers
 
-通过`Looper.getMainLooper()`得到Android主循环后完成线程上下文切换。
+通过`Looper.getMainLooper()`得到 Android 主循环后完成线程上下文切换。
 
 ```java
 /*
@@ -3577,3 +3587,8 @@ public final class Schedulers {
     }
 }
 ```
+
+## Resources
+
+- [异步编程的几种方式](https://ericfu.me/several-ways-to-aync/)
+- [CompletableFuture](https://ericfu.me/completable-future-not-so-bad/)
