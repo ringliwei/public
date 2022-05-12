@@ -4,6 +4,7 @@
   - [pip](#pip)
     - [mirror](#mirror)
     - [samples](#samples)
+  - [Resources](#resources)
 
 ## pip
 
@@ -44,3 +45,7 @@ pip install -r requirements.txt
 # 下载包，用于内网主机安装
 pip download package_name -d "$path"
 ```
+
+## Resources
+
+- [pip 的基本使用 ](https://www.cnblogs.com/hls-code/p/15239654.html)
