@@ -4,7 +4,7 @@
   - [pip](#pip)
     - [mirror](#mirror)
     - [samples](#samples)
-  - [Resources](#resources)
+  - [resources](#resources)
 
 ## pip
 
@@ -46,6 +46,6 @@ pip install -r requirements.txt
 pip download package_name -d "$path"
 ```
 
-## Resources
+## resources
 
 - [pip 的基本使用 ](https://www.cnblogs.com/hls-code/p/15239654.html)
