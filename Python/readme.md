@@ -49,3 +49,4 @@ pip download package_name -d "$path"
 ## resources
 
 - [pip 的基本使用 ](https://www.cnblogs.com/hls-code/p/15239654.html)
+- [Unofficial Windows Binaries for Python Extension Packages](https://www.lfd.uci.edu/~gohlke/pythonlibs/)
