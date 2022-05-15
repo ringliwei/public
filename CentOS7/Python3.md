@@ -46,8 +46,8 @@ yum -y install libffi-devel
 yum install -y openssl-devel openssl11 openssl11-devel
 
 
-wget https://www.python.org/ftp/python/3.7.0/Python-3.7.0.tar.xz
-tar -xvJf Python-3.7.0.tar.xz
+wget https://www.python.org/ftp/python/3.10.4/Python-3.10.4.tgz
+tar -xvJf Python-3.10.4.tgz
 
 
 mkdir /usr/local/python3
