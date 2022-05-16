@@ -2,6 +2,7 @@
 
 - [Java](#java)
   - [install](#install)
+  - [maven](#maven)
   - [startup script of springboot](#startup-script-of-springboot)
     - [maven-antrun-plugin](#maven-antrun-plugin)
     - [app.sh](#appsh)
@@ -30,6 +31,52 @@ vim /etc/profile
 # append
 export JAVA_HOME="/usr/local/jvm/jdk-13.0.1/"
 export PATH="${JAVA_HOME}bin/:$PATH"
+```
+
+## maven
+
+- [apache maven](https://maven.apache.org/)
+  - [Setting up Multiple Repositories](https://maven.apache.org/guides/mini/guide-multiple-repositories.html)
+    - Repository Order
+  - [Introduction to Repositories](https://maven.apache.org/guides/introduction/introduction-to-repositories.html)
+  - [Using Mirrors for Repositories](https://maven.apache.org/guides/mini/guide-mirror-settings.html))
+- [aliyun maven](https://developer.aliyun.com/mvn/guide)
+
+```xml
+<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0
+                      http://maven.apache.org/xsd/settings-1.0.0.xsd">
+  <!-- other -->
+  <mirrors>
+    <mirror>
+      <id>aliyun-maven</id>
+      <mirrorOf>*,!cloudera-releases,!cloudera-repo-releases,!confluent</mirrorOf>
+      <name>aliyun-maven</name>
+      <url>https://maven.aliyun.com/repository/public</url>
+    </mirror>
+  </mirrors>
+  <!-- other -->
+</settings>
+```
+
+> cloudera-releases 代表工程(project)目录下 pom.xml 中配置的 repo id.
+
+```xml
+<project>
+    <!-- other -->
+    <repositories>
+        <repository>
+            <id>cloudera-releases</id>
+            <url>https://repository.cloudera.com/artifactory/cloudera-repos</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+    <!-- other -->
+</project>
 ```
 
 ## startup script of springboot
@@ -65,7 +112,7 @@ export PATH="${JAVA_HOME}bin/:$PATH"
 </plugin>
 ```
 
-Task `exec` 调用 build.ps1(windows平台) 生成 `profile.sh`
+Task `exec` 调用 build.ps1(windows 平台) 生成 `profile.sh`
 
 ```powershell
 param(
@@ -220,9 +267,9 @@ case $1 in
       echo $$ > /var/run/xyz.pid;
       exec 2>&1 java -cp ${CLASSPATH} org.something.with.main 1>/tmp/xyz.out
       ;;
-    stop)  
+    stop)
       kill `cat /var/run/xyz.pid` ;;
-    *)  
+    *)
       echo "usage: xyz {start|stop}" ;;
 esac
 exit 0
