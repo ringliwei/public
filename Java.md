@@ -39,7 +39,11 @@ export PATH="${JAVA_HOME}bin/:$PATH"
   - [Setting up Multiple Repositories](https://maven.apache.org/guides/mini/guide-multiple-repositories.html)
     - Repository Order
   - [Introduction to Repositories](https://maven.apache.org/guides/introduction/introduction-to-repositories.html)
-  - [Using Mirrors for Repositories](https://maven.apache.org/guides/mini/guide-mirror-settings.html))
+  - [Using Mirrors for Repositories](https://maven.apache.org/guides/mini/guide-mirror-settings.html)
+    - \* = everything
+    - external:\* = everything not on the localhost and not file based.
+    - repo,repo1 = repo or repo1
+    - \*,!repo1 = everything except repo1
 - [aliyun maven](https://developer.aliyun.com/mvn/guide)
 
 ```xml
