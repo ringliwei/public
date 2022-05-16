@@ -2,7 +2,8 @@
 
 - [CentOS7](#centos7)
   - [system info](#system-info)
-  - [program path](#program-path)
+  - [user info](#user-info)
+  - [proc info](#proc-info)
 
 ## system info
 
@@ -23,7 +24,29 @@ cat /proc/cpuinfo
 lsmod
 ```
 
-## program path
+## user info
+
+```bash
+# Show who is logged on and what they are doing.
+w
+
+# show who is logged on
+who
+
+# print the user names of users currently logged in to the current host
+users
+
+# print effective userid
+whoami
+
+# print real and effective user and group IDs
+id root
+
+# show a listing of last logged in users
+last
+```
+
+## proc info
 
 ```bash
 # get process id
