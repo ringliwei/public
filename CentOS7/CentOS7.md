@@ -1,9 +1,17 @@
 # CentOS7
 
 - [CentOS7](#centos7)
+  - [user and group](#user-and-group)
   - [system info](#system-info)
   - [user info](#user-info)
   - [proc info](#proc-info)
+
+## user and group
+
+```bash
+groupadd mysql
+useradd -r -g mysql mysql
+```
 
 ## system info
 
