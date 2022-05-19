@@ -13,6 +13,8 @@ groupadd mysql
 
 # -r, --system: Create a system account.
 useradd -r -g mysql mysql
+
+chown -R root:root /usr/local/mysql
 ```
 
 ## system info
