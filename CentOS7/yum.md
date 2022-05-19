@@ -2,6 +2,7 @@
 
 - [Yum](#yum)
   - [download rpm](#download-rpm)
+  - [add repo](#add-repo)
 
 ## download rpm
 
@@ -30,4 +31,11 @@ yum install yum-utils -y
 
 # download
 yumdownloader --destdir=/root telnet
+```
+
+## add repo
+
+```bash
+yum install yum-utils -y
+yum-config-manager --add-repo https://packages.clickhouse.com/rpm/clickhouse.repo
 ```
