@@ -1,8 +1,18 @@
 # Yum
 
 - [Yum](#yum)
+  - [yum-utils](#yum-utils)
   - [download rpm](#download-rpm)
   - [add repo](#add-repo)
+
+## yum-utils
+
+[yum-utils](https://man7.org/linux/man-pages/man1/yum-utils.1.html) - tools for manipulating repositories and extended
+package management
+
+```bash
+yum install yum-utils -y
+```
 
 ## download rpm
 
