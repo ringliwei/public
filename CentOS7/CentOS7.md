@@ -10,6 +10,8 @@
 
 ```bash
 groupadd mysql
+
+# -r, --system: Create a system account.
 useradd -r -g mysql mysql
 ```
 
