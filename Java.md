@@ -3,6 +3,8 @@
 - [Java](#java)
   - [install](#install)
   - [maven](#maven)
+    - [mirrorOf all](#mirrorof-all)
+    - [mirrorOf unique repo id](#mirrorof-unique-repo-id)
   - [startup script of springboot](#startup-script-of-springboot)
     - [maven-antrun-plugin](#maven-antrun-plugin)
     - [app.sh](#appsh)
@@ -46,7 +48,10 @@ export PATH="${JAVA_HOME}bin/:$PATH"
     - \*,!repo1 = everything except repo1
 - [aliyun maven](https://developer.aliyun.com/mvn/guide)
 
+### mirrorOf all
+
 ```xml
+<!-- settings.xml -->
 <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0
                       http://maven.apache.org/xsd/settings-1.0.0.xsd">
   <!-- other -->
@@ -65,6 +70,7 @@ export PATH="${JAVA_HOME}bin/:$PATH"
 > cloudera-releases 代表工程(project)目录下 pom.xml 中配置的 repo id.
 
 ```xml
+<!-- pom.xml -->
 <project>
     <!-- other -->
     <repositories>
@@ -81,6 +87,57 @@ export PATH="${JAVA_HOME}bin/:$PATH"
     </repositories>
     <!-- other -->
 </project>
+```
+
+### mirrorOf unique repo id
+
+- 2022-05-19: pom.xml 定义好 repo id, 再由 mirrorOf 指定镜像源。没有指定 mirrorOf 的 repo(如 cloudera)，就从本身源下载。
+
+```xml
+<!-- settings.xml -->
+<settings>
+  <!-- other -->
+  <mirrors>
+    <mirror>
+      <id>aliyun-maven</id>
+      <mirrorOf>central,jcenter</mirrorOf>
+      <name>aliyun-maven</name>
+      <url>https://maven.aliyun.com/repository/public</url>
+    </mirror>
+  </mirrors>
+  <!-- other -->
+</settings>
+```
+
+```xml
+<!-- pom.xml -->
+<repositories>
+    <repository>
+        <id>central</id>
+        <name>Maven Repository</name>
+        <url>https://repo.maven.apache.org/maven2</url>
+        <releases>
+        <enabled>true</enabled>
+        </releases>
+        <snapshots>
+        <enabled>false</enabled>
+        </snapshots>
+    </repository>
+    <repository>
+        <id>cloudera</id>
+        <url>https://repository.cloudera.com/artifactory/public/</url>
+        <releases>
+        <enabled>true</enabled>
+        </releases>
+        <snapshots>
+        <enabled>false</enabled>
+        </snapshots>
+    </repository>
+    <repository>
+        <id>confluent</id>
+        <url>https://packages.confluent.io/maven/</url>
+    </repository>
+</repositories>
 ```
 
 ## startup script of springboot
