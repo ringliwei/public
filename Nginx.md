@@ -926,6 +926,7 @@ http {
 
 - [nginx-proxy](https://github.com/nginx-proxy/nginx-proxy) Automated nginx proxy for Docker containers using docker-gen.
 - [Automated Nginx Reverse Proxy for Docker](http://jasonwilder.com/blog/2014/03/25/automated-nginx-reverse-proxy-for-docker/)
+- [jwilder/nginx-proxy](https://hub.docker.com/r/jwilder/nginx-proxy)
 
 ## CORS
 
