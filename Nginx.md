@@ -23,6 +23,7 @@
   - [zabbix](#zabbix)
   - [docker](#docker)
     - [mynginx](#mynginx)
+    - [nginx-proxy](#nginx-proxy)
   - [CORS](#cors)
   - [Problem](#problem)
 
@@ -920,6 +921,11 @@ http {
     include conf.d/*.conf;
 }
 ```
+
+### nginx-proxy
+
+- [nginx-proxy](https://github.com/nginx-proxy/nginx-proxy) Automated nginx proxy for Docker containers using docker-gen.
+- [Automated Nginx Reverse Proxy for Docker](http://jasonwilder.com/blog/2014/03/25/automated-nginx-reverse-proxy-for-docker/)
 
 ## CORS
 
