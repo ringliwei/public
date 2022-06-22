@@ -15,7 +15,7 @@
   - [Performance optimization](#performance-optimization)
     - [查看是否有死锁](#查看是否有死锁)
     - [查看当前正在执行的 sql 语句](#查看当前正在执行的-sql-语句)
-    - [查询Buffer使用情况](#查询buffer使用情况)
+    - [查询 Buffer 使用情况](#查询-buffer-使用情况)
     - [查询前 10 个可能是性能最差的 SQL 语句](#查询前-10-个可能是性能最差的-sql-语句)
     - [查询逻辑读取最高的存储过程](#查询逻辑读取最高的存储过程)
     - [查询从未使用过的索引](#查询从未使用过的索引)
@@ -197,6 +197,23 @@ FROM syscolumns a LEFT JOIN
 WHERE b.name IS NOT NULL
 --WHERE d.name='要查询的表' --如果只查询指定表,加上此条件
 ORDER BY a.id,a.colorder
+```
+
+```sql
+-- 简略版
+select
+    B.name  as column_name,
+    D.name  as column_type,
+    C.value as column_desc
+from sys.tables as A
+    inner join sys.columns as B
+    on B.object_id = A.object_id
+    left join sys.extended_properties as C
+    on C.major_id = B.object_id and C.minor_id = B.column_id
+    left join sys.types as D
+    on D.user_type_id = B.user_type_id
+where A.name = '${table_name}'
+order by B.column_id
 ```
 
 ### Show Table Information Schema by MarkDown
@@ -412,7 +429,7 @@ ORDER BY sp.spid, sp.ecid;
 
 [sys.dm_exec_sql_text](https://docs.microsoft.com/zh-cn/sql/relational-databases/system-dynamic-management-views/sys-dm-exec-sql-text-transact-sql?view=sql-server-ver15)
 
-### 查询Buffer使用情况
+### 查询 Buffer 使用情况
 
 ```sql
 SELECT
