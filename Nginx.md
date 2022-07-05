@@ -35,6 +35,8 @@
 
 [nginx configure](http://nginx.org/en/docs/configure.html)
 
+[nginx Getting Started](https://www.nginx.com/resources/wiki/start/)
+
 ## gcc
 
 ```bash
