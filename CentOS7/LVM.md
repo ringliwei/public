@@ -65,7 +65,21 @@ sdc               8:32   0   9.1T  0 disk
   root   centos -wi-ao---- 169.00g
   swap   centos -wi-a-----   4.00g
   lvdata vgdata -wi-ao----  18.19t
-[root@lab000 vgdata]#
+[root@lab000 ~]# cat /etc/fstab
+
+#
+# /etc/fstab
+# Created by anaconda on Mon Jun  8 14:59:59 2020
+#
+# Accessible filesystems, by reference, are maintained under '/dev/disk'
+# See man pages fstab(5), findfs(8), mount(8) and/or blkid(8) for more info
+#
+/dev/mapper/centos-root /                       xfs     defaults        1 1
+UUID=287680f7-cdd8-424a-9fcc-d93f77144c16 /boot                   xfs     defaults        1 2
+/dev/mapper/centos-home /home                   xfs     defaults        1 2
+#/dev/mapper/centos-swap swap                    swap    defaults        0 0
+/dev/vgdata/lvdata /data	xfs	defaults	1 2
+[root@lab000 ~]#
 ```
 
 ## 参考
