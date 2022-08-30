@@ -48,6 +48,56 @@ overlay        overlay   100G   21G   80G  21% /var/lib/docker/overlay2/cbddcb09
 overlay        overlay   100G   21G   80G  21% /var/lib/docker/overlay2/e93cf388658c8271e9e1b4f13cb93e315a650724528df07fa5c84b7fdac940b7/merged
 ```
 
+```bash
+$ df -ahT
+Filesystem     Type         Size  Used Avail Use% Mounted on
+sysfs          sysfs           0     0     0    - /sys
+proc           proc            0     0     0    - /proc
+devtmpfs       devtmpfs     899M     0  899M   0% /dev
+securityfs     securityfs      0     0     0    - /sys/kernel/security
+tmpfs          tmpfs        914M     0  914M   0% /dev/shm
+devpts         devpts          0     0     0    - /dev/pts
+tmpfs          tmpfs        914M  1.2M  913M   1% /run
+tmpfs          tmpfs        914M     0  914M   0% /sys/fs/cgroup
+cgroup         cgroup          0     0     0    - /sys/fs/cgroup/systemd
+pstore         pstore          0     0     0    - /sys/fs/pstore
+bpf            bpf             0     0     0    - /sys/fs/bpf
+cgroup         cgroup          0     0     0    - /sys/fs/cgroup/net_cls,net_prio
+cgroup         cgroup          0     0     0    - /sys/fs/cgroup/rdma
+cgroup         cgroup          0     0     0    - /sys/fs/cgroup/devices
+cgroup         cgroup          0     0     0    - /sys/fs/cgroup/cpu,cpuacct
+cgroup         cgroup          0     0     0    - /sys/fs/cgroup/pids
+cgroup         cgroup          0     0     0    - /sys/fs/cgroup/perf_event
+cgroup         cgroup          0     0     0    - /sys/fs/cgroup/blkio
+cgroup         cgroup          0     0     0    - /sys/fs/cgroup/hugetlb
+cgroup         cgroup          0     0     0    - /sys/fs/cgroup/memory
+cgroup         cgroup          0     0     0    - /sys/fs/cgroup/cpuset
+cgroup         cgroup          0     0     0    - /sys/fs/cgroup/freezer
+configfs       configfs        0     0     0    - /sys/kernel/config
+/dev/vda1      xfs          100G   21G   80G  21% /
+systemd-1      -               -     -     -    - /proc/sys/fs/binfmt_misc
+mqueue         mqueue          0     0     0    - /dev/mqueue
+debugfs        debugfs         0     0     0    - /sys/kernel/debug
+hugetlbfs      hugetlbfs       0     0     0    - /dev/hugepages
+tracefs        tracefs         0     0     0    - /sys/kernel/debug/tracing
+overlay        overlay      100G   21G   80G  21% /var/lib/docker/overlay2/850df7959c846e39761c3c28a39f9341ed2511ea964cb7624078064cb79e592c/merged
+nsfs           nsfs            0     0     0    - /run/docker/netns/b53fb333121c
+overlay        overlay      100G   21G   80G  21% /var/lib/docker/overlay2/a61d1d50ddabd28305099c73738631ed7df884677397bdc426ddb9d831a951b6/merged
+nsfs           nsfs            0     0     0    - /run/docker/netns/2c9177ef4ff5
+overlay        overlay      100G   21G   80G  21% /var/lib/docker/overlay2/d3295f10d0c0bd2991e6f15811d7b170c1e7749bc6429b42fa10735776861004/merged
+nsfs           nsfs            0     0     0    - /run/docker/netns/93d4855ea373
+tmpfs          tmpfs        183M     0  183M   0% /run/user/0
+binfmt_misc    binfmt_misc     0     0     0    - /proc/sys/fs/binfmt_misc
+overlay        overlay      100G   21G   80G  21% /var/lib/docker/overlay2/e24732d9f53f6f3d9c2fc6656f2f32c3328f2cc35bf43f03e0f50c09aa067198/merged
+nsfs           nsfs            0     0     0    - /run/docker/netns/667ed259f271
+overlay        overlay      100G   21G   80G  21% /var/lib/docker/overlay2/4f50290214f2bfb20cfd1764889783ec7852c27e125645afccf4780c668a3f6f/merged
+nsfs           nsfs            0     0     0    - /run/docker/netns/d86b4fd37e2b
+overlay        overlay      100G   21G   80G  21% /var/lib/docker/overlay2/cbddcb09137cfc4950b02866f0c46f1b69e3838b45255b420b29d71d291a4129/merged
+overlay        overlay      100G   21G   80G  21% /var/lib/docker/overlay2/e93cf388658c8271e9e1b4f13cb93e315a650724528df07fa5c84b7fdac940b7/merged
+nsfs           nsfs            0     0     0    - /run/docker/netns/b500b0f4de4d
+nsfs           nsfs            0     0     0    - /run/docker/netns/eac34401ea4c
+```
+
 ### file
 
 ```bash
