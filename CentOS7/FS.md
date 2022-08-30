@@ -272,4 +272,5 @@ drwxr-xr-x 2 root root   23 Sep 14  2020 xfs
 ## Resources
 
 - [你管这破玩意叫文件系统](https://mp.weixin.qq.com/s/bYUGs-KBBzPafvZ7EbZJ1Q)
+  - [ext2](./files/ext2.pdf)
 - [如何在 Linux 中查看已挂载的文件系统类型](https://linux.cn/article-10194-1.html)
