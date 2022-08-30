@@ -8,6 +8,8 @@
     - [parted](#parted)
     - [fstab](#fstab)
     - [findmnt](#findmnt)
+    - [lsblk](#lsblk)
+    - [blkid](#blkid)
   - [Resources](#resources)
 
 ## Command
@@ -219,6 +221,23 @@ TARGET                                SOURCE      FSTYPE      OPTIONS
 │                                                 nsfs        rw
 ```
 
+### lsblk
+
+```bash
+$ lsblk -f
+NAME   FSTYPE LABEL UUID                                 MOUNTPOINT
+vda
+└─vda1 xfs          ccd25378-c82e-4bea-ad12-81fba73fdf70 /
+```
+
+### blkid
+
+```bash
+$ blkid
+/dev/vda1: UUID="ccd25378-c82e-4bea-ad12-81fba73fdf70" TYPE="xfs" PARTUUID="76042835-01"
+```
+
 ## Resources
 
 - [你管这破玩意叫文件系统](https://mp.weixin.qq.com/s/bYUGs-KBBzPafvZ7EbZJ1Q)
+- [如何在 Linux 中查看已挂载的文件系统类型](https://linux.cn/article-10194-1.html)
