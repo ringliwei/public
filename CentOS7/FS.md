@@ -10,6 +10,7 @@
     - [findmnt](#findmnt)
     - [lsblk](#lsblk)
     - [blkid](#blkid)
+    - [view kernel fs](#view-kernel-fs)
   - [Resources](#resources)
 
 ## Command
@@ -235,6 +236,37 @@ vda
 ```bash
 $ blkid
 /dev/vda1: UUID="ccd25378-c82e-4bea-ad12-81fba73fdf70" TYPE="xfs" PARTUUID="76042835-01"
+```
+
+### view kernel fs
+
+```bash
+$ ls -l /lib/modules/4.18.0-193.14.2.el8_2.x86_64/kernel/fs/
+total 20
+-rw-r--r-- 1 root root 7748 Jul 26  2020 binfmt_misc.ko.xz
+drwxr-xr-x 2 root root   30 Sep 14  2020 cachefiles
+drwxr-xr-x 2 root root   24 Sep 14  2020 ceph
+drwxr-xr-x 2 root root   24 Sep 14  2020 cifs
+drwxr-xr-x 2 root root   26 Sep 14  2020 cramfs
+drwxr-xr-x 2 root root   23 Sep 14  2020 dlm
+drwxr-xr-x 2 root root   24 Sep 14  2020 ext4
+drwxr-xr-x 2 root root   60 Sep 14  2020 fat
+drwxr-xr-x 2 root root   27 Sep 14  2020 fscache
+drwxr-xr-x 2 root root   46 Sep 14  2020 fuse
+drwxr-xr-x 2 root root   24 Sep 14  2020 gfs2
+drwxr-xr-x 2 root root   25 Sep 14  2020 isofs
+drwxr-xr-x 2 root root   24 Sep 14  2020 jbd2
+drwxr-xr-x 2 root root   25 Sep 14  2020 lockd
+-rw-r--r-- 1 root root 4888 Jul 26  2020 mbcache.ko.xz
+drwxr-xr-x 5 root root  120 Sep 14  2020 nfs
+drwxr-xr-x 2 root root   46 Sep 14  2020 nfs_common
+drwxr-xr-x 2 root root   24 Sep 14  2020 nfsd
+drwxr-xr-x 2 root root 4096 Sep 14  2020 nls
+drwxr-xr-x 2 root root   27 Sep 14  2020 overlayfs
+drwxr-xr-x 2 root root   27 Sep 14  2020 pstore
+drwxr-xr-x 2 root root   28 Sep 14  2020 squashfs
+drwxr-xr-x 2 root root   23 Sep 14  2020 udf
+drwxr-xr-x 2 root root   23 Sep 14  2020 xfs
 ```
 
 ## Resources
