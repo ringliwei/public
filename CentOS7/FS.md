@@ -1,15 +1,16 @@
 # FileSystem
 
 - [FileSystem](#filesystem)
-  - [View](#view)
+  - [Command](#command)
     - [mount](#mount)
     - [df](#df)
     - [file](#file)
     - [parted](#parted)
     - [fstab](#fstab)
+    - [findmnt](#findmnt)
   - [Resources](#resources)
 
-## View
+## Command
 
 ### mount
 
@@ -164,6 +165,58 @@ $ cat /etc/fstab
 # units generated from this file.
 #
 UUID=ccd25378-c82e-4bea-ad12-81fba73fdf70 /                       xfs     defaults        0 0
+```
+
+### findmnt
+
+```bash
+$ findmnt
+TARGET                                SOURCE      FSTYPE      OPTIONS
+/                                     /dev/vda1   xfs         rw,relatime,attr2,inode64,noquota
+├─/sys                                sysfs       sysfs       rw,nosuid,nodev,noexec,relatime
+│ ├─/sys/kernel/security              securityfs  securityfs  rw,nosuid,nodev,noexec,relatime
+│ ├─/sys/fs/cgroup                    tmpfs       tmpfs       ro,nosuid,nodev,noexec,mode=755
+│ │ ├─/sys/fs/cgroup/systemd          cgroup      cgroup      rw,nosuid,nodev,noexec,relatime,xattr,release_agent=/usr/lib/systemd/systemd-cgroups-agent,name=systemd
+│ │ ├─/sys/fs/cgroup/net_cls,net_prio cgroup      cgroup      rw,nosuid,nodev,noexec,relatime,net_cls,net_prio
+│ │ ├─/sys/fs/cgroup/rdma             cgroup      cgroup      rw,nosuid,nodev,noexec,relatime,rdma
+│ │ ├─/sys/fs/cgroup/devices          cgroup      cgroup      rw,nosuid,nodev,noexec,relatime,devices
+│ │ ├─/sys/fs/cgroup/cpu,cpuacct      cgroup      cgroup      rw,nosuid,nodev,noexec,relatime,cpu,cpuacct
+│ │ ├─/sys/fs/cgroup/pids             cgroup      cgroup      rw,nosuid,nodev,noexec,relatime,pids
+│ │ ├─/sys/fs/cgroup/perf_event       cgroup      cgroup      rw,nosuid,nodev,noexec,relatime,perf_event
+│ │ ├─/sys/fs/cgroup/blkio            cgroup      cgroup      rw,nosuid,nodev,noexec,relatime,blkio
+│ │ ├─/sys/fs/cgroup/hugetlb          cgroup      cgroup      rw,nosuid,nodev,noexec,relatime,hugetlb
+│ │ ├─/sys/fs/cgroup/memory           cgroup      cgroup      rw,nosuid,nodev,noexec,relatime,memory
+│ │ ├─/sys/fs/cgroup/cpuset           cgroup      cgroup      rw,nosuid,nodev,noexec,relatime,cpuset
+│ │ └─/sys/fs/cgroup/freezer          cgroup      cgroup      rw,nosuid,nodev,noexec,relatime,freezer
+│ ├─/sys/fs/pstore                    pstore      pstore      rw,nosuid,nodev,noexec,relatime
+│ ├─/sys/fs/bpf                       bpf         bpf         rw,nosuid,nodev,noexec,relatime,mode=700
+│ ├─/sys/kernel/debug                 debugfs     debugfs     rw,relatime
+│ │ └─/sys/kernel/debug/tracing       tracefs     tracefs     rw,relatime
+│ └─/sys/kernel/config                configfs    configfs    rw,relatime
+├─/proc                               proc        proc        rw,nosuid,nodev,noexec,relatime
+│ └─/proc/sys/fs/binfmt_misc          systemd-1   autofs      rw,relatime,fd=37,pgrp=1,timeout=0,minproto=5,maxproto=5,direct,pipe_ino=17591
+│   └─/proc/sys/fs/binfmt_misc        binfmt_misc binfmt_misc rw,relatime
+├─/dev                                devtmpfs    devtmpfs    rw,nosuid,size=919936k,nr_inodes=229984,mode=755
+│ ├─/dev/shm                          tmpfs       tmpfs       rw,nosuid,nodev
+│ ├─/dev/pts                          devpts      devpts      rw,nosuid,noexec,relatime,gid=5,mode=620,ptmxmode=000
+│ ├─/dev/mqueue                       mqueue      mqueue      rw,relatime
+│ └─/dev/hugepages                    hugetlbfs   hugetlbfs   rw,relatime,pagesize=2M
+├─/run                                tmpfs       tmpfs       rw,nosuid,nodev,mode=755
+│ ├─/run/user/0                       tmpfs       tmpfs       rw,nosuid,nodev,relatime,size=187080k,mode=700
+│ ├─/run/docker/netns/b53fb333121c    nsfs[net:[4026532277]]
+│ │                                               nsfs        rw
+│ ├─/run/docker/netns/2c9177ef4ff5    nsfs[net:[4026532343]]
+│ │                                               nsfs        rw
+│ ├─/run/docker/netns/93d4855ea373    nsfs[net:[4026532406]]
+│ │                                               nsfs        rw
+│ ├─/run/docker/netns/d86b4fd37e2b    nsfs[net:[4026532590]]
+│ │                                               nsfs        rw
+│ ├─/run/docker/netns/b500b0f4de4d    nsfs[net:[4026532472]]
+│ │                                               nsfs        rw
+│ ├─/run/docker/netns/eac34401ea4c    nsfs[net:[4026532534]]
+│ │                                               nsfs        rw
+│ └─/run/docker/netns/667ed259f271    nsfs[net:[4026532722]]
+│                                                 nsfs        rw
 ```
 
 ## Resources
