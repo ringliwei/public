@@ -21,6 +21,8 @@
     - [查询从未使用过的索引](#查询从未使用过的索引)
     - [查询表下索引使用情况](#查询表下索引使用情况)
     - [查询缺失的索引](#查询缺失的索引)
+  - [Always on](#always-on)
+    - [CREATE LOGIN](#create-login)
   - [Monitor](#monitor)
 
 ## Script Snippet
@@ -637,6 +639,26 @@ FROM (
      ) c
 WHERE avg_user_impact >= 99.5
 ORDER BY last_user_seek DESC, avg_user_impact + avg_total_user_cost + unique_compiles DESC;
+```
+
+## Always on
+
+### CREATE LOGIN
+
+```sql
+-- always on 集群登陆账号需要通过脚本手动同步
+select 'CREATE LOGIN [' + name + '] WITH PASSWORD=' + sys.fn_varbintohexstr(password_hash) + ' HASHED,SID=' + sys.fn_varbintohexstr(sid) + ';'
+        from sys.sql_logins
+        where name<>'sa'
+
+union all
+
+select 'CREATE LOGIN [' + name + '] FROM WINDOWS;'
+    from sys.syslogins
+    where isntname=1
+        and name not like 'BUILTIN%'
+        and name not like 'NT AUTHORITY%'
+        and name not like @@servername + '%'
 ```
 
 ## Monitor
