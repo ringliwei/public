@@ -448,31 +448,19 @@ Koa application generator.
 
 ## Framework
 
-[express](https://github.com/expressjs/express)
-
-[meteor](https://github.com/meteor/meteor)
-
-[nest](https://github.com/nestjs/nest)
-
-[koa](https://github.com/koajs/koa)
-
-[sails](https://github.com/balderdashy/sails)
-
-[fastify](https://github.com/fastify/fastify)
-
-[egg](https://github.com/eggjs/egg)
-
-[loopback](https://github.com/strongloop/loopback)
-
-[hapi](https://github.com/hapijs/hapi)
-
-[pomelo](https://github.com/NetEase/pomelo)
-
-[node-restify](https://github.com/restify/node-restify)
-
-[egg](https://github.com/eggjs/egg)
-
-[thinkjs](https://github.com/thinkjs/thinkjs)
+- [express](https://github.com/expressjs/express)
+- [meteor](https://github.com/meteor/meteor)
+- [nestjs](https://github.com/nestjs/nest) A progressive Node.js framework for building efficient, reliable and scalable server-side applications.
+- [koa](https://github.com/koajs/koa)
+- [sails](https://github.com/balderdashy/sails)
+- [fastify](https://github.com/fastify/fastify)
+- [egg](https://github.com/eggjs/egg)
+- [loopback](https://github.com/strongloop/loopback)
+- [hapi](https://github.com/hapijs/hapi)
+- [pomelo](https://github.com/NetEase/pomelo)
+- [node-restify](https://github.com/restify/node-restify)
+- [egg](https://github.com/eggjs/egg)
+- [thinkjs](https://github.com/thinkjs/thinkjs)
 
 ## Package Tool
 
