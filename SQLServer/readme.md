@@ -12,6 +12,7 @@
     - [Show Table Space And Rows](#show-table-space-and-rows)
     - [Generate Time Sequence](#generate-time-sequence)
     - [Generate Backup Script](#generate-backup-script)
+    - [Convert Datetime](#convert-datetime)
   - [Performance optimization](#performance-optimization)
     - [查看是否有死锁](#查看是否有死锁)
     - [查看当前正在执行的 sql 语句](#查看当前正在执行的-sql-语句)
@@ -338,6 +339,52 @@ DECLARE @BackDate nvarchar(50) =replace(replace(replace(convert(varchar,getdate(
 SELECT 'backup database '+name+' to disk=''F:\DBbackup\'+name+'\'+name+'_'+@BackDate+'.bak'' with buffercount = 6, maxtransfersize = 2097152 ,compression,noformat,noinit,NAME=N''完整备份'',skip,norewind,nounload'
 FROM sys.sysdatabases
 WHERE NAME not in('master','msdb','tempdb','model','ReportServer','ReportServerTempDB') ORDER BY NAME
+```
+
+### Convert Datetime
+
+```sql
+SELECT CONVERT(nvarchar(50), GETDATE(), 0)    -- 12 28 2022 4:06PM
+SELECT CONVERT(nvarchar(50), GETDATE(), 1)    -- 12/28/09
+SELECT CONVERT(nvarchar(50), GETDATE(), 2)    -- 09.12.28
+SELECT CONVERT(nvarchar(50), GETDATE(), 3)    -- 28/12/09
+SELECT CONVERT(nvarchar(50), GETDATE(), 4)    -- 28.12.09
+SELECT CONVERT(nvarchar(50), GETDATE(), 5)    -- 28-12-09
+SELECT CONVERT(nvarchar(50), GETDATE(), 6)    -- 28 12 09
+SELECT CONVERT(nvarchar(50), GETDATE(), 7)    -- 12 28, 09
+SELECT CONVERT(nvarchar(50), GETDATE(), 8)    -- 16:06:26
+SELECT CONVERT(nvarchar(50), GETDATE(), 9)    -- 12 28 2022 4:06:26:513PM
+SELECT CONVERT(nvarchar(50), GETDATE(), 10)   -- 12-28-09
+SELECT CONVERT(nvarchar(50), GETDATE(), 11)   -- 09/12/28
+SELECT CONVERT(nvarchar(50), GETDATE(), 12)   -- 091228
+SELECT CONVERT(nvarchar(50), GETDATE(), 13)   -- 28 12 2022 16:06:26:513
+SELECT CONVERT(nvarchar(50), GETDATE(), 14)   -- 16:06:26:513
+SELECT CONVERT(nvarchar(50), GETDATE(), 20)   -- 2022-12-28 16:06:26
+SELECT CONVERT(nvarchar(50), GETDATE(), 21)   -- 2022-12-28 16:06:26.513
+SELECT CONVERT(nvarchar(50), GETDATE(), 22)   -- 12/28/09 4:06:26 PM
+SELECT CONVERT(nvarchar(50), GETDATE(), 23)   -- 2022-12-28
+SELECT CONVERT(nvarchar(50), GETDATE(), 24)   -- 16:06:26
+SELECT CONVERT(nvarchar(50), GETDATE(), 25)   -- 2022-12-28 16:06:26.513
+SELECT CONVERT(nvarchar(50), GETDATE(), 100)  -- 12 28 2022 4:06PM
+SELECT CONVERT(nvarchar(50), GETDATE(), 101)  -- 12/28/2022
+SELECT CONVERT(nvarchar(50), GETDATE(), 102)  -- 2022.12.28
+SELECT CONVERT(nvarchar(50), GETDATE(), 103)  -- 28/12/2022
+SELECT CONVERT(nvarchar(50), GETDATE(), 104)  -- 28.12.2022
+SELECT CONVERT(nvarchar(50), GETDATE(), 105)  -- 28-12-2022
+SELECT CONVERT(nvarchar(50), GETDATE(), 106)  -- 28 12 2022
+SELECT CONVERT(nvarchar(50), GETDATE(), 112)  -- 12 28, 2022
+SELECT CONVERT(nvarchar(50), GETDATE(), 108)  -- 16:06:26
+SELECT CONVERT(nvarchar(50), GETDATE(), 109)  -- 12 28 2022 4:06:26:513PM
+SELECT CONVERT(nvarchar(50), GETDATE(), 110)  -- 12-28-2022
+SELECT CONVERT(nvarchar(50), GETDATE(), 111)  -- 2022/12/28
+SELECT CONVERT(nvarchar(50), GETDATE(), 112)  -- 20221228
+SELECT CONVERT(nvarchar(50), GETDATE(), 113)  -- 28 12 2022 16:06:26:513
+SELECT CONVERT(nvarchar(50), GETDATE(), 114)  -- 16:06:26:513
+SELECT CONVERT(nvarchar(50), GETDATE(), 120)  -- 2022-12-28 16:06:26
+SELECT CONVERT(nvarchar(50), GETDATE(), 121)  -- 2022-12-28 16:06:26.513
+SELECT CONVERT(nvarchar(50), GETDATE(), 126)  -- 2022-12-28T16:06:26.513
+SELECT CONVERT(nvarchar(50), GETDATE(), 130)  -- 23 ??? 1430 4:06:26:513PM
+SELECT CONVERT(nvarchar(50), GETDATE(), 131)  -- 23/12/1430 4:06:26:513PM
 ```
 
 ## Performance optimization
