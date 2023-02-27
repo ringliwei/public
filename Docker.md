@@ -12,9 +12,10 @@
     - [Container](#container)
     - [Samples](#samples)
       - [Batch](#batch)
+      - [restart](#restart)
       - [docker system](#docker-system)
   - [Dockerfile](#dockerfile)
-    - [CMD & ENTRYPOINT](#cmd--entrypoint)
+    - [CMD \& ENTRYPOINT](#cmd--entrypoint)
     - [VOLUME](#volume)
     - [SHELL](#shell)
   - [DevOps](#devops)
@@ -275,6 +276,13 @@ docker rm -f `docker ps -a -q`
 
 # 删除所有的镜像
 docker rmi -f `docker images -q`
+```
+
+#### restart
+
+```bash
+# 设置容器 【2fe6cd477cd9】为 restart=always
+docker container update --restart=always 2fe6cd477cd9
 ```
 
 #### docker system
