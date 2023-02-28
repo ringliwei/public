@@ -5,6 +5,8 @@
     - [mirror](#mirror)
     - [samples](#samples)
   - [resources](#resources)
+  - [Tips](#tips)
+    - [`__main__` or python -m](#__main__-or-python--m)
 
 ## pip
 
@@ -50,3 +52,9 @@ pip download package_name -d "$path"
 
 - [pip 的基本使用 ](https://www.cnblogs.com/hls-code/p/15239654.html)
 - [Unofficial Windows Binaries for Python Extension Packages](https://www.lfd.uci.edu/~gohlke/pythonlibs/)
+
+## Tips
+
+### `__main__` or python -m
+
+[`__main__`](https://docs.python.org/3/library/__main__.html)
