@@ -1,6 +1,6 @@
-# Git基础命令
+# Git 基础命令
 
-- [Git基础命令](#git基础命令)
+- [Git 基础命令](#git-基础命令)
   - [git init](#git-init)
   - [git clone](#git-clone)
   - [git status](#git-status)
@@ -40,6 +40,9 @@ init repo
 
 ```bash
 git clone git@github.com:ringliwei/public.git
+
+# 非标准的ssh商品号
+git clone ssh://git@git.fooww.com:9022/bigdata/bigdata-assets.git
 ```
 
 ## git status
@@ -147,6 +150,10 @@ git remote rename <old-name> <new-name>  // 重命名引用的远程名
 
 ```bash
 git remote rm  // 移除一个远程仓库
+```
+
+```bash
+git remote set-url origin git@192.168.1.9:bigdata/bigdata-assets.git
 ```
 
 ## git push
@@ -368,7 +375,7 @@ git push origin [tagname]  // 共享标签
 
 ## git describe
 
-git describe 的​​语法是：
+git describe 的 ​​ 语法是：
 `git describe <ref>`
 
 `<ref>` 可以是任何能被 Git 识别成提交记录的引用，如果你没有指定的话，Git 会以你目前所检出的位置（HEAD）。
@@ -552,7 +559,7 @@ git diff -staged
 
 ## git mergetool
 
-- 启动图形化的merge工具
+- 启动图形化的 merge 工具
 
 ## start with `git init`
 
@@ -634,7 +641,7 @@ git status
 git pull
 #fatal: refusing to merge unrelated histories
 
-# --allow-unrelated-histories  
+# --allow-unrelated-histories
 git pull origin master --allow-unrelated-histories
 #From github.com:ringliwei/public
 # * branch            master     -> FETCH_HEAD
@@ -665,7 +672,7 @@ git push
 
 http 方式每次都要输入密码，按照如下设置即可保存密码。
 
-``` bash
+```bash
 # 记住密码（默认15分钟）
 git config --global credential.helper cache
 
@@ -676,7 +683,7 @@ git config credential.helper 'cache --timeout=3600'
 git config --global credential.helper store
 ```
 
-``` bash
+```bash
 # clone 时指定
 git clone http://yourname:password@github.com/name/project.git
 ```
@@ -696,9 +703,9 @@ git clone http://yourname:password@github.com/name/project.git
 [Git 分支管理策略](http://www.ruanyifeng.com/blog/2012/07/git.html)
 
 - [A successful Git branching model](https://nvie.com/posts/a-successful-git-branching-model/)
-![git-model](./images/git-model@2x.png)
+  ![git-model](./images/git-model@2x.png)
 - [A collection of Git extensions to provide high-level repository operations for Vincent Driessen's branching model.](https://github.com/nvie/gitflow/)
 - [gitflow-workflow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow)
-[gitmagic](http://www-cs-students.stanford.edu/~blynn/gitmagic/)
+  [gitmagic](http://www-cs-students.stanford.edu/~blynn/gitmagic/)
 
 [The Git Parable](https://www.cnblogs.com/3Tai/p/4255285.html)
