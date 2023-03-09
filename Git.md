@@ -42,7 +42,7 @@ init repo
 git clone git@github.com:ringliwei/public.git
 
 # 非标准的ssh商品号
-git clone ssh://git@git.fooww.com:9022/bigdata/bigdata-assets.git
+git clone ssh://git@git.github.com:9033/bigdata/bigdata-assets.git
 ```
 
 ## git status
