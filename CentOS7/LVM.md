@@ -84,10 +84,8 @@ UUID=287680f7-cdd8-424a-9fcc-d93f77144c16 /boot                   xfs     defaul
 
 ## 参考
 
-[如何在 Linux 中创建/配置 LVM（逻辑卷管理）](https://linux.cn/article-12670-1.html)
-
-[如何在 Linux 中扩展/增加 LVM 大小（逻辑卷调整）](https://linux.cn/article-12673-1.html)
-
-[Linux 文件系统-XFS 收缩与扩展](https://blog.csdn.net/baidu_39459954/article/details/89446794)
-
-[archlinux LVM](https://wiki.archlinux.org/title/LVM)
+- [如何在 Linux 中创建/配置 LVM（逻辑卷管理）](https://linux.cn/article-12670-1.html)
+- [如何在 Linux 中扩展/增加 LVM 大小（逻辑卷调整）](https://linux.cn/article-12673-1.html)
+- [Linux 文件系统-XFS 收缩与扩展](https://blog.csdn.net/baidu_39459954/article/details/89446794)
+- [archlinux LVM](https://wiki.archlinux.org/title/LVM)
+- [LVM : 简介](https://www.cnblogs.com/sparkdev/p/10130934.html)
