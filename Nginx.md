@@ -16,7 +16,7 @@
     - [clean script](#clean-script)
     - [crontab](#crontab)
   - [configuration](#configuration)
-    - [proxy_cache](#proxy_cache)
+    - [proxy\_cache](#proxy_cache)
   - [learn nginx](#learn-nginx)
     - [Starting, Stopping, and Reloading Configuration](#starting-stopping-and-reloading-configuration)
     - [Resource](#resource)
@@ -690,6 +690,8 @@ nginx.conf
 compile
 
 - --with-openssl-opt=enable-weak-ssl-ciphers
+
+[agentzh 的 Nginx 教程](https://openresty.org/download/agentzh-nginx-tutorials-zhcn.html)
 
 ## zabbix
 
