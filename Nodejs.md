@@ -450,6 +450,12 @@ Koa application generator.
 
 [docsify](https://github.com/docsifyjs/docsify/) A magical documentation site generator.
 
+### node-mssql
+
+[node-mssql](https://github.com/tediousjs/node-mssql)
+
+[Promises, Node, Tedious, Azure SQL. Oh My!](https://devblogs.microsoft.com/azure-sql/promises-node-tedious-azure-sql-oh-my/)
+
 ## Framework
 
 - [express](https://github.com/expressjs/express)
