@@ -21,6 +21,7 @@
   - [git describe](#git-describe)
   - [git alias](#git-alias)
   - [git branch](#git-branch)
+    - [prune branch](#prune-branch)
   - [git merge](#git-merge)
   - [git reset](#git-reset)
   - [git revert](#git-revert)
@@ -462,6 +463,17 @@ git branch -u origin/master master
 
 ```bash
 git branch -f master HEAD~3  // 将 master 分支强制指向 HEAD 的第 3 级父提交。
+```
+
+### prune branch
+
+```bash
+# 删除【远端已经不存在】，但本地仍然存在的【远端分支（不是本地分支）】
+git remote prune origin
+
+# 或者在fetch的时候直接带上清理参数：
+
+git fetch -p   # -p 即 --prune
 ```
 
 ## git merge
