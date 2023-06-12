@@ -73,6 +73,13 @@ End Function
 - [Excel-vba 开发使用手册](https://github.com/bluetata/concise-excel-vba)
 - COM
   - [Introduction to COM - What It Is and How to Use It.](https://www.codeproject.com/articles/633/introduction-to-com-what-it-is-and-how-to-use-it)
+  - [Component Object Model (COM) 是什么？](https://www.cnblogs.com/bitssea/p/12590702.html)
+  - [progid](https://learn.microsoft.com/zh-cn/windows/win32/com/progid)
+    - [ProgID 程序员给 CLSID 指定的容易记住的名字](https://www.cnblogs.com/xiaoxiaocaicai/p/3595240.html)
+    - [wiki/ProgID](https://en.wikipedia.org/wiki/ProgID)
+  - WSH
+    - [Windows Scripting Host (WSH) 是什么？](https://www.cnblogs.com/bitssea/p/12590688.html)
+    - [WSH 脚本宿主 ](https://www.cnblogs.com/Ulysse/p/14926572.html#/c/subject/p/14926572.html)
 - [在 Excel VBA 中写 SQL，是一种什么体验](https://www.cnblogs.com/new-june/p/15837906.html)
 - [Excel VBA 中写 SQL，这些问题你一定为此头痛过](https://www.cnblogs.com/new-june/p/15847114.html)
 - [Automate Chrome / Edge using VBA](https://www.codeproject.com/Tips/5307593/Automate-Chrome-Edge-using-VBA)
