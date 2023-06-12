@@ -80,6 +80,7 @@ End Function
   - WSH
     - [Windows Scripting Host (WSH) 是什么？](https://www.cnblogs.com/bitssea/p/12590688.html)
     - [WSH 脚本宿主 ](https://www.cnblogs.com/Ulysse/p/14926572.html#/c/subject/p/14926572.html)
+    - [关于 VBScript 中的 CreateObject](https://www.cnblogs.com/bitssea/p/12593940.html)
 - [在 Excel VBA 中写 SQL，是一种什么体验](https://www.cnblogs.com/new-june/p/15837906.html)
 - [Excel VBA 中写 SQL，这些问题你一定为此头痛过](https://www.cnblogs.com/new-june/p/15847114.html)
 - [Automate Chrome / Edge using VBA](https://www.codeproject.com/Tips/5307593/Automate-Chrome-Edge-using-VBA)
