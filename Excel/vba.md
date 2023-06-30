@@ -4,7 +4,9 @@
   - [Function](#function)
     - [GoInternet](#gointernet)
     - [GetLinkText](#getlinktext)
-    - [Resources](#resources)
+    - [BytesToBString](#bytestobstring)
+    - [HttpGet](#httpget)
+  - [Resources](#resources)
 
 ## Function
 
@@ -66,7 +68,89 @@ Function GetLinkText(Target As Range) As String
 End Function
 ```
 
-### Resources
+### BytesToBString
+
+```vb
+Function BytesToBString(Body, Cset)
+    On Error Resume Next
+    '"GB2312"
+    '"GBK"
+    '"UTF-8"
+
+    Dim Objstream
+    Set Objstream = CreateObject("adodb.stream")
+    Objstream.Type = 1
+    Objstream.Mode = 3
+    Objstream.Open
+    Objstream.Write Body
+    Objstream.Position = 0
+    Objstream.Type = 2
+    Objstream.Charset = Cset
+    BytesToBString = Objstream.ReadText
+    Objstream.Close
+    Set Objstream = Nothing
+End Function
+```
+
+### HttpGet
+
+- Dependency
+  - [VBA-Web](https://github.com/VBA-tools/VBA-Web)
+  - [BytesToBString](#BytesToBString)
+
+```vb
+Function GetAreaOfPhone(Target As Range) As String
+
+    Dim Client As New WebClient
+    Dim Url As String
+    Url = "https://xphone.fooww.com/p/" & Target.Value
+
+
+    Dim web_Request As New WebRequest
+
+    web_Request.Resource = Url
+    web_Request.Format = WebFormat.Json
+    web_Request.Method = WebMethod.HttpGet
+
+    Dim Response As New WebResponse
+    Set Response = Client.Execute(web_Request)
+
+    Dim ResponseText As String
+    ResponseText = BytesToBString(Response.Body, "UTF-8")
+
+    Dim Content As Dictionary
+
+    Set Content = WebHelpers.ParseJson(ResponseText)
+
+    GetAreaOfPhone = Content("data")("sp")
+End Function
+```
+
+```vb
+Function HttpGet(Target As Range) As String
+
+    Dim Client As New WebClient
+    Dim Url As String
+    Url = Target.Value
+
+
+    Dim web_Request As New WebRequest
+
+    web_Request.Resource = Url
+    web_Request.Format = WebFormat.Json
+    web_Request.Method = WebMethod.HttpGet
+
+    Dim Response As New WebResponse
+    Set Response = Client.Execute(web_Request)
+
+    Dim ResponseText As String
+    ResponseText = BytesToBString(Response.Body, "UTF-8")
+
+    HttpGet = ResponseText
+End Function
+```
+
+## Resources
 
 - [xlwings](https://docs.xlwings.org/en/latest/index.html) Python for Exceland Google Sheets.
 - [Strings in VBA](https://www.codevba.com/learn/strings.htm)
