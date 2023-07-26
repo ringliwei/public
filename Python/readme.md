@@ -27,8 +27,6 @@ conda config --set show_channel_urls yes
 # pip
 pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
 
-
-
 conda create -n chatglm2 python=3.11.4
 conda activate chatglm2
 
@@ -49,6 +47,12 @@ pip install -r requirements.txt -i  https://pypi.tuna.tsinghua.edu.cn/simple
 source /root/.bashrc
 conda activate chatglm2
 python --version
+```
+
+```bash
+# ENV 目录
+conda config --add envs_dirs E:\Lang\Miniconda3\envs
+conda config --add pkgs_dirs E:\Lang\Miniconda3\pkgs
 ```
 
 ## pip
