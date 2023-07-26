@@ -54,8 +54,12 @@ python --version
 
 ```bash
 # ENV 目录
+# windows系统下要注意envs，pkgs目标的权限
 conda config --add envs_dirs E:\Lang\Miniconda3\envs
 conda config --add pkgs_dirs E:\Lang\Miniconda3\pkgs
+
+
+conda config --show
 ```
 
 ## pip
