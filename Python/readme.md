@@ -1,7 +1,7 @@
 # Python
 
 - [Python](#python)
-  - [Miniconda](#miniconda)
+  - [miniconda](#miniconda)
   - [pip](#pip)
     - [mirror](#mirror)
     - [samples](#samples)
@@ -9,17 +9,17 @@
   - [Tips](#tips)
     - [`__main__` or python -m](#__main__-or-python--m)
 
-## Miniconda
+## miniconda
 
 ```bash
-# 清华镜像下载对应的版本的miniconda
+# 清华镜像下载对应的版本的 miniconda 安装
 # https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/
 
 
 # 控制重新打开一个terminal是否自动激活base环境
 conda config --set auto_activate_base false
 
-# conda 清华园
+# conda 清华源
 conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/
 conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/
 conda config --set show_channel_urls yes
@@ -37,6 +37,18 @@ pip install -r requirements.txt -i  https://pypi.tuna.tsinghua.edu.cn/simple
 
 # conda cheatsheet
 # https://docs.conda.io/projects/conda/en/stable/user-guide/cheatsheet.html
+```
+
+```bash
+#
+# start.sh
+# 用于启动激活一个 ENV, 运行相应的 Python.
+#
+
+# 将 conda 添加到环境变量
+source /root/.bashrc
+conda activate chatglm2
+python --version
 ```
 
 ## pip
