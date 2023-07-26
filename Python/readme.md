@@ -1,12 +1,43 @@
 # Python
 
 - [Python](#python)
+  - [Miniconda](#miniconda)
   - [pip](#pip)
     - [mirror](#mirror)
     - [samples](#samples)
   - [resources](#resources)
   - [Tips](#tips)
     - [`__main__` or python -m](#__main__-or-python--m)
+
+## Miniconda
+
+```bash
+# 清华镜像下载对应的版本的miniconda
+# https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/
+
+
+# 控制重新打开一个terminal是否自动激活base环境
+conda config --set auto_activate_base false
+
+# conda 清华园
+conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/
+conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/
+conda config --set show_channel_urls yes
+
+# pip
+pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
+
+
+
+conda create -n chatglm2 python=3.11.4
+conda activate chatglm2
+
+pip install -r requirements.txt -i  https://pypi.tuna.tsinghua.edu.cn/simple
+
+
+# conda cheatsheet
+# https://docs.conda.io/projects/conda/en/stable/user-guide/cheatsheet.html
+```
 
 ## pip
 
