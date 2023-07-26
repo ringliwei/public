@@ -30,6 +30,9 @@ pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
 conda create -n chatglm2 python=3.11.4
 conda activate chatglm2
 
+# 删除 chatglm2
+#conda remove -n chatglm2 --all
+
 pip install -r requirements.txt -i  https://pypi.tuna.tsinghua.edu.cn/simple
 
 
