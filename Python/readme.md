@@ -41,6 +41,22 @@ pip install -r requirements.txt -i  https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
 ```bash
+# ENV 目录
+# windows系统下要注意envs，pkgs目标的权限
+conda config --add envs_dirs E:\Lang\Miniconda3\envs
+conda config --add pkgs_dirs E:\Lang\Miniconda3\pkgs
+
+
+conda config --show
+```
+
+```bash
+# windows上 Initialize conda for shell interaction.
+# Initialize all currently available shells.
+conda init --all
+```
+
+```bash
 #
 # start.sh
 # 用于启动激活一个 ENV, 运行相应的 Python.
@@ -50,16 +66,6 @@ pip install -r requirements.txt -i  https://pypi.tuna.tsinghua.edu.cn/simple
 source /root/.bashrc
 conda activate chatglm2
 python --version
-```
-
-```bash
-# ENV 目录
-# windows系统下要注意envs，pkgs目标的权限
-conda config --add envs_dirs E:\Lang\Miniconda3\envs
-conda config --add pkgs_dirs E:\Lang\Miniconda3\pkgs
-
-
-conda config --show
 ```
 
 ## pip
