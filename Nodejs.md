@@ -481,6 +481,10 @@ Koa application generator.
 - [neutrino](https://github.com/neutrinojs/neutrino/) Create and build modern JavaScript projects with zero initial configuration.
   - Neutrino combines the power of webpack with the simplicity of presets.
 
+## Build Tool
+
+- [parcel](https://github.com/parcel-bundler/parcel) The zero configuration build tool for the web.
+
 ## Node.js On Windows XP
 
 - [which-nodejs-version-should-i-set-up-on-an-old-windows-xp-machine](https://stackoverflow.com/questions/37744391/which-nodejs-version-should-i-set-up-on-an-old-windows-xp-machine)
