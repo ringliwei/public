@@ -68,6 +68,15 @@ conda activate chatglm2
 python --version
 ```
 
+```bash
+# 更新 conda
+conda update conda
+# 更新 python
+conda update python
+
+conda update --all
+```
+
 ## pip
 
 ### mirror
