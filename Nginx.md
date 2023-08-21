@@ -954,3 +954,5 @@ location / {
 ## Problem
 
 - 在 `nginx 1.12.2` 版本配置 upstream 时, 可以使用 upstream `backend_service` 这样的名称（包含下划线）来命名，但 `nginx 1.16.1` 命名 upstream 时由不能带`下划线`
+- [nginx proxy_pass to https](https://serverfault.com/questions/978922/nginx-proxy-pass-to-https)
+  - proxy_ssl_server_name on
