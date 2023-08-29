@@ -54,6 +54,9 @@ conda config --show
 # windows上 Initialize conda for shell interaction.
 # Initialize all currently available shells.
 conda init --all
+
+# windows上 PATH 环境变量添加路经：
+# E:\Lang\Miniconda3\Scripts
 ```
 
 ```bash
