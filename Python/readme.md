@@ -12,10 +12,39 @@
 ## miniconda
 
 ```bash
+#
 # 清华镜像下载对应的版本的 miniconda 安装
+#
 # https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/
+```
 
+```bash
+#
+# windows 上 PATH 环境变量添加路经：
+# E:\Lang\Miniconda3\Scripts
+#
+```
 
+```bash
+#
+# windows 上 Initialize conda for shell interaction.
+# Initialize all currently available shells.
+#
+conda init --all
+```
+
+```bash
+#
+# windows 系统下要注意envs，pkgs目标的权限
+# ENV 目录
+#
+conda config --add envs_dirs E:\Lang\Miniconda3\envs
+conda config --add pkgs_dirs E:\Lang\Miniconda3\pkgs
+
+conda config --show
+```
+
+```bash
 # 控制重新打开一个terminal是否自动激活base环境
 conda config --set auto_activate_base false
 
@@ -38,25 +67,6 @@ pip install -r requirements.txt -i  https://pypi.tuna.tsinghua.edu.cn/simple
 
 # conda cheatsheet
 # https://docs.conda.io/projects/conda/en/stable/user-guide/cheatsheet.html
-```
-
-```bash
-# ENV 目录
-# windows系统下要注意envs，pkgs目标的权限
-conda config --add envs_dirs E:\Lang\Miniconda3\envs
-conda config --add pkgs_dirs E:\Lang\Miniconda3\pkgs
-
-
-conda config --show
-```
-
-```bash
-# windows上 Initialize conda for shell interaction.
-# Initialize all currently available shells.
-conda init --all
-
-# windows上 PATH 环境变量添加路经：
-# E:\Lang\Miniconda3\Scripts
 ```
 
 ```bash
