@@ -38,5 +38,6 @@ print(add(4, y=5))
 
 - [PEP 3107 – Function Annotations](https://peps.python.org/pep-3107/)
 - [PEP 484 – Type Hints](https://peps.python.org/pep-0484/)
+- [PEP 593 – Flexible function and variable annotations](https://peps.python.org/pep-0593/)
 - [FastAPI: Python 类型提示简介](https://fastapi.tiangolo.com/zh/python-types/)
 - [Python 的类型注解 Annotation](https://zhuanlan.zhihu.com/p/139056271)
