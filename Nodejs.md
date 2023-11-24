@@ -467,6 +467,8 @@ Koa application generator.
 - [express](https://github.com/expressjs/express)
 - [meteor](https://github.com/meteor/meteor)
 - [nestjs](https://github.com/nestjs/nest) A progressive Node.js framework for building efficient, reliable and scalable server-side applications.
+  - [dynamic-databases-connections-with-nestjs](https://jnesis.com/en/blog/dynamic-databases-connections-with-nestjs/)
+    - [nestjs-dynamic-databases](https://github.com/jnesiscompany/nestjs-dynamic-databases)
 - [koa](https://github.com/koajs/koa)
 - [sails](https://github.com/balderdashy/sails)
 - [fastify](https://github.com/fastify/fastify)
