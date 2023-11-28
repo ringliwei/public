@@ -25,13 +25,14 @@ def search(filepath, file_list):
             file_list.append(item_path)
 
 
-def move(src_dir, dest_dir, scan_pattern=VIDEO_RE):
+def move(src_dir, dest_dir, scan_pattern=VIDEO_RE, random_name_len=8):
     """移动src_dir目录下的scan_pattern文件名到dest_dir.
 
     Args:
         src_dir (str): 源目录
         dest_dir (str): 目标目录
         scan_pattern (re, optional): 需要移动的文件名正则模式. Defaults to VIDEO_RE.
+        random_name_len (int, optional): 随机名长度. Defaults to 8.
     """
 
     file_list = []
@@ -43,7 +44,7 @@ def move(src_dir, dest_dir, scan_pattern=VIDEO_RE):
             target_name = os.path.join(dest_dir, file_name)
             if os.path.exists(target_name):
                 random_name = "".join(random.sample(
-                    string.ascii_letters + string.digits, 8)
+                    string.ascii_letters + string.digits, random_name_len)
                 )
                 os.rename(target_name, os.path.join(dest_dir, random_name))
             shutil.move(file_fullpath, dest_dir)
