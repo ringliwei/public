@@ -1,7 +1,5 @@
 # Node.js
 
-- [Home](https://nodejs.org/en/)
-
 - [Node.js](#nodejs)
   - [install](#install)
     - [How to install Node.js via binary archive on Linux](#how-to-install-nodejs-via-binary-archive-on-linux)
@@ -34,6 +32,7 @@
     - [immer](#immer)
     - [date-fns](#date-fns)
     - [moment](#moment)
+    - [dayjs](#dayjs)
     - [mathjs](#mathjs)
     - [prettier](#prettier)
     - [koa-generator](#koa-generator)
@@ -43,9 +42,12 @@
     - [zx](#zx)
     - [blessed](#blessed)
     - [blessed-contrib](#blessed-contrib)
+    - [docsify](#docsify)
+    - [node-mssql](#node-mssql)
   - [Framework](#framework)
   - [Package Tool](#package-tool)
   - [Presets](#presets)
+  - [Build Tool](#build-tool)
   - [Node.js On Windows XP](#nodejs-on-windows-xp)
 
 ## install
@@ -409,6 +411,10 @@ provides the most comprehensive, yet simple and consistent toolset for manipulat
 [moment](https://www.npmjs.com/package/moment)
 A lightweight JavaScript date library for parsing, validating, manipulating, and formatting dates.
 
+### dayjs
+
+[Day.js](https://github.com/iamkun/dayjs/) 2kB immutable date-time library alternative to Moment.js with the same modern API
+
 ### mathjs
 
 [Math.js](https://www.npmjs.com/package/mathjs) is an extensive math library for JavaScript and Node.js
@@ -461,6 +467,8 @@ Koa application generator.
 - [express](https://github.com/expressjs/express)
 - [meteor](https://github.com/meteor/meteor)
 - [nestjs](https://github.com/nestjs/nest) A progressive Node.js framework for building efficient, reliable and scalable server-side applications.
+  - [dynamic-databases-connections-with-nestjs](https://jnesis.com/en/blog/dynamic-databases-connections-with-nestjs/)
+    - [nestjs-dynamic-databases](https://github.com/jnesiscompany/nestjs-dynamic-databases)
 - [koa](https://github.com/koajs/koa)
 - [sails](https://github.com/balderdashy/sails)
 - [fastify](https://github.com/fastify/fastify)
