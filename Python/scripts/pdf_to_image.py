@@ -5,6 +5,7 @@ pip install PyMuPDF
 
 import fitz
 
+
 def pdf_image(pdf_path, img_save_dir, zoom_x, zoom_y, rotation_angle):
     """按页生成每页的图片
 
@@ -26,4 +27,5 @@ def pdf_image(pdf_path, img_save_dir, zoom_x, zoom_y, rotation_angle):
     pdf.close()
 
 
-pdf_image(r"xxx.pdf", r"images/", 5, 5, 0)
+if __name__ == '__main__':
+    pdf_image(r"xxx.pdf", r"images/", 5, 5, 0)

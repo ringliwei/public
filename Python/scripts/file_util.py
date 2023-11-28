@@ -32,8 +32,7 @@ def move(src_dir, dest_dir, scan_pattern=VIDEO_RE):
         src_dir (str): 源目录
         dest_dir (str): 目标目录
         scan_pattern (re, optional): 需要移动的文件名正则模式. Defaults to VIDEO_RE.
-    """    '''
-    '''
+    """
 
     file_list = []
     search(src_dir, file_list)
