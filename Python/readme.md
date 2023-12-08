@@ -151,6 +151,9 @@ pip install -r requirements.txt
 
 # 下载包，用于内网主机安装
 pip download package_name -d "$path"
+
+pip download -d ./packs -r requirements.txt
+pip install --no-index --find-links=./packs -r requirements.txt
 ```
 
 ## resources
