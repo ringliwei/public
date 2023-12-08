@@ -33,6 +33,29 @@
 conda init --all
 ```
 
+```powershell
+#
+# powershell profile
+#
+echo $PROFILE
+
+# C:\Users\fooww\Documents\WindowsPowerShell\Microsoft.PowerShell_profile.ps1
+```
+
+```powershell
+#
+# C:\Users\fooww\Documents\WindowsPowerShell\profile.ps1
+#
+
+#region conda initialize
+# !! Contents within this block are managed by 'conda init' !!
+If (Test-Path "E:\Lang\miniconda3\Scripts\conda.exe") {
+    (& "E:\Lang\miniconda3\Scripts\conda.exe" "shell.powershell" "hook") | Out-String | ?{$_} | Invoke-Expression
+    conda activate notebook
+}
+#endregion
+```
+
 ```bash
 #
 # windows 系统下要注意envs，pkgs目标的权限
