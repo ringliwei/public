@@ -64,11 +64,12 @@ def _compare_wapper(scan_dir):
     return compare
 
 
-def rename(scan_dir, name_prefix='ABC-', random_name_len=8):
+def rename(scan_dir, name_prefix='us-', use_random_name=True, random_name_len=8):
     """文件重命名。name_prefix=None， 则采用随机名。
     Args:
         scan_dir (str): 文件所在目录
         name_prefix (str, optional): 文件前缀. Defaults to 'ABC-'.
+        use_random_name (bool, optional): 是否使用随机名.
         random_name_len (int, optional): 随机名长度. Defaults to 8.
     """
     compare = _compare_wapper(scan_dir)
@@ -83,16 +84,17 @@ def rename(scan_dir, name_prefix='ABC-', random_name_len=8):
 
         file_name_old_path = os.path.join(scan_dir, file_name)
 
-        if name_prefix:
-            new_name = re.sub(reg_rename, name_prefix +
-                              ("%03d" % i) + r'\2', file_name)
-        else:
+        if use_random_name:
             new_name = re.sub(reg_rename,
+                              name_prefix +
                               "".join(random.sample(
                                   string.ascii_letters + string.digits, random_name_len)
                               ) + r'\2',
                               file_name
                               )
+        else:
+            new_name = re.sub(reg_rename, name_prefix +
+                              ("%03d" % i) + r'\2', file_name)
 
         file_name_new_path = os.path.join(scan_dir, new_name)
         # print(file_name_new_path)
@@ -102,4 +104,4 @@ def rename(scan_dir, name_prefix='ABC-', random_name_len=8):
 
 if __name__ == "__main__":
     move(r"F:\src_dir", r"F:\dest_dir")
-    rename(r"F:\dest_dir", name_prefix=None)
+    rename(r"F:\dest_dir", name_prefix='us-', use_random_name=True)
