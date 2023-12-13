@@ -134,6 +134,9 @@ pip download package_name -d "$path"
 
 - [pip 的基本使用 ](https://www.cnblogs.com/hls-code/p/15239654.html)
 - [Unofficial Windows Binaries for Python Extension Packages](https://www.lfd.uci.edu/~gohlke/pythonlibs/)
+- [Full Stack Python](https://www.fullstackpython.com/)
+- [A Python Interpreter Written in Python](https://aosabook.org/en/500L/a-python-interpreter-written-in-python.html)
+- [https://third-bit.com/sdxpy/](https://third-bit.com/sdxpy/)
 
 ## Tips
 
