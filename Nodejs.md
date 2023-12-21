@@ -56,6 +56,9 @@
 # 直接下载二进制文件
 wget https://nodejs.org/dist/v12.13.1/node-v12.13.1-linux-x64.tar.xz
 
+# .tar.xz 可直接解压
+# tar -xvf node-v12.13.1-linux-x64.tar.xz
+
 # 解压第一步
 xz -d node-v12.13.1-linux-x64.tar.xz
 
