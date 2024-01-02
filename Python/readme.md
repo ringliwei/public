@@ -105,6 +105,9 @@ python --version
 ```
 
 ```bash
+conda update -n base -c defaults conda
+conda update -n base -c defaults python
+
 # 更新 conda
 conda update conda
 # 更新 python
