@@ -7,7 +7,7 @@
     - [samples](#samples)
   - [resources](#resources)
   - [Tips](#tips)
-    - [`__main__` or python -m](#__main__-or-python--m)
+    - [python -m](#python--m)
 
 ## miniconda
 
@@ -169,6 +169,6 @@ pip install --no-index --find-links=./packs -r requirements.txt
 
 ## Tips
 
-### `__main__` or python -m
+### python -m
 
 [`__main__`](https://docs.python.org/3/library/__main__.html)
