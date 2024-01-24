@@ -35,6 +35,7 @@ conda init --all
 
 ```powershell
 #
+# https://learn.microsoft.com/zh-cn/powershell/module/microsoft.powershell.core/about/about_profiles?view=powershell-7.4
 # powershell profile
 #
 echo $PROFILE
