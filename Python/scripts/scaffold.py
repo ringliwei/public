@@ -10,6 +10,10 @@ SCRIPT_DIR = os.path.split(os.path.realpath(__file__))[0]
 
 LOG_DIR = pathlib.Path(f"{SCRIPT_DIR}/logs")
 
+HOME_PATH = os.path.expandvars('$HOMEPATH')
+
+APPDATA_PATH = os.path.expandvars('$APPDATA')
+
 if not LOG_DIR.exists():
     LOG_DIR.mkdir(parents=True, exist_ok=True)
 
