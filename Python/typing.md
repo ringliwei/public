@@ -41,3 +41,6 @@ print(add(4, y=5))
 - [PEP 593 – Flexible function and variable annotations](https://peps.python.org/pep-0593/)
 - [FastAPI: Python 类型提示简介](https://fastapi.tiangolo.com/zh/python-types/)
 - [Python 的类型注解 Annotation](https://zhuanlan.zhihu.com/p/139056271)
+- [Mypy](https://mypy.readthedocs.io/en/latest/index.html) is a static type checker for Python.
+  - [Type hints cheat sheet](https://mypy.readthedocs.io/en/latest/cheat_sheet_py3.html)
+- [Python 类型提示简介](https://fastapi.tiangolo.com/zh/python-types/)
