@@ -2,7 +2,7 @@
 
 - [DouyinLiveRecorder](https://github.com/ihmily/DouyinLiveRecorder)
   - [FFmpeg](https://ffmpeg.org/)
-  - [m3u8]()
+  - [HTTP Live Streaming](https://www.rfc-editor.org/rfc/rfc8216) m3u8
 - [Nginx 配置搭建 m3u8 格式的视频播放服务](https://www.cnblogs.com/liuyangjava/p/17514580.html)
 - [FFmpeg 视频处理入门教程](https://ruanyifeng.com/blog/2020/01/ffmpeg.html)
 - [如何用 FFMpeg 生成视频](https://zhuanlan.zhihu.com/p/465418866)
