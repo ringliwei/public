@@ -16,7 +16,7 @@ ffmpeg {1} {2} -i {3} {4} {5}
 
 1. 全局参数
 2. 输入文件参数
-3. 输入文件
+3. `输入文件`
 4. 输出文件参数
 5. 输出文件
 
@@ -49,6 +49,16 @@ output.webm # 输出文件
 - [DouyinLiveRecorder](https://github.com/ihmily/DouyinLiveRecorder)
   - [FFmpeg](https://ffmpeg.org/)
   - [HTTP Live Streaming](https://www.rfc-editor.org/rfc/rfc8216) m3u8
+  - [ffmpeg_dl.py](../Python/scripts/ffmpeg_dl.py)
+- [webvideo-downloader](https://github.com/jaysonlong/webvideo-downloader)
+  - [CommonHlsDownloader.user.js](../UserScript/CommonHlsDownloader.user.js)
+  - [WebVideoDownloader.user.js](../UserScript/WebVideoDownloader.user.js)
+- [tampermonkey](https://www.tampermonkey.net/)
+  - [CommonHlsDownloader.user.js](../UserScript/CommonHlsDownloader.user.js)
+  - [WebVideoDownloader.user.js](../UserScript/WebVideoDownloader.user.js)
+  - [ShortVideoDownloader.user.js](../UserScript/ShortVideoDownloader.user.js)
+  - [Intercept browser requests for resources](https://stackoverflow.com/questions/26516358/intercept-browser-requests-for-resources)
+  - [油猴脚本编写快速入门](https://www.cnblogs.com/mq0036/p/17509937.html)
 - [Nginx 配置搭建 m3u8 格式的视频播放服务](https://www.cnblogs.com/liuyangjava/p/17514580.html)
 - [FFmpeg 视频处理入门教程](https://ruanyifeng.com/blog/2020/01/ffmpeg.html)
 - [如何用 FFMpeg 生成视频](https://zhuanlan.zhihu.com/p/465418866)
