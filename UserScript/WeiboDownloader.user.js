@@ -6,6 +6,7 @@
 // @homepage     https://greasyfork.org/zh-CN/scripts/458716-%E5%BE%AE%E5%8D%9A%E8%A7%86%E9%A2%91%E4%B8%8B%E8%BD%BD%E5%8A%A9%E6%89%8B
 // @match        http*://weibo.com/*
 // @match        http*://*.weibo.com/*
+// @match        *://*/*
 // @require      http://libs.baidu.com/jquery/2.0.0/jquery.min.js
 // @require      https://cdn.bootcdn.net/ajax/libs/downloadjs/1.4.8/download.js
 // @grant        GM_log
@@ -52,14 +53,20 @@
             // 【下载】按钮
             let downloadJQ = $("<a>下 载</a>");
             downloadJQ.css({
-                "background-color": "rgba(255,130,0, 1)",
+                "background-color": "#090",
                 color: "#fff",
-                "font-size": "20px",
+                "font-size": "12px",
                 cursor: "pointer",
-                "border-radius": "10px",
-                "padding-left": "10px",
-                "padding-right": "10px",
+                border: "#fff solid 1.5px",
+                "border-radius": "8px",
+                padding: "4px",
+                "padding-left": "8px",
+                "padding-right": "8px",
                 "margin-bottom": "2px",
+                position: "absolute",
+                top: "0px",
+                "z-index": 10000,
+                "text-decoration": "none",
             });
             downloadJQ.attr("id", downloadIdAttrName);
             downloadJQ.attr("href", videoJQ.attr("src"));
