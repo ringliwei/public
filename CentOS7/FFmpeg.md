@@ -57,13 +57,18 @@ output.webm # 输出文件
   - [CommonHlsDownloader.user.js](../UserScript/CommonHlsDownloader.user.js)
   - [WebVideoDownloader.user.js](../UserScript/WebVideoDownloader.user.js)
 - [tampermonkey](https://www.tampermonkey.net/)
+
   - [CommonHlsDownloader.user.js](../UserScript/CommonHlsDownloader.user.js)
   - [WebVideoDownloader.user.js](../UserScript/WebVideoDownloader.user.js)
   - [ShortVideoDownloader.user.js](../UserScript/ShortVideoDownloader.user.js)
   - [Intercept browser requests for resources](https://stackoverflow.com/questions/26516358/intercept-browser-requests-for-resources)
   - [油猴脚本编写快速入门](https://www.cnblogs.com/mq0036/p/17509937.html)
-- [Nginx 配置搭建 m3u8 格式的视频播放服务](https://www.cnblogs.com/liuyangjava/p/17514580.html)
+
 - [FFmpeg 视频处理入门教程](https://ruanyifeng.com/blog/2020/01/ffmpeg.html)
 - [如何用 FFMpeg 生成视频](https://zhuanlan.zhihu.com/p/465418866)
 - [基于 Nginx 搭建 RTMP-HLS 视频直播服务器（推流+拉流）](https://blog.csdn.net/Harry_z666/article/details/114984077)
   - [NGINX-based Media Streaming Server](https://github.com/arut/nginx-rtmp-module)
+- [Nginx 配置搭建 m3u8 格式的视频播放服务](https://www.cnblogs.com/liuyangjava/p/17514580.html)
+- [使用 nginx 搭建 HTTP FLV 流媒体服务器](https://blog.csdn.net/water1209/article/details/128708318)
+  - [nginx-rtmp-module](https://github.com/arut/nginx-rtmp-module) NGINX-based Media Streaming Server
+  - [nginx-http-flv-module](https://github.com/winshining/nginx-http-flv-module)
