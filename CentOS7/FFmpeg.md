@@ -73,3 +73,4 @@ output.webm # 输出文件
   - [nginx-rtmp-module](https://github.com/arut/nginx-rtmp-module) NGINX-based Media Streaming Server
   - [nginx-http-flv-module](https://github.com/winshining/nginx-http-flv-module)
 - [FFmpeg+Nginx+RTMP/HLS 快速搭建直播网站](https://www.cnblogs.com/crazymagic/articles/14101332.html)
+- [rtmp-hls-server](https://github.com/TareqAlqutami/rtmp-hls-server) a docker file to create a streaming server that supports RTMP, HLS and DASH content based on nginx and nginx-rtmp-module.
