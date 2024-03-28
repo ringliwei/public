@@ -50,6 +50,9 @@ output.webm # 输出文件
   - [FFmpeg](https://ffmpeg.org/)
   - [HTTP Live Streaming](https://www.rfc-editor.org/rfc/rfc8216) m3u8
   - [ffmpeg_dl.py](../Python/scripts/ffmpeg_dl.py)
+  - [hls.js](https://github.com/video-dev/hls.js) is a JavaScript library that plays HLS in browsers with support for MSE.
+  - [flv.js](https://github.com/Bilibili/flv.js) HTML5 FLV Player.
+    - [mpegts.js](https://github.com/xqq/mpegts.js) HTML5 MPEG2-TS / FLV Stream Player.
 - [webvideo-downloader](https://github.com/jaysonlong/webvideo-downloader)
   - [CommonHlsDownloader.user.js](../UserScript/CommonHlsDownloader.user.js)
   - [WebVideoDownloader.user.js](../UserScript/WebVideoDownloader.user.js)
