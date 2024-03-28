@@ -72,3 +72,4 @@ output.webm # 输出文件
 - [使用 nginx 搭建 HTTP FLV 流媒体服务器](https://blog.csdn.net/water1209/article/details/128708318)
   - [nginx-rtmp-module](https://github.com/arut/nginx-rtmp-module) NGINX-based Media Streaming Server
   - [nginx-http-flv-module](https://github.com/winshining/nginx-http-flv-module)
+- [FFmpeg+Nginx+RTMP/HLS 快速搭建直播网站](https://www.cnblogs.com/crazymagic/articles/14101332.html)
