@@ -59,18 +59,25 @@ def ffmpeg_dl(real_url, save_path_name):
         print(f"错误信息: {e} 发生错误的行数: {e.__traceback__.tb_lineno}")
 
 
-if __name__ == "__main__":
-    i = 0
-    def geti():
-        global i
-        i = i + 1
-        return i
-    
-    url_list = [
-        ["https://xx/index.m3u8", f"{SAVE_PATH}/xx{geti()}.mp4"],
-    ]
-    
+def make_counter():
+    count = 0
 
+    def counter():
+        nonlocal count
+        count += 1
+        return count
+    return counter
+
+
+if __name__ == "__main__":
+    c1 = make_counter()
+    c2 = make_counter()
+    c3 = make_counter()
+    c4 = make_counter()
+
+    url_list = [
+        ["https://xx/index.m3u8", f"{SAVE_PATH}/xx{c1()}.mp4"],
+    ]
 
     tt = []
     for url, name in url_list:
