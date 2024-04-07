@@ -44,6 +44,7 @@
     - [blessed-contrib](#blessed-contrib)
     - [docsify](#docsify)
     - [node-mssql](#node-mssql)
+    - [cheerio](#cheerio)
   - [Framework](#framework)
   - [Package Tool](#package-tool)
   - [Presets](#presets)
@@ -464,6 +465,10 @@ Koa application generator.
 [node-mssql](https://github.com/tediousjs/node-mssql)
 
 [Promises, Node, Tedious, Azure SQL. Oh My!](https://devblogs.microsoft.com/azure-sql/promises-node-tedious-azure-sql-oh-my/)
+
+### cheerio
+
+[cheerio](https://github.com/cheeriojs/cheerio) The fast, flexible, and elegant library for parsing and manipulating HTML and XML. jQuery
 
 ## Framework
 
