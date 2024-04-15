@@ -109,6 +109,9 @@ python --version
 conda update -n base -c defaults conda
 conda update -n base -c defaults python
 
+conda update -n base -c https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main conda
+conda update -n base -c https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main python
+
 # 更新 conda
 conda update conda
 # 更新 python
@@ -173,3 +176,16 @@ pip install --no-index --find-links=./packs -r requirements.txt
 ### python -m
 
 [`__main__`](https://docs.python.org/3/library/__main__.html)
+
+```bash
+# http server
+python -m http.server
+
+# format JSON
+echo '{"amount":3.4}' | python -m json.tool
+
+# python Environment Info
+python -m sysconfig
+# sys.path
+python -m site
+```
