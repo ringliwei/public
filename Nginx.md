@@ -693,6 +693,10 @@ compile
 
 [agentzh 的 Nginx 教程](https://openresty.org/download/agentzh-nginx-tutorials-zhcn.html)
 
+[imageproxy](https://github.com/willnorris/imageproxy) A caching, resizing image proxy written in Go.
+
+- [nginx cache + imageproxy + minio 支持多级 cache 的图片缩放处理服务](https://www.cnblogs.com/rongfengliang/p/13922297.html)
+
 ## zabbix
 
 [ZBX_NGINX](https://github.com/AlexGluck/ZBX_NGINX)
