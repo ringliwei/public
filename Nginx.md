@@ -697,6 +697,8 @@ compile
 
 - [nginx cache + imageproxy + minio 支持多级 cache 的图片缩放处理服务](https://www.cnblogs.com/rongfengliang/p/13922297.html)
 
+[负载均衡](https://mp.weixin.qq.com/s/8y6IxIM8ApXakVjn8rx9aw)
+
 ## zabbix
 
 [ZBX_NGINX](https://github.com/AlexGluck/ZBX_NGINX)
