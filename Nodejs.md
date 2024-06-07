@@ -502,6 +502,17 @@ Koa application generator.
 - [webpack](https://github.com/webpack/webpack)
 - [vite](https://github.com/vitejs/vite)
 - [parcel](https://github.com/parcel-bundler/parcel) The zero configuration build tool for the web.
+- [Bun](https://github.com/oven-sh/bun)
+- [esbuild](https://github.com/evanw/esbuild)
+- [Gulp](https://github.com/gulpjs/gulp)
+- [SWC](https://github.com/swc-project/swc)
+- [Turbopack](https://github.com/vercel/turbo)
+- [Rollup](https://github.com/rollup/rollup)
+- [Nx](https://github.com/nrwl/nx)
+- [Rspack](https://github.com/web-infra-dev/rspack)
+- [Rolldown](https://github.com/rolldown/rolldown)
+- [Farm](https://github.com/farm-fe/farm)
+- [Rsbuild](https://github.com/web-infra-dev/rsbuild)
 
 ## Node.js On Windows XP
 
