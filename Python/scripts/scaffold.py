@@ -5,6 +5,9 @@ import logging
 import logging.handlers as h
 import pathlib
 
+FILE_NAME = os.path.basename(__file__)
+
+SCRIPT_ROOT = os.path.abspath(os.path.dirname(__file__))
 
 SCRIPT_DIR = os.path.split(os.path.realpath(__file__))[0]
 
@@ -19,7 +22,7 @@ if not LOG_DIR.exists():
 
 logging.basicConfig(format='%(asctime)s - %(levelname)s: %(message)s',
                     level=logging.DEBUG,
-                    handlers=[logging.StreamHandler(), h.RotatingFileHandler(f'{LOG_DIR}/scaffold.log', encoding='utf8')])
+                    handlers=[logging.StreamHandler(), h.RotatingFileHandler(f'{LOG_DIR}/{FILE_NAME}.log', encoding='utf8')])
 
 
 def command_line():
