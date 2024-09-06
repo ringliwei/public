@@ -2,7 +2,7 @@
 pip install PyPDF2
 '''
 
-from PyPDF2 import PdfFileWriter, PdfFileReader
+from PyPDF2 import PdfFileReader, PdfFileWriter
 
 
 def pick_up(pdf_file, pages, output_file="output.pdf"):
