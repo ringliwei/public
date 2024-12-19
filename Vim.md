@@ -1,5 +1,12 @@
 # Vim
 
+- [Vim](#vim)
+  - [.vimrc](#vimrc)
+  - [Buffer](#buffer)
+  - [Window](#window)
+  - [Tab](#tab)
+  - [Resources](#resources)
+
 ## .vimrc
 
 [Use VIM as IDE](https://github.com/yangyangwithgnu/use_vim_as_ide)
@@ -22,8 +29,8 @@ set ruler
 " 高亮显示当前行/列
 set cursorline
 "set cursorcolumn
-set encoding=utf-8  " The encoding displayed.
-set fileencoding=utf-8  " The encoding written to file. 
+" set encoding=utf-8  " The encoding displayed.
+set fileencodings=ucs-bom,utf-8,cp936,gb18030,big5,euc-jp,euc-kr,latin1
 ```
 
 ## Buffer
@@ -86,6 +93,14 @@ CTRL-W-K 将窗口移到顶端
 
 ## Tab
 
-[vim](https://blog.csdn.net/weixin_37657720/article/details/80645991)
+- [vim](https://blog.csdn.net/weixin_37657720/article/details/80645991)
+- [vim](https://www.oschina.net/news/43167/130-essential-vim-commands)
 
-[vim](https://www.oschina.net/news/43167/130-essential-vim-commands)
+## Resources
+
+- [encoding](https://edyfox.codecarver.org/html/vim_fileencodings_detection.html)
+  - fileencodings 编码的自动识别是通过设置 fileencodings 实现的，注意是复数形式。
+    - `set fileencodings=ucs-bom,utf-8,cp936,gb18030,big5,euc-jp,euc-kr,latin1`
+  - fileencoding 当 Vim 从磁盘上读取文件的时候，会对文件的编码进行探测。
+  - encoding 是 Vim 内部使用的字符编码方式。
+  - termencoding 是 Vim 用于屏幕显示的编码，在显示的时候，Vim 会把内部编码转换为屏幕编码，再用于输出。
