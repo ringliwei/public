@@ -104,3 +104,4 @@ CTRL-W-K 将窗口移到顶端
   - fileencoding 当 Vim 从磁盘上读取文件的时候，会对文件的编码进行探测。
   - encoding 是 Vim 内部使用的字符编码方式。
   - termencoding 是 Vim 用于屏幕显示的编码，在显示的时候，Vim 会把内部编码转换为屏幕编码，再用于输出。
+- [Learn Vim Progressively](https://yannesposito.com/Scratch/en/blog/Learn-Vim-Progressively/)
