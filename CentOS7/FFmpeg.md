@@ -75,5 +75,6 @@ output.webm # 输出文件
 - [FFmpeg+Nginx+RTMP/HLS 快速搭建直播网站](https://www.cnblogs.com/crazymagic/articles/14101332.html)
 - [rtmp-hls-server](https://github.com/TareqAlqutami/rtmp-hls-server) a docker file to create a streaming server that supports RTMP, HLS and DASH content based on nginx and nginx-rtmp-module.
   - [HLS-搭建 Nginx 流媒体点播服务(SaaS docker)](https://blog.csdn.net/ysf465639310/article/details/104700147)
+- [openresty-rtmp-ffmpeg-api](https://github.com/all-in-simplicity/openresty-rtmp-ffmpeg-api) Example implementation of a dockerized Media Streaming Server powered by nginx-rtmp, ffmpeg and a Go API
 - [FFmpeg 快速入门：命令行详解、工具、教程、电子书](https://blog.mzh.ren/zh/posts/2022/10/ffmpeg-quickstart/)
 - [QuickCut](https://gitee.com/haujet/QuickCut) 轻量、强大、好用的音视频处理、下载工具！
