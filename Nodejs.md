@@ -3,6 +3,7 @@
 - [Node.js](#nodejs)
   - [install](#install)
     - [How to install Node.js via binary archive on Linux](#how-to-install-nodejs-via-binary-archive-on-linux)
+  - [fnm](#fnm)
   - [npm](#npm)
   - [pm2](#pm2)
     - [cheatsheet](#cheatsheet)
@@ -119,6 +120,53 @@ step 3. Refresh profile
 source ~/.profile
 # or
 source /etc/profile
+```
+
+## fnm
+
+[Fast and simple Node.js version manager, built in Rust](https://github.com/Schniz/fnm)
+
+```ps1
+# Download and install fnm:
+winget install Schniz.fnm
+```
+
+Add the following to the end of your profile file:
+
+```ps1
+# C:\Users\idido\Documents\WindowsPowerShell\profile.ps1
+fnm env --use-on-cd --shell powershell | Out-String | Invoke-Expression
+```
+
+set ENV
+
+```ps1
+FNM_DIR=E:\Lang\fnm
+```
+
+```ps1
+# 安装
+fnm install 22
+
+# 列出本地已安装版本
+fnm ls
+
+# 列出远程可用版本
+fnm ls-remote
+
+# 设置默认版本
+fnm default 22
+
+# 切换版本
+fnm use 23
+```
+
+Adding a .node-version to your project is as simple as:
+
+```ps1
+node --version
+v14.18.3
+node --version > .node-version
 ```
 
 ## npm
