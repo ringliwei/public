@@ -265,3 +265,5 @@ systemd-analyze critical-chain atd.service
 [Systemd 定时器教程](http://www.ruanyifeng.com/blog/2018/03/systemd-timer.html)
 
 [Systemd 中文手册(v235)](http://www.jinbuguo.com/systemd/systemd.index.html)
+
+[SysVinit_to_Systemd_Cheatsheet](https://fedoraproject.org/wiki/SysVinit_to_Systemd_Cheatsheet)
