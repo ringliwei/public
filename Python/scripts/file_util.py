@@ -1,9 +1,9 @@
 # coding=utf-8
 
 import os
+import random
 import re
 import shutil
-import random
 import string
 from functools import cmp_to_key
 

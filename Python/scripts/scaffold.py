@@ -1,8 +1,7 @@
-import os
-
 import argparse
 import logging
 import logging.handlers as h
+import os
 import pathlib
 
 FILE_NAME = os.path.basename(__file__)
