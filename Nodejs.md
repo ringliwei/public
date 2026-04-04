@@ -145,6 +145,9 @@ FNM_DIR=E:\Lang\fnm
 ```
 
 ```ps1
+# export FNM_NODE_DIST_MIRROR="https://npmmirror.com/mirrors/node/"
+$env:FNM_NODE_DIST_MIRROR="https://npmmirror.com/mirrors/node/"
+
 # 安装
 fnm install 22
 
