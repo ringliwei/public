@@ -145,6 +145,7 @@ FNM_DIR=E:\Lang\fnm
 ```
 
 ```ps1
+# https://juejin.cn/post/7530854307196125236
 # export FNM_NODE_DIST_MIRROR="https://npmmirror.com/mirrors/node/"
 $env:FNM_NODE_DIST_MIRROR="https://npmmirror.com/mirrors/node/"
 
