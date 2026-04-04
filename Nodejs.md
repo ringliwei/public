@@ -183,7 +183,7 @@ node --version > .node-version
 vim ~/.npmrc
 
 # add
-registry = "https://registry.npm.taobao.org/"
+registry = "https://registry.npmmirror.com"
 ```
 
 ```bash
@@ -192,8 +192,8 @@ npm config ls -l
 npm config set prefix "E:\Repos\npm"
 
 npm config set cache "E:\Repos\npm\cache"
-
-npm config set registry https://registry.npm.taobao.org
+# https://npmmirror.com/
+npm config set registry https://registry.npmmirror.com
 
 npm config get registry
 ```
