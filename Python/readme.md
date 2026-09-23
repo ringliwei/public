@@ -71,14 +71,32 @@ conda config --show
 ```bash
 # 控制重新打开一个terminal是否自动激活base环境
 conda config --set auto_activate_base false
-
-# conda 清华源
-conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/free/
-conda config --add channels https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main/
 conda config --set show_channel_urls yes
+```
 
+接下来配置镜像，不同系统下的 `.condarc` 目录如下：
+
+- Linux: `${HOME}/condarc`
+- macOS: `${HOME}/.condarc`
+- Windows: `C:\Users\<YourUserName>\.condarc`
+
+```yml
+# https://help.mirrors.cernet.edu.cn/anaconda/
+channels:
+  - defaults
+show_channel_urls: true
+default_channels:
+  - https://mirrors.pku.edu.cn/anaconda/pkgs/main
+  - https://mirrors.pku.edu.cn/anaconda/pkgs/r
+  - https://mirrors.pku.edu.cn/anaconda/pkgs/msys2
+custom_channels:
+  conda-forge: https://mirrors.pku.edu.cn/anaconda/cloud
+  pytorch: https://mirrors.pku.edu.cn/anaconda/cloud
+```
+
+```bash
 # pip
-pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
+pip config set global.index-url https://mirrors.pku.edu.cn/pypi/web/simple
 
 conda create -n chatglm2 python=3.11.4
 conda activate chatglm2
@@ -86,7 +104,7 @@ conda activate chatglm2
 # 删除 chatglm2
 #conda remove -n chatglm2 --all
 
-pip install -r requirements.txt -i  https://pypi.tuna.tsinghua.edu.cn/simple
+pip install -r requirements.txt -i  https://mirrors.pku.edu.cn/pypi/web/simple
 
 
 # conda cheatsheet
@@ -136,16 +154,13 @@ index-url = http://mirrors.aliyun.com/pypi/simple/
 trusted-host = mirrors.aliyun.com
 ```
 
-```txt
-http://pypi.douban.com/simple/
-http://mirrors.aliyun.com/pypi/simple/
-http://pypi.hustunique.com/simple/
-http://pypi.sdutlinux.org/simple/
-http://pypi.mirrors.ustc.edu.cn/simple/
-```
-
 ```bash
 pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
+
+#  @see https://help.mirrors.cernet.edu.cn/pypi/
+#  @date 2026-09-23 使用北大镜像
+python -m pip install --upgrade pip
+pip config set global.index-url https://mirrors.pku.edu.cn/pypi/web/simple
 ```
 
 ### samples
