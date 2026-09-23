@@ -136,6 +136,16 @@ conda update conda
 conda update python
 
 conda update --all
+
+# 提示升级 conda：
+# ==> WARNING: A newer version of conda exists. <==
+#     current version: 26.1.1
+#     latest version: 26.7.2
+#Please update conda by running
+#
+#    $ conda update -n base -c defaults conda
+# 执行不成功，可直接安装最新版
+conda install -n base conda==26.7.2
 ```
 
 ## pip
