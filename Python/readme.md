@@ -13,9 +13,9 @@
 
 ```bash
 #
-# 清华镜像下载对应的版本的 miniconda 安装
+# 北大镜像下载对应的版本的 miniconda 安装
 #
-# https://mirrors.tuna.tsinghua.edu.cn/anaconda/miniconda/
+# https://mirrors.pku.edu.cn/anaconda/miniconda/
 ```
 
 ```bash
@@ -127,8 +127,8 @@ python --version
 conda update -n base -c defaults conda
 conda update -n base -c defaults python
 
-conda update -n base -c https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main conda
-conda update -n base -c https://mirrors.tuna.tsinghua.edu.cn/anaconda/pkgs/main python
+conda update -n base -c https://mirrors.pku.edu.cn/anaconda/pkgs/main conda
+conda update -n base -c https://mirrors.pku.edu.cn/anaconda/pkgs/main python
 
 # 更新 conda
 conda update conda
